@@ -1,0 +1,392 @@
+#data-ready {
+    display: none;
+}
+
+.empty-data {
+    margin-top: 20vh;
+    height: 30vh;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.source-post {
+    padding-left: 0;
+    height: 100%;
+    overflow: auto;
+}
+.source-post .post:hover {
+    background-color: #eee;
+}
+.source-post .post {
+    border-bottom: 1px solid #eee;
+    padding: 10px;
+}
+.source-post .row {
+    margin: 0px;
+}
+.source-post .post .col-md-12 {
+    margin-bottom: 0 !important;
+}
+.source-post .user-profile-image {
+    border-radius: 50%;
+}
+.source-post p {
+    text-align: left;
+    font-weight: normal;
+}
+.source-post .title {
+    margin: 0px;
+    padding: 2.5px;
+}
+.source-post .link {
+    margin: 0px;
+    padding: 2.5px;
+    font-size: smaller;
+}
+#preload-preview {
+    padding-top: 120px;
+}
+#preview-body {
+    background-color: #efefef;
+}
+.sidebar-head {
+    padding: 15px;
+    background-color: #fefefe;
+}
+
+.filter .row {
+    margin: 0px;
+}
+.filter h4 {
+    padding-left: 15px;
+}
+.filter-search {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.choose-filter {
+    list-style: none;
+    padding-left: 0;
+    overflow-y: hidden;
+}
+.choose-filter li {
+    border-bottom: 1px solid #eee;
+    padding: 10px 10px 4px 10px;
+    position: relative;
+    cursor: pointer;
+}
+.choose-filter li:hover {
+    background-color: #eee;
+}
+.fa-twitter-square {
+    color: blue;
+}
+
+.new-btn {
+    padding: 5px;
+}
+
+.btn-toggle {
+    opacity: 0.6;
+    text-align: left !important;
+}
+.btn-toggle.active {
+    opacity: 1;
+}
+
+.comp-name {
+    height: 24px;
+    float: left;
+    font-size: 15px;
+    line-height: 24px;
+}
+
+.filter-wrapper {
+    overflow: auto;
+}
+
+.filter-wrapper .empty-filter {
+    display: none;
+    width: 60%;
+    height: 60%;
+    margin: 10% 20% 0 20%;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.empty-text {
+    display: none;
+}
+
+.choose-filter img,
+.media-select-icon,
+#object-list-topic img
+{
+    height: 20px;
+    width: 20px;
+    object-fit: contain;
+    object-position: center;
+}
+
+.check {
+    display: none;
+    text-align: right;
+    position: absolute !important;
+    left: -24px !important;
+    top: 6px !important;
+    width: 100%;
+}
+
+label.active .check {
+    display: block;
+}
+
+.view-btn {
+    text-align: right;
+    position: absolute !important;
+    left: 90% !important;
+    top: 12px !important;
+    width: 5%;
+    z-index: 10;
+}
+
+.badge .fas {
+    font-size: smaller !important;
+    top: unset !important;
+}
+
+.modal-dialog.modal-lg {
+    width: 90vw !important;
+}
+
+.object-input, .object-category {
+    margin-top: 20px;
+}
+
+.bg-light-grey {
+    background-color: #ddd;
+}
+
+.widget-no-data {
+    position: absolute;
+    width: 100%;
+    left: 0px;
+    margin-top: 50px;
+}
+
+#max-chart {
+    height: 430px;
+    overflow-y: auto;
+}
+
+#rightsidebar .right-menu {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 2px;
+}
+
+#rightsidebar .right-menu li {
+    width: 100%;
+    border-bottom: solid 1px #eee;
+}
+
+#rightsidebar .right-menu li a {
+    width: 100%;
+    color: #9E9E9E !important;
+    box-sizing: border-box;
+    display: block;
+    padding: 10px 15px;
+}
+
+#rightsidebar .right-menu li a:hover {
+    background-color: rgba(100, 100, 100, 0.1);
+    text-decoration: none;
+}
+
+.top-5-aspects {
+    font-weight: normal !important;
+    padding-left: 10px;
+    float: left;
+}
+
+.compare-sentiment-chart {
+    height: 150px;
+    width: 90%;
+    display: inline-block;
+    float: left;
+}
+
+.max-chart-button.compare {
+    display: inline-block;
+    float: left;
+    color: #999;
+}
+
+#raw-data-table {
+    width: 100% !important;
+}
+
+.list-group-item {
+    cursor: pointer;
+}
+
+.data-short.show,
+.data-long.show {
+    display: block;
+}
+
+.data-short.hide,
+.data-long.hide {
+    display: none;
+}
+
+.sidebar .header {
+    background: #eee;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 16px;
+}
+
+.sidebar .user-info .info-container .role {
+    position: absolute;
+    right: 0;
+    top: 1px;
+}
+
+.list-widget {
+    overflow: auto;
+}
+
+.sidebar .menu .list i.fa,
+.sidebar .menu .list i.fas,
+.sidebar .menu .list i.far,
+.sidebar .menu .list i.fab
+{
+    margin-top: 6px;
+    font-size: 20px;
+    line-height: 1;
+}
+
+.btn-xs i.fa,
+.btn-xs i.fas,
+.btn-xs i.far,
+.btn-xs i.fab {
+    font-size: unset !important;
+    top: unset !important;
+}
+
+#trends-content .card .body {
+    padding: 0;
+    min-height: 350px;
+}
+
+.panel-group .panel+.panel {
+    margin-top: 0px !important;
+}
+
+.trending-logo {
+    height: 25px;
+    width: auto;
+    display: inline-block;
+    position: absolute;
+    right: 15px;
+}
+
+#trends-content .card .header h2 {
+    display: inline-block;
+}
+
+#trends-content .panel-body {
+    padding: 0 !important;
+}
+
+.trending-subtitle {
+    display: inline-block;
+    position: absolute;
+    right: 15px;
+    font-weight: normal !important;
+}
+
+.trending-title {
+    display: inline-block;
+}
+
+.google-trend {
+    margin: 15px;
+}
+
+.tweet-photo {
+    height: auto;
+    width: 75px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    margin: 20px;
+    margin-bottom: 0px;
+}
+
+.tweet-username {
+    margin-top: 35px;
+}
+
+.tweet-body {
+    padding: 0 30px;
+    text-align: justify;
+}
+
+.tweet-body-container {
+    border-bottom: 1px solid #eee;
+}
+
+.tweet-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 5px;
+}
+
+.related-tweet {
+    padding: 0 30px;
+}
+
+#object-compare-list label.btn,
+#topic-compare-list label.btn {
+    border: none;
+    margin: 0;
+    font-weight: normal;
+    box-shadow: none;
+    border-radius: unset;
+    background-color: transparent !important;
+    text-align: left;
+    padding: 10px 10px 4px 10px;
+}
+
+#object-compare-list .object-filter-item,
+#topic-compare-list .topic-filter-item {
+    padding: 0;
+}
+
+@media (min-width: 768px) {
+    .navbar-left ul,
+    .navbar-left li {
+        height: 75px;
+    }
+
+    .navbar-left a {
+        height: 100%;
+        margin: 0 !important;
+        padding: 24px 15px 21px 15px !important;
+        border-bottom: solid 3px rgba(255, 255, 255, 0);
+    }
+
+    .navbar-left a.active {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-bottom-color: rgba(255, 255, 255, 1);
+    }
+
+    .navbar-left a.active:hover {
+        background-color: rgba(255, 255, 255, 0.5) !important;
+        border-bottom-color: rgba(255, 255, 255, 1);
+    }
+}
