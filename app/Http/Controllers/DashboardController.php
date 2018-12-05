@@ -17,10 +17,16 @@ class DashboardController extends Controller
 
   public function index()
   {
-    // dd(Auth::user());
-      return view('contents.dashboard', [
+      if (!Auth::user()->twitterAccount){
+        return view('contents.engage', [
           'account' => Auth::user()
-      ]);
+        ]);
+      } else {
+        return view('contents.dashboard', [
+            'account' => Auth::user()
+        ]);
+      }
+
   }
 
   public function login()

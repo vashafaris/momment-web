@@ -174,9 +174,10 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        
+
         Skydiver\LaravelMaterializeCSS\MaterializeCSSServiceProvider::class,
         TCK\Odbc\OdbcServiceProvider::class,
+        Kozz\Laravel\Providers\Guzzle::class,
 
     ],
 
@@ -227,6 +228,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'MaterializeCSS' => Skydiver\LaravelMaterializeCSS\MaterializeCSS::class,
+        'Guzzle' => Kozz\Laravel\Facades\Guzzle::class
 
     ],
 

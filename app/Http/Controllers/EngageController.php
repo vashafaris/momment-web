@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\TwitterAccount;
 use App\User;
+use Kozz\Laravel\Facades\Guzzle;
+use GuzzleHttp\Client;
 
 class EngageController extends Controller
 {
@@ -114,15 +116,26 @@ class EngageController extends Controller
 
   public function showAccount()
   {
-    $accountData = TwitterAccount::get()->where('account_id',Auth::user()->id);
-    $response = json_decode($accountData);
-    return response($accountData);
-    // return response()->json(
-    //         [
-    //           'status' => 200,
-    //           'message' => 'success',
-    //           'response' => $response
-    //         ]
-    // );
+    // // $client = new GuzzleHttp\Client();
+    // $client = new Client();
+    // $accountData = TwitterAccount::get()->where('account_id',Auth::user()->id);
+    $accountData = DB::select('select * from twitter_accounts where account_id = ' . Auth::user()->id);
+
+    // $tes = $accountData[2]->twitter_id;
+    // dd($tes);
+
+    // $response = $client->put(array(json_decode($accountData)));
+    // $response = json_decode($accountData, TRUE);
+    // dd($response);
+    // $client->put($accountData);
+    // dd(json_decode($accountData)->getBody());
+    // return response($accountData);
+    return response()->json(
+            [
+              'status' => 200,
+              'message' => 'success',
+              'response' => $accountData
+            ]
+    );
   }
 }

@@ -8,7 +8,6 @@
     <title>Momment</title>
 
     {!! MaterializeCSS::include_full() !!}
-
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     @yield('custom-style')
@@ -62,6 +61,7 @@
     </div>
     @yield('custom-script')
     @yield('custom-subs-script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="https://code.highcharts.com/modules/heatmap.js"></script>

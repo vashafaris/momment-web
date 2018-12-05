@@ -21,6 +21,9 @@
             <div id="search-result">
 
             </div>
+            <div id="user-account">
+
+            </div>
           </div>
         </div>
       </div>
@@ -160,6 +163,7 @@
         url: '{{ url('/engage/search') }}' + '/' + $('#username-twitter').val(),
         data: '_token = {{ csrf_token() }}',
         success: function(data) {
+          console.log(data.response.profile);
           switch (data.status) {
             case 200:
             if (data.response.profile != null) {
