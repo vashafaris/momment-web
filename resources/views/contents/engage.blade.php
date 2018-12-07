@@ -2,9 +2,10 @@
 
 @section('content')
     <section>
+      <div id="background"></div>
       <div class="row">
         <div class="col s12 m3">&nbsp;</div>
-        <div class="col s12 m6">
+        <div class="col s12 m9">
           <div class="card-panel background1">
             <h5 class="center white-text">Akun Twitter</h5>
             <hr>
@@ -99,6 +100,10 @@
         .input-field input[type=text]:focus {
           border-bottom: 1px solid #000;
           box-shadow: 0 1px 0 0 #000;
+        }
+
+        #background {
+          background-color:white;
         }
 
     </style>
@@ -249,17 +254,16 @@
                       success: function(data) {
                         if (data.status === 200) {
                           $('.modal').modal();
-                          $('#add-confirmation .modal-content').html('<p>Successfully add competitor</p>');
+                          $('#add-confirmation .modal-content').html('<p>Berhasil Menetapkan Akun</p>');
                           $('#add-confirmation #add-confirmation-yes').hide();
                           $('#add-confirmation #add-confirmation-no').html('OK');
                           $('#add-confirmation').modal('open');
-                          $('#search-result .card-image').append('<span class="new badge blue" data-badge-caption="" style="position: absolute; top: 8px;">Your Competitor</span>');
-                          addButton.html('<i class="material-icons left">close</i> your competitor');
+                          addButton.html('<i class="material-icons left">close</i> Berhasil Menetapkan Akun');
                           addButton.addClass('disabled');
                           window.location.reload();
                         } else {
                           $('.modal').modal();
-                          $('#add-confirmation .modal-content').html('<p>Im sorry, the wizard might be sick, try again later.</p>');
+                          $('#add-confirmation .modal-content').html('<p>Gagal Menetapkan Akun');
                           $('#add-confirmation #add-confirmation-yes').hide();
                           $('#add-confirmation #add-confirmation-no').html('OK');
                           $('#add-confirmation').modal('open');
@@ -267,7 +271,7 @@
                       },
                       error: function() {
                         $('.modal').modal();
-                        $('#add-confirmation .modal-content').html('<p>Im sorry, the wizard might be sick, try again later.</p>');
+                        $('#add-confirmation .modal-content').html('<p>Gagal Menetapkan Akun</p>');
                         $('#add-confirmation #add-confirmation-yes').hide();
                         $('#add-confirmation #add-confirmation-no').html('OK');
                         $('#add-confirmation').modal('open');
@@ -280,7 +284,7 @@
                 resultContainer.html(
                   '<div class="card red darken-1">' +
                   '<div class="card-content white-text">' +
-                  '<p><i class="fas fa-book"></i> Im sorry, spell ' + $('#username-twitter').val() + ' not found in our spell tome.</p>' +
+                  '<p><i class="fas fa-book"></i> Mohon maaf akun ' + $('#username-twitter').val() + ' tidak ditemukan !</p>' +
                   '</div>' +
                   '</div>'
                   );

@@ -3,74 +3,58 @@
 @section('content')
     <section>
       <div class="row">
-        <div class="col s12 m3">&nbsp;</div>
-        <div class="col s12 m9">
+        {{-- <div class="col s0 m3"></div> --}}
+        <div class="col s12 m12">
           <div class="card-panel background1">
             <h5 class="center white-text">Laporan Aktivitas</h5>
             <hr>
             <div class="row">
-              <div class="col s12 m12">
-                <div class="card-panel">
-                  <h5 class="black-text" style="font-size:16px;font-weight:200">Rekomendasi<i class="material-icons right">people</i></h5>
-                  <hr>
-                    <div class="row">
-                      <div class="col m4">
-                        {{-- <i style="color:green" class="far fa-check-square right"></i><br>
-                        <i style="color:green" class="far fa-check-square right"></i><br>
-                        <i style="color:green" class="far fa-check-square right"></i><br>
-                        <i style="color:green" class="far fa-check-square right"></i><br> --}}
-                      </div>
-                      <div class="col m8">
-                        <label style="color:black">
-                          <input type="checkbox" class="filled-in"  />
-                          <span>Posting tweet hari ini</span>
-                        </label><br>
-                        <label style="color:black">
-                          <input type="checkbox" class="filled-in"/>
-                          <span>Sebaiknya hari ini anda post 2 tweet lagi</span>
-                        </label><br>
-                        <label style="color:black">
-                          <input type="checkbox" class="filled-in" />
-                          <span>Balas mention masuk kepada anda</span>
-                        </label><br>
-                        <label style="color:black">
-                          <input type="checkbox" class="filled-in" />
-                          <span>Menanggapi tren topik hari ini</span>
-                        </label><br>
-                      </div>
-                    </div>
+              <div class="col s12 m3">&nbsp;</div>
+              <div class="col s12 m3">
+                <div class="card">
+                  <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" src="{{url('/images/bg9.jpg')}}">
+                  </div>
+                  <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4">Rekomendasi</span>
+                    <p><a href="#">This is a link</a></p>
+                  </div>
+                  <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                    <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                  </div>
                 </div>
               </div>
-              <div class="col s12 m6">
-                <div class="card-panel">
-                  <h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Followers<i class="material-icons right">people</i></h5>
-                  <hr>
-                  <center style="top:20px"><span style="font-size:70px;color:#F49227;top:20px">0.29
-                  </span><span style="font-size:40px;color:#F49227;">%</span></center>
+              <div class="col s12 m3">
+                <div class="card">
+                  <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" src="{{url('/images/bg9.jpg')}}">
+
+                  </div>
+                  <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4">5 tweet/hari</span>
+                  </div>
+                  <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4">30 tweet/hari<i class="material-icons right">close</i></span>
+                    <canvas id="myChart" width="100" height="100"></canvas>
+                  </div>
                 </div>
               </div>
-              <div class="col s12 m6">
+              <div class="col s12 m3">&nbsp;</div>
+              <div class="col s12 m3">
                 <div class="card-panel">
                   <h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Followers<i class="material-icons right">people</i></h5>
                   <hr>
-                  <center style="top:20px"><span style="font-size:70px;color:#F49227;top:20px">0.29
-                  </span><span style="font-size:40px;color:#F49227;">%</span></center>
+                  <center style="top:20px"><span style="font-size:70px;color:#5F0F4E;top:20px">0.29
+                  </span><span style="font-size:40px;color:#5F0F4E;">%</span></center>
                 </div>
               </div>
-              <div class="col s12 m6">
-                <div class="card-panel">
-                  <h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Followers<i class="material-icons right">people</i></h5>
-                  <hr>
-                  <center style="top:20px"><span style="font-size:70px;color:#F49227;top:20px">0.29
-                  </span><span style="font-size:40px;color:#F49227;">%</span></center>
-                </div>
-              </div>
-              <div class="col s12 m6">
+              <div class="col s12 m3">
                 <div class="card-panel">
                   <h5 class="black-text" style="font-size:16px;font-weight:200">Analisis Sentimen<i class="material-icons right">face</i></h5>
                   <hr>
-                  <center style="top:20px"><span style="font-size:70px;color:#F49227;top:20px">0.29
-                  </span><span style="font-size:40px;color:#F49227;">%</span></center>
+                  <center style="top:20px"><span style="font-size:70px;color:#5F0F4E;top:20px">0.29
+                  </span><span style="font-size:40px;color:#5F0F4E;">%</span></center>
                 </div>
               </div>
             </div>

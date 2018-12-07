@@ -27,9 +27,9 @@ class TrendingController extends Controller
       $carousel = [];
       $countTweetPic = 0;
       $twitterDate = DB::select ('select max(cast(created_at as date)) as created_at from twitter_trends');
-      $twitterTrend = DB::select('select top 9 * from twitter_trends where cast(created_at as date) = \'' . $twitterDate[0]->created_at . '\' order by id_to_details asc');
+      $twitterTrend = DB::select('select * from twitter_trends where cast(created_at as date) = \'' . $twitterDate[0]->created_at . '\' order by id_to_details asc');
 
-      $twitterDetails = DB::select('select * from twitter_trend_details where cast(created_at as date) = \'' . $twitterDate[0]->created_at . '\' and id_to_trending != 10 order by id_to_trending asc');
+      $twitterDetails = DB::select('select * from twitter_trend_details where cast(created_at as date) = \'' . $twitterDate[0]->created_at . '\'  order by id_to_trending asc');
       // for ($i=1; $i <= 10; $i++) {
       //   $checkCarousel = DB::select('select * from twitter_trend_details where cast(created_at as date) = \'' . $twitterDate[0]->created_at . '\' and id_to_trending = ' . $i);
       //   for ($j=0; $j < count($checkCarousel); $j++) {

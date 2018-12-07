@@ -38,4 +38,13 @@ class DashboardController extends Controller
   {
       return view('auth.register');
   }
+
+  // public function dashboard()
+  // {
+  //   $userTweets = DB::select('select * from twitter_tweets where twitter_id = (select twitter_id from twitter_accounts where account_id = 1) and cast (tweet_created as date) >= dateadd(day,datediff(day,7,GETDATE()),0)')
+  //   return view('contents.dashboard', [
+  //       'account' => Auth::user(),
+  //       'userTweets' => $userTweets
+  //   ]);
+  // }
 }

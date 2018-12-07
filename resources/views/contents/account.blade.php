@@ -4,7 +4,7 @@
     <section>
       <div class="row">
         <div class="col s12 m3">&nbsp;</div>
-        <div class="col s12 m6">
+        <div class="col s12 m9">
           <div class="card-panel background1">
             <h5 class="center white-text">Akun Twitter</h5>
             <hr>
@@ -88,6 +88,10 @@
           box-shadow: 0 1px 0 0 #000;
         }
 
+        #background {
+          background-color:white;
+        }
+
     </style>
 @endsection
 
@@ -120,7 +124,6 @@ $( document ).ready(function() {
         url: '{{ url('/engage/account') }}',
         data: '_token = {{ csrf_token() }}',
         success: function(data) {
-          console.log(data.response[0].banner_url);
 
           var banner = (data.response[0].banner_url !== null) ?
           'style="background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.4)), url(\'' + data.response[0].banner_url + '\');height: 200px;width: 100%;background-size: cover;background-position: center;"' :

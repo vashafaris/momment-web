@@ -43,6 +43,10 @@
             pointer-events: none;
             cursor: default;
         }
+
+        .sidenav{
+          transform: translateX(0%) !important;
+        }
     </style>
 </head>
 <body style="background-color: #E0E0E0;{{-- padding-bottom: 125px;--}}">
@@ -51,14 +55,10 @@
     @endphp
 
     @if($navigation)
-        @include('layouts.navbar')
+        {{-- @include('layouts.navbar') --}}
+        @include('layouts.sidenav')
     @endif
     @yield('content')
-    <div id="loading-screen" class="modal">
-        <div class="modal-content">
-            <span class="white-text">Please Wait ...</span>
-        </div>
-    </div>
     @yield('custom-script')
     @yield('custom-subs-script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
@@ -70,8 +70,11 @@
     <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
     {{-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script> --}}
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
-
-
+    <script>
+    $(document).ready(function(){
+    $('.sidenav').sidenav();
+  });
+  </script>
     {{-- <script>
         $(document).ready(function() {
             $("#toggle-sidenav").sideNav();
