@@ -37,4 +37,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/engage/account', 'EngageController@showAccount');
 
     Route::get('/compare/search/{username}', 'CompareController@search');
+    Route::get('/compare/add/{username}', 'CompareController@addAccount');
 });

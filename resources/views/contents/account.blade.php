@@ -3,8 +3,7 @@
 @section('content')
   <section>
     <div class="row">
-      <div class="col s12 m3">&nbsp;</div>
-      <div class="col s12 m9">
+      <div class="col s12 m12">
         <div class="card-panel background1">
           <h5 class="center white-text">Akun Twitter</h5>
           <hr>

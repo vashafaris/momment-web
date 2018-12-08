@@ -44,21 +44,25 @@
             cursor: default;
         }
 
-        .sidenav{
-          transform: translateX(0%) !important;
+
+        .wrapper {
+          padding-left: 300px;
+        }
+
+        @media only screen and (max-width : 992px) {
+          .wrapper{
+            padding-left:0;
+          }
         }
     </style>
 </head>
 <body style="background-color: #E0E0E0;{{-- padding-bottom: 125px;--}}">
-    @php
-    $navigation = isset($navigation) ? $navigation : true;
-    @endphp
 
-    @if($navigation)
-        {{-- @include('layouts.navbar') --}}
-        @include('layouts.sidenav')
-    @endif
+
+    @include('layouts.sidenav')
+    <div class="wrapper">
     @yield('content')
+  </div>
     @yield('custom-script')
     @yield('custom-subs-script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>

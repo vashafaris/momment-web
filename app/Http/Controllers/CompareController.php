@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\TwitterAccount;
 use App\User;
 use App\TwitterAccountLog;
+use App\Competitor;
 
 class CompareController extends Controller
 {
@@ -45,5 +46,49 @@ class CompareController extends Controller
                 ]
             ]
     );
+  }
+
+  public function addAccount($username)
+  {
+    $result = shell_exec("python " . public_path() . "\API\SearchTwitter.py " . $username);
+    $response = json_decode($result);
+    if (TwitterAccount::where('twitter_id', '=', $response[0]->user_id)->exists()){
+      TwitterAccount::where('twitter_id', $response[0]->user_id)->update(['is_competitor' => 1]);
+    } else {
+      $twitterAccount = new TwitterAccount;
+      $twitterAccount->twitter_id= $response[0]->user_id;
+      $twitterAccount->is_competitor = 1;
+    }
+
+    $twitterAccountLog = new TwitterAccountLog;
+    $twitterAccountLog->twitter_id= $response[0]->user_id;
+    $twitterAccountLog->name = $response[0]->name;
+    $twitterAccountLog->screen_name = $response[0]->screen_name;
+    $twitterAccountLog->photo_url = $response[0]->photo_url;
+    $twitterAccountLog->banner_url = $response[0]->banner_url;
+    $twitterAccountLog->description = $response[0]->description;
+    $twitterAccountLog->favorites_count = $response[0]->favorites_count;
+    $twitterAccountLog->followers_count = $response[0]->followers_count;
+    $twitterAccountLog->friends_count = $response[0]->friends_count;
+    $twitterAccountLog->statuses_count = $response[0]->statuses_count;
+    $twitterAccountLog->location = $response[0]->location;
+    $twitterAccountLog->created = $response[0]->created;
+
+    $userTwitterID = DB::select('select twitter_id from twitter_accounts where account_id = ' . Auth::user()->id);
+    $competitor = new Competitor;
+    $competitor->account_id = $userTwitterID[0]->twitter_id;
+    $competitor->competitor_id = $response[0]->user_id;
+
+    if($twitterAccount->save() && $twitterAccountLog->save() && $competitor->save()){
+      return response()->json([
+        'status' =>200,
+        'message' => 'berhasil menambah kompetitor'
+      ]);
+    } else {
+      return response()->json([
+        'status' => 405,
+        'message' => 'berhasil menambah kompetitor'
+      ]);
+    }
   }
 }

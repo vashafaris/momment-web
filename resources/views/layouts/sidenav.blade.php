@@ -7,8 +7,8 @@ if (Auth::user()->twitterAccount)
   $color = '';
 }
 ?>
-
-  <ul id="slide-out" class="sidenav">
+<nav style="background-color:black"><a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a></nav>
+  <ul id="slide-out" class="sidenav sidenav-fixed">
     <li><div class="user-view" style="background: linear-gradient(to right, #c94b4b, #4b134f);">
       {{-- <div class="background" style="background-size:cover">
         <img src="images/bg2.jpg">
@@ -26,13 +26,40 @@ if (Auth::user()->twitterAccount)
     <li><div class="divider"></div></li>
     <li><a href="{{ route('logout') }}"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
   </ul>
-  <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
+{{--
+  <div id="container">
 
-  {{-- <ul id="nav-mobile" class="right hide-on-med-and-down">
-    <li><a href="engage" style="border-radius:50%;"><i class="fas fa-user-tie"></i></a></li>
+  <div id="menu">
 
-    <li><a class="{{$display}}"href="{{ route('compare') }}" style="background-color:{{$color}}">Compare</a></li>
-    <li><a class="{{$display}}"href="{{ route('trends') }}" style="background-color:{{$color}}">Trends</a></li>
-    <li><a href="{{ route('logout') }}">Logout</a></li>
-  </ul> --}}
+    <ul id="slide-out" class="side-nav fixed">
+      <li><a href="#!">First Sidebar Link</a></li>
+      <li><a href="#!">Second Sidebar Link</a></li>
+      <li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+          <li>
+            <a class="collapsible-header">Dropdown<i class="material-icons">arrow_drop_down</i></a>
+            <div class="collapsible-body">
+              <ul>
+                <li><a href="#!">First</a></li>
+                <li><a href="#!">Second</a></li>
+                <li><a href="#!">Third</a></li>
+                <li><a href="#!">Fourth</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div id="content">
+    <a href="#" data-activates="slide-out" class="button-collapse hide-on-large-only"><i class="material-icons">menu</i></a>
+
+    <h3>Simple Materialize Responsive Side Menu</h3>
+
+    <p>Resize browser to see what it looks like in (a) brwoser (b) mobile devices</p>
+
+  </div>
+
+</div>  --}}
