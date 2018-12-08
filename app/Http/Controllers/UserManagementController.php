@@ -27,21 +27,6 @@ class UserManagementController extends Controller
 
   public function showRegisterForm()
   {
-      // $token = $this->request->get('token');
-      // if (!is_null($token)) {
-      //     $user = User::where('reset_password_token', $token)->with(['account', 'role', 'department'])->first();
-      //     if (!is_null($user)) {
-      //         return view('auth.register', [
-      //             'user' => $user
-      //         ]);
-      //     } else {
-      //         Session::flash('register-error', 'Invalid registration tokens.');
-      //         return view('auth.register');
-      //     }
-      // } else {
-      //     Session::flash('register-error', 'Invalid registration token.');
-      //     return view('auth.register');
-      // }
       return view('auth.register');
   }
 
@@ -51,7 +36,7 @@ class UserManagementController extends Controller
       if ($this->login($credential)) {
           return redirect('/');
       } else {
-          Session::flash('login-error', 'Wrong username/password. Try again.');
+          Session::flash('login-error', 'Username/Password tidak cocok, silahkan coba lagi.');
           return redirect('/login');
       }
   }

@@ -20,7 +20,6 @@
                             @foreach($twitterDetails as $detail)
                             @if($detail->id_to_trending == $trend->id_to_details)
 
-
                             <div class="row">
 
                                   <div class="col s1">

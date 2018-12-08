@@ -35,4 +35,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/engage/search/{username}', 'EngageController@search');
     Route::get('/engage/account/{username}', 'EngageController@addAccount');
     Route::get('/engage/account', 'EngageController@showAccount');
+
+    Route::get('/compare/search/{username}', 'CompareController@search');
 });

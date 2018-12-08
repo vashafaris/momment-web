@@ -9,10 +9,10 @@ if (Auth::user()->twitterAccount)
 ?>
 
   <ul id="slide-out" class="sidenav">
-    <li><div class="user-view">
-      <div class="background">
+    <li><div class="user-view" style="background: linear-gradient(to right, #c94b4b, #4b134f);">
+      {{-- <div class="background" style="background-size:cover">
         <img src="images/bg2.jpg">
-      </div>
+      </div> --}}
       <h4 class="white-text">Momment</h4>
       <span class="white-text name">Vasha Farisi</span>
       <span class="white-text email">vashafarisi@momment.com</span>
