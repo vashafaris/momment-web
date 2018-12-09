@@ -52,6 +52,10 @@ class DashboardController extends Controller
 
       $topLikes = DB::select('select top 5 * FROM twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = ' . Auth::user()->twitterAccount->twitter_id . ' order by favorite_count desc ');
 
+      $followersNowComp = DB::select('select top 1 followers_count as followers_count from twitter_accounts_log WHERE NOT (cast(created_at as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(created_at as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = '. Auth::user()->twitterAccount->twitter_id . 'order by created_at desc');
+      $followersWeekAgoComp = DB::select('select top 1 followers_count as followers_count from twitter_accounts_log WHERE NOT (cast(created_at as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(created_at as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = '. Auth::user()->twitterAccount->twitter_id . 'order by created_at asc');
+      $avgFollowersComp = ($followersNow[0]->followers_count - $followersWeekAgo[0]->followers_count)/7;
+
       return view('contents.dashboard', [
         'account' => Auth::user(),
         'postingDay0' => $postingDay0,

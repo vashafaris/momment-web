@@ -58,6 +58,7 @@ class CompareController extends Controller
       $twitterAccount = new TwitterAccount;
       $twitterAccount->twitter_id= $response[0]->user_id;
       $twitterAccount->is_competitor = 1;
+      $twitterAccount->save();
     }
 
     $twitterAccountLog = new TwitterAccountLog;
@@ -79,7 +80,7 @@ class CompareController extends Controller
     $competitor->account_id = $userTwitterID[0]->twitter_id;
     $competitor->competitor_id = $response[0]->user_id;
 
-    if($twitterAccount->save() && $twitterAccountLog->save() && $competitor->save()){
+    if($twitterAccountLog->save() && $competitor->save()){
       return response()->json([
         'status' =>200,
         'message' => 'berhasil menambah kompetitor'

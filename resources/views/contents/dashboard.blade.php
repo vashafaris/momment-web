@@ -4,8 +4,8 @@
   <section>
     <div class="row">
       <div class="col s12 m12">
-        <div class="card-panel background1">
-          <h5 class="center white-text">Laporan Aktivitas</h5>
+        <div class="card-panel " style="background-color:white">
+          <h5 class="center black-text">Laporan Aktivitas</h5>
           <hr>
           <div class="row">
             <div class="col s12 m12">
@@ -14,77 +14,126 @@
                 <hr>
                 <div class="row">
                   <div class="col m8 offset-m4">
-                    <label style="color:black">
-                      <input type="checkbox" class="filled-in"  />
-                      <span>Posting tweet hari ini</span>
-                    </label><br>
-                    <label style="color:black">
-                      <input type="checkbox" class="filled-in"/>
-                      <span>Sebaiknya hari ini anda post 2 tweet lagi</span>
-                    </label><br>
-                    <label style="color:black">
-                      <input type="checkbox" class="filled-in" />
-                      <span>Balas mention masuk kepada anda</span>
-                    </label><br>
-                    <label style="color:black">
-                      <input type="checkbox" class="filled-in" />
-                      <span>Menanggapi tren topik hari ini</span>
-                    </label><br>
+                      <span><i class="fas fa-lightbulb"></i> Posting tweet hari ini</span><br>
+                      <span><i class="fas fa-lightbulb"></i> Sebaiknya hari ini anda post 2 tweet lagi</span><br>
+                      <span><i class="fas fa-lightbulb"></i> Balas mention masuk kepada anda</span><br>
+                      <span><i class="fas fa-lightbulb"></i> Menanggapi tren topik hari ini</span>
                   </div>
                 </div>
               </div>
             </div>
             <div class="col s12 m3">
-              <div class="card-panel">
+              {{-- <div class="card-panel">
                 <h5 class="black-text" style="font-size:14px;font-weight:200">Rata - Rata Followers<i class="fas fa-users right"></i></h5>
                 <hr>
-                {{-- <canvas id="myChart" width="200" height="200"></canvas> --}}
                 <center><span style="font-size:30px;color:#5F0F4E;">{{$avgFollowers}}
                 </span><span style="font-size:10px;color:#5F0F4E;">followers/hari</span></center>
                 <span></span>
+              </div> --}}
+
+              <div class="card">
+                <div class="card-content">
+                  {{-- <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span> --}}
+                  <h5 class="black-text activator card-title" style="font-size:14px;font-weight:200">Rata - Rata Followers<i class="fas fa-users right"></i></h5>
+                  <hr>
+                  <center class="activator"><span style="font-size:30px;color:#5F0F4E;">{{$avgFollowers}}
+                  </span><span style="font-size:10px;color:#5F0F4E;">followers/hari</span></center>
+
+                </div>
+                <div class="card-reveal">
+                  <h5 class="black-text card-title" style="font-size:14px;font-weight:200">Kompetitor<i class="fas fa-users right"></i></h5>
+                  <hr>
+                  <center class="activator"><span style="font-size:30px;color:#5F0F4E;">{{$avgFollowers}}
+                  </span><span style="font-size:10px;color:#5F0F4E;">followers/hari</span></center>
+                </div>
               </div>
             </div>
             <div class="col s12 m3">
-              <div class="card-panel">
+              {{-- <div class="card-panel">
                 <h5 class="black-text" style="font-size:14px;font-weight:200">Rata - Rata Posting<i class="fab fa-twitter right"></i></h5>
                 <hr>
-                {{-- <canvas id="myChart" width="200" height="200"></canvas> --}}
                 <center><span style="font-size:30px;color:#5F0F4E;">{{$avgPosts}}
                 </span><span style="font-size:10px;color:#5F0F4E;">tweet/hari</span></center>
+              </div> --}}
+              <div class="card">
+                <div class="card-content">
+                  {{-- <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span> --}}
+                  <h5 class="black-text activator card-title" style="font-size:14px;font-weight:200">Rata - Rata Posting<i class="fas fa-users right"></i></h5>
+                  <hr>
+                  <center class="activator"><span style="font-size:30px;color:#5F0F4E;">{{$avgPosts}}
+                  </span><span style="font-size:10px;color:#5F0F4E;">tweet/hari</span></center>
+
+                </div>
+                <div class="card-reveal">
+                  <h5 class="black-text card-title" style="font-size:14px;font-weight:200">Kompetitor<i class="fas fa-users right"></i></h5>
+                  <hr>
+                  <center class="activator"><span style="font-size:30px;color:#5F0F4E;">{{$avgPosts}}
+                  </span><span style="font-size:10px;color:#5F0F4E;">tweet/hari</span></center>
+                </div>
               </div>
             </div>
             <div class="col s12 m3">
-              <div class="card-panel">
+              {{-- <div class="card-panel">
                 <h5 class="black-text" style="font-size:14px;font-weight:200">Rata - Rata Retweet<i class="fas fa-retweet right"></i></h5>
                 <hr>
-                {{-- <canvas id="myChart" width="200" height="200"></canvas> --}}
                 <center><span style="font-size:30px;color:#5F0F4E;">{{$avgRetweets}}
                 </span><span style="font-size:10px;color:#5F0F4E;">retweet/hari</span></center>
+              </div> --}}
+              <div class="card">
+                <div class="card-content">
+                  {{-- <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span> --}}
+                  <h5 class="black-text activator card-title" style="font-size:14px;font-weight:200">Rata - Rata Retweet<i class="fas fa-users right"></i></h5>
+                  <hr>
+                  <center class="activator"><span style="font-size:30px;color:#5F0F4E;">{{$avgRetweets}}
+                  </span><span style="font-size:10px;color:#5F0F4E;">retweet/hari</span></center>
+
+                </div>
+                <div class="card-reveal">
+                  <h5 class="black-text card-title" style="font-size:14px;font-weight:200">Kompetitor<i class="fas fa-users right"></i></h5>
+                  <hr>
+                  <center class="activator"><span style="font-size:30px;color:#5F0F4E;">{{$avgRetweets}}
+                  </span><span style="font-size:10px;color:#5F0F4E;">retweet/hari</span></center>
+                </div>
               </div>
             </div>
             <div class="col s12 m3">
-              <div class="card-panel">
+              {{-- <div class="card-panel">
                 <h5 class="black-text" style="font-size:14px;font-weight:200">Rata - Rata Likes<i class="fas fa-heart right"></i></h5>
                 <hr>
-                {{-- <canvas id="myChart" width="200" height="200"></canvas> --}}
                 <center><span style="font-size:30px;color:#5F0F4E;">{{$avgLikes}}
                 </span><span style="font-size:10px;color:#5F0F4E;">like/hari</span></center>
+              </div> --}}
+              <div class="card">
+                <div class="card-content">
+                  {{-- <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span> --}}
+                  <h5 class="black-text activator card-title" style="font-size:14px;font-weight:200">Rata - Rata Likes<i class="fas fa-users right"></i></h5>
+                  <hr>
+                  <center class="activator"><span style="font-size:30px;color:#5F0F4E;">{{$avgLikes}}
+                  </span><span style="font-size:10px;color:#5F0F4E;">likes/hari</span></center>
+
+                </div>
+                <div class="card-reveal">
+                  <h5 class="black-text card-title" style="font-size:14px;font-weight:200">Kompetitor<i class="fas fa-users right"></i></h5>
+                  <hr>
+                  <center class="activator"><span style="font-size:30px;color:#5F0F4E;">{{$avgLikes}}
+                  </span><span style="font-size:10px;color:#5F0F4E;">likes/hari</span></center>
+                </div>
               </div>
             </div>
             <div class="col s12 m6">
               <div class="card-panel">
                 <h5 class="black-text" style="font-size:16px;font-weight:200">Analisis Sentimen Positif<i class="fas fa-comments right"></i></h5>
                 <hr>
-                <center style="top:20px"><span style="font-size:70px;color:#F49227;top:20px">+70
-                </span><span style="font-size:40px;color:#F49227;">%</span></center>
+                <center style="top:20px"><span style="font-size:70px;color:#5F0F4E;top:20px">70
+                </span><span style="font-size:40px;color:#5F0F4E;">%</span></center>
               </div>
             </div>
             <div class="col s12 m6">
               <div class="card-panel">
                 <h5 class="black-text" style="font-size:16px;font-weight:200">Analisis Sentimen Negatif<i class="fas fa-comments right"></i></h5>
                 <hr>
-                <center style="top:20px"><span style="font-size:70px;color:#F49227;top:20px">-30
-                </span><span style="font-size:40px;color:#F49227;">%</span></center>
+                <center style="top:20px"><span style="font-size:70px;color:#5F0F4E;top:20px">30
+                </span><span style="font-size:40px;color:#5F0F4E;">%</span></center>
               </div>
             </div>
             <div class="col s12 m6">
@@ -130,31 +179,31 @@
                 <div class="card-panel">
                   <blockquote><i class="fas fa-quote-left"></i> {{$topLikes[0]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
                   <div class="chip">
-                    Diretweet {{$topLikes[0]->favorite_count}} kali
+                    Dilike {{$topLikes[0]->favorite_count}} kali
                   </div>
                 </div>
                 <div class="card-panel">
                   <blockquote><i class="fas fa-quote-left"></i> {{$topLikes[1]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
                   <div class="chip">
-                    Diretweet {{$topLikes[1]->favorite_count}} kali
+                    Dilike {{$topLikes[1]->favorite_count}} kali
                   </div>
                 </div>
                 <div class="card-panel">
                   <blockquote><i class="fas fa-quote-left"></i> {{$topLikes[2]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
                   <div class="chip">
-                    Diretweet {{$topLikes[2]->favorite_count}} kali
+                    Dilike {{$topLikes[2]->favorite_count}} kali
                   </div>
                 </div>
                 <div class="card-panel">
                   <blockquote><i class="fas fa-quote-left"></i> {{$topLikes[3]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
                   <div class="chip">
-                    Diretweet {{$topLikes[3]->favorite_count}} kali
+                    Dilike {{$topLikes[3]->favorite_count}} kali
                   </div>
                 </div>
                 <div class="card-panel">
                   <blockquote><i class="fas fa-quote-left"></i> {{$topLikes[4]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
                   <div class="chip">
-                    Diretweet {{$topLikes[4]->favorite_count}} kali
+                    Dilike {{$topLikes[4]->favorite_count}} kali
                   </div>
                 </div>
               </div>
