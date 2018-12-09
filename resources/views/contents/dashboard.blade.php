@@ -14,7 +14,7 @@
                 <hr>
                 <div class="row">
                   <div class="col m8 offset-m4">
-                      <span><i class="fas fa-lightbulb"></i> Posting tweet hari ini</span><br>
+                      <span style="display:{{$recommended1}}"><i class="fas fa-lightbulb"></i> Posting tweet hari ini</span><br>
                       <span><i class="fas fa-lightbulb"></i> Sebaiknya hari ini anda post 2 tweet lagi</span><br>
                       <span><i class="fas fa-lightbulb"></i> Balas mention masuk kepada anda</span><br>
                       <span><i class="fas fa-lightbulb"></i> Menanggapi tren topik hari ini</span>
@@ -67,7 +67,7 @@
                 <div class="card-reveal">
                   <h5 class="black-text card-title" style="font-size:14px;font-weight:200">Kompetitor<i class="fas fa-users right"></i></h5>
                   <hr>
-                  <center class="activator"><span style="font-size:30px;color:#5F0F4E;">{{$avgPosts}}
+                  <center class="activator"><span style="font-size:30px;color:#5F0F4E;">{{$avgPostsComp}}
                   </span><span style="font-size:10px;color:#5F0F4E;">tweet/hari</span></center>
                 </div>
               </div>
@@ -91,7 +91,7 @@
                 <div class="card-reveal">
                   <h5 class="black-text card-title" style="font-size:14px;font-weight:200">Kompetitor<i class="fas fa-users right"></i></h5>
                   <hr>
-                  <center class="activator"><span style="font-size:30px;color:#5F0F4E;">{{$avgRetweets}}
+                  <center class="activator"><span style="font-size:30px;color:#5F0F4E;">{{$avgRetweetsComp}}
                   </span><span style="font-size:10px;color:#5F0F4E;">retweet/hari</span></center>
                 </div>
               </div>
@@ -115,7 +115,7 @@
                 <div class="card-reveal">
                   <h5 class="black-text card-title" style="font-size:14px;font-weight:200">Kompetitor<i class="fas fa-users right"></i></h5>
                   <hr>
-                  <center class="activator"><span style="font-size:30px;color:#5F0F4E;">{{$avgLikes}}
+                  <center class="activator"><span style="font-size:30px;color:#5F0F4E;">{{$avgLikesComp}}
                   </span><span style="font-size:10px;color:#5F0F4E;">likes/hari</span></center>
                 </div>
               </div>
@@ -143,31 +143,31 @@
                   <div class="card-panel">
                     <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[0]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
                     <div class="chip">
-                      Diretweet {{$topTweets[0]->retweet_count}} kali
+                      Mendapatkan {{$topTweets[0]->retweet_count}} retweet
                     </div>
                   </div>
                   <div class="card-panel">
                     <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[1]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
                     <div class="chip">
-                      Diretweet {{$topTweets[1]->retweet_count}} kali
+                      Mendapatkan {{$topTweets[1]->retweet_count}} retweet
                     </div>
                   </div>
                   <div class="card-panel">
                     <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[2]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
                     <div class="chip">
-                      Diretweet {{$topTweets[2]->retweet_count}} kali
+                      Mendapatkan {{$topTweets[2]->retweet_count}} retweet
                     </div>
                   </div>
                   <div class="card-panel">
                     <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[3]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
                     <div class="chip">
-                      Diretweet {{$topTweets[3]->retweet_count}} kali
+                      Mendapatkan {{$topTweets[3]->retweet_count}} retweet
                     </div>
                   </div>
                   <div class="card-panel">
                     <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[4]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
                     <div class="chip">
-                      Diretweet {{$topTweets[4]->retweet_count}} kali
+                      Mendapatkan {{$topTweets[4]->retweet_count}} retweet
                     </div>
                   </div>
               </div>
@@ -179,31 +179,31 @@
                 <div class="card-panel">
                   <blockquote><i class="fas fa-quote-left"></i> {{$topLikes[0]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
                   <div class="chip">
-                    Dilike {{$topLikes[0]->favorite_count}} kali
+                    Mendapatkan {{$topLikes[0]->favorite_count}} like
                   </div>
                 </div>
                 <div class="card-panel">
                   <blockquote><i class="fas fa-quote-left"></i> {{$topLikes[1]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
                   <div class="chip">
-                    Dilike {{$topLikes[1]->favorite_count}} kali
+                    Mendapatkan {{$topLikes[1]->favorite_count}} like
                   </div>
                 </div>
                 <div class="card-panel">
                   <blockquote><i class="fas fa-quote-left"></i> {{$topLikes[2]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
                   <div class="chip">
-                    Dilike {{$topLikes[2]->favorite_count}} kali
+                    Mendapatkan {{$topLikes[2]->favorite_count}} like
                   </div>
                 </div>
                 <div class="card-panel">
                   <blockquote><i class="fas fa-quote-left"></i> {{$topLikes[3]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
                   <div class="chip">
-                    Dilike {{$topLikes[3]->favorite_count}} kali
+                    Mendapatkan {{$topLikes[3]->favorite_count}} like
                   </div>
                 </div>
                 <div class="card-panel">
                   <blockquote><i class="fas fa-quote-left"></i> {{$topLikes[4]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
                   <div class="chip">
-                    Dilike {{$topLikes[4]->favorite_count}} kali
+                    Mendapatkan {{$topLikes[4]->favorite_count}} like
                   </div>
                 </div>
               </div>

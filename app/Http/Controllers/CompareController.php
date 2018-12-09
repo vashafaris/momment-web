@@ -77,7 +77,7 @@ class CompareController extends Controller
 
     $userTwitterID = DB::select('select twitter_id from twitter_accounts where account_id = ' . Auth::user()->id);
     $competitor = new Competitor;
-    $competitor->account_id = $userTwitterID[0]->twitter_id;
+    $competitor->twitter_id = $userTwitterID[0]->twitter_id;
     $competitor->competitor_id = $response[0]->user_id;
 
     if($twitterAccountLog->save() && $competitor->save()){
