@@ -10,16 +10,10 @@
           <div class="row">
             <div class="col s12 m12">
               <div class="card-panel">
-                <h5 class="black-text" style="font-size:16px;font-weight:200">Rekomendasi<i class="material-icons right">people</i></h5>
+                <h5 class="black-text" style="font-size:16px;font-weight:200">Rekomendasi<i class="fas fa-lightbulb right"></i></h5>
                 <hr>
                 <div class="row">
-                  <div class="col m4">
-                    {{-- <i style="color:green" class="far fa-check-square right"></i><br>
-                    <i style="color:green" class="far fa-check-square right"></i><br>
-                    <i style="color:green" class="far fa-check-square right"></i><br>
-                    <i style="color:green" class="far fa-check-square right"></i><br> --}}
-                  </div>
-                  <div class="col m8">
+                  <div class="col m8 offset-m4">
                     <label style="color:black">
                       <input type="checkbox" class="filled-in"  />
                       <span>Posting tweet hari ini</span>
@@ -40,25 +34,41 @@
                 </div>
               </div>
             </div>
-            <div class="col s12 m4">
+            <div class="col s12 m3">
               <div class="card-panel">
-                <h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Posting<i class="fab fa-twitter right"></i></h5>
+                <h5 class="black-text" style="font-size:14px;font-weight:200">Rata - Rata Followers<i class="fas fa-users right"></i></h5>
                 <hr>
-                <canvas id="myChart" width="200" height="200"></canvas>
+                {{-- <canvas id="myChart" width="200" height="200"></canvas> --}}
+                <center><span style="font-size:30px;color:#5F0F4E;">{{$avgFollowers}}
+                </span><span style="font-size:10px;color:#5F0F4E;">followers/hari</span></center>
+                <span></span>
               </div>
             </div>
-            <div class="col s12 m4">
+            <div class="col s12 m3">
               <div class="card-panel">
-                <h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Retweet<i class="fas fa-retweet right"></i></h5>
+                <h5 class="black-text" style="font-size:14px;font-weight:200">Rata - Rata Posting<i class="fab fa-twitter right"></i></h5>
                 <hr>
-                <canvas id="myChart2" width="200" height="200"></canvas>
+                {{-- <canvas id="myChart" width="200" height="200"></canvas> --}}
+                <center><span style="font-size:30px;color:#5F0F4E;">{{$avgPosts}}
+                </span><span style="font-size:10px;color:#5F0F4E;">tweet/hari</span></center>
               </div>
             </div>
-            <div class="col s12 m4">
+            <div class="col s12 m3">
               <div class="card-panel">
-                <h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Likes<i class="fas fa-heart right"></i></h5>
+                <h5 class="black-text" style="font-size:14px;font-weight:200">Rata - Rata Retweet<i class="fas fa-retweet right"></i></h5>
                 <hr>
-                <canvas id="myChart3" width="200" height="200"></canvas>
+                {{-- <canvas id="myChart" width="200" height="200"></canvas> --}}
+                <center><span style="font-size:30px;color:#5F0F4E;">{{$avgRetweets}}
+                </span><span style="font-size:10px;color:#5F0F4E;">retweet/hari</span></center>
+              </div>
+            </div>
+            <div class="col s12 m3">
+              <div class="card-panel">
+                <h5 class="black-text" style="font-size:14px;font-weight:200">Rata - Rata Likes<i class="fas fa-heart right"></i></h5>
+                <hr>
+                {{-- <canvas id="myChart" width="200" height="200"></canvas> --}}
+                <center><span style="font-size:30px;color:#5F0F4E;">{{$avgLikes}}
+                </span><span style="font-size:10px;color:#5F0F4E;">like/hari</span></center>
               </div>
             </div>
             <div class="col s12 m6">
@@ -81,29 +91,72 @@
               <div class="card-panel">
                 <h5 class="black-text" style="font-size:16px;font-weight:200">5 Tweet mendapatkan retweet terbanyak<i class="material-icons right">face</i></h5>
                 <hr>
-                <center style="top:20px">
-                  <ul class="collection">
-                    <li class="collection-item">LAKSDJFKLAJASKDJFLKAJDLKADJLFKJASDFADSFDFKLJASDKLFJALKDSJFLKAJDKLJALKF</li>
-                    <li class="collection-item">Alvin</li>
-                    <li class="collection-item">Alvin</li>
-                    <li class="collection-item">Alvin</li>
-                  </ul>
-
-                </center>
+                  <div class="card-panel">
+                    <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[0]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
+                    <div class="chip">
+                      Diretweet {{$topTweets[0]->retweet_count}} kali
+                    </div>
+                  </div>
+                  <div class="card-panel">
+                    <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[1]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
+                    <div class="chip">
+                      Diretweet {{$topTweets[1]->retweet_count}} kali
+                    </div>
+                  </div>
+                  <div class="card-panel">
+                    <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[2]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
+                    <div class="chip">
+                      Diretweet {{$topTweets[2]->retweet_count}} kali
+                    </div>
+                  </div>
+                  <div class="card-panel">
+                    <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[3]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
+                    <div class="chip">
+                      Diretweet {{$topTweets[3]->retweet_count}} kali
+                    </div>
+                  </div>
+                  <div class="card-panel">
+                    <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[4]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
+                    <div class="chip">
+                      Diretweet {{$topTweets[4]->retweet_count}} kali
+                    </div>
+                  </div>
               </div>
             </div>
             <div class="col s12 m6">
               <div class="card-panel">
                 <h5 class="black-text" style="font-size:16px;font-weight:200">5 Tweet mendapatkan likes terbanyak<i class="material-icons right">face</i></h5>
                 <hr>
-                <center style="top:20px">
-                  <ul class="collection">
-                    <li class="collection-item">Tweet 1</li>
-                    <li class="collection-item">Tweet 2</li>
-                    <li class="collection-item">Tweet 3</li>
-                    <li class="collection-item">Tweet 4</li>
-                  </ul>
-                </center>
+                <div class="card-panel">
+                  <blockquote><i class="fas fa-quote-left"></i> {{$topLikes[0]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
+                  <div class="chip">
+                    Diretweet {{$topLikes[0]->favorite_count}} kali
+                  </div>
+                </div>
+                <div class="card-panel">
+                  <blockquote><i class="fas fa-quote-left"></i> {{$topLikes[1]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
+                  <div class="chip">
+                    Diretweet {{$topLikes[1]->favorite_count}} kali
+                  </div>
+                </div>
+                <div class="card-panel">
+                  <blockquote><i class="fas fa-quote-left"></i> {{$topLikes[2]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
+                  <div class="chip">
+                    Diretweet {{$topLikes[2]->favorite_count}} kali
+                  </div>
+                </div>
+                <div class="card-panel">
+                  <blockquote><i class="fas fa-quote-left"></i> {{$topLikes[3]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
+                  <div class="chip">
+                    Diretweet {{$topLikes[3]->favorite_count}} kali
+                  </div>
+                </div>
+                <div class="card-panel">
+                  <blockquote><i class="fas fa-quote-left"></i> {{$topLikes[4]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
+                  <div class="chip">
+                    Diretweet {{$topLikes[4]->favorite_count}} kali
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -120,6 +173,9 @@
   </div>
 </div> --}}
 </div>
+@php
+
+@endphp
 </section>
 @endsection
 
@@ -195,7 +251,15 @@
   });
 
   $(document).ready(function () {
-    var africa = [86,114,106,106,107,111,133,221,783,2478];
+
+    var postingDay0 = {{$postingDay0[0]->count}};
+    var postingDay1 = {{$postingDay1[0]->count}};
+    var postingDay2 = {{$postingDay2[0]->count}};
+    var postingDay3 = {{$postingDay3[0]->count}};
+    var postingDay4 = {{$postingDay4[0]->count}};
+    var postingDay5 = {{$postingDay5[0]->count}};
+    var postingDay6 = {{$postingDay6[0]->count}};
+
     var ctx = document.getElementById("myChart");
     var myChart = new Chart(ctx, {
       type: 'line',
@@ -203,7 +267,7 @@
         labels: ["H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1"],
         datasets: [{
           label: '= Tweet Posted',
-          data: [8, 0, 3, 5, 2, 3],
+          data: [postingDay0,postingDay1,postingDay2,postingDay3,postingDay4,postingDay5,postingDay6],
           backgroundColor: [
             'rgba(0,255,255, 0.2)'
           ],

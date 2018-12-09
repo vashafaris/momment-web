@@ -7,9 +7,18 @@ if (Auth::user()->twitterAccount)
   $color = '';
 }
 ?>
-<nav style="background-color:black"><a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a></nav>
+<nav style="background-color:black" class="right">
+  {{-- <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+  <a href="https://twitter.com/intent/tweet" class="twitter-hashtag-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> --}}
+  <div class="nav-wrapper">
+    <a href="https://twitter.com/intent/tweet" class="twitter-hashtag-button brand-logo right" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+  </div>
+
+</nav>
   <ul id="slide-out" class="sidenav sidenav-fixed">
-    <li><div class="user-view" style="background: linear-gradient(to right, #c94b4b, #4b134f);">
+    {{-- <li><div class="user-view" style="background: linear-gradient(to right, #c94b4b, #4b134f);"> --}}
+      <li><div class="user-view" style="background-color: black">
       {{-- <div class="background" style="background-size:cover">
         <img src="images/bg2.jpg">
       </div> --}}
