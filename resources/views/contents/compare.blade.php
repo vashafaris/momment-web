@@ -6,42 +6,20 @@
       <div class="col s12 m12">
 
         <div id="competitor-container" style="display:none">
-          <div class="card-panel background1">
-            <h5 class="center white-text">Daftar Kompetitor</h5>
+          <div class="card-panel">
+            <h5 class="center black-text">Daftar Kompetitor</h5>
             <hr>
             <ul class="collection">
+              @if(count($competitors) > 0)
+              @foreach($competitors as $competitor)
               <li class="collection-item avatar">
-                <img src="images/yuna.jpg" alt="" class="circle">
-                <span class="title">Title</span>
-                <p>First Line <br>
-                  Second Line
-                </p>
-                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                <img src="{{$competitor->photo_url}}" class="center" style="position:absolute;height: 50px;width: 50px;object-fit: cover;border: 2px solid white;border-radius: 50%;top: 15px;left: 15px;">
+                <span class="title">{{$competitor->name}}</span>
+                <p style="color:grey">@<?php echo $competitor->screen_name?></p>
+                <a href="{{url('compare/id/' . $competitor->twitter_id)}}" class="secondary-content"><i class="material-icons">grade</i></a>
               </li>
-              <li class="collection-item avatar">
-                <i class="material-icons circle">folder</i>
-                <span class="title">Title</span>
-                <p>First Line <br>
-                  Second Line
-                </p>
-                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-              </li>
-              <li class="collection-item avatar">
-                <i class="material-icons circle green">insert_chart</i>
-                <span class="title">Title</span>
-                <p>First Line <br>
-                  Second Line
-                </p>
-                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-              </li>
-              <li class="collection-item avatar">
-                <i class="material-icons circle red">play_arrow</i>
-                <span class="title">Title</span>
-                <p>First Line <br>
-                  Second Line
-                </p>
-                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-              </li>
+            @endforeach
+            @endif
             </ul>
 
             {{-- <div id="search-result">
@@ -55,14 +33,14 @@
       </div>
 
       <div id="add-competitor-container" style="display:none">
-        <div class="card-panel background1">
-          <h5 class="center white-text">Tambahkan Kompetitor</h5>
+        <div class="card-panel ">
+          <h5 class="center black-text">Tambahkan Kompetitor</h5>
           <hr>
           <div class="row">
             <div class="input-field col s10 m10 l10">
-              <i class="material-icons prefix " style="color:white">account_circle</i>
+              <i class="material-icons prefix ">account_circle</i>
               <input id="username-twitter" type="text" class="validate" style="color:white">
-              <label for="icon_prefix" class="white-text">Username Twitter</label>
+              <label for="icon_prefix">Username Twitter</label>
             </div>
             <div class="col s2 m2 l2">
               <div class="waves-effect waves-light btn white" id="btn-search" onCLick="search()" style="margin-top:20px;margin-left:20px"><i class="fas fa-search" style="color:black;"></i></div>
@@ -75,11 +53,11 @@
 
       </div>
 
-      <div id="compare-container">
+      {{-- <div id="compare-container">
         <div class="row">
           <div class="col s12 m12">
-            <div class="card-panel background1">
-              <h5 class="center white-text">Akun Twitter</h5>
+            <div class="card-panel ">
+              <h5 class="center black-text">Akun Twitter</h5>
               <hr>
               <div class="row">
                 <div class="col s12">
@@ -151,7 +129,7 @@
           </div>
         </div>
 
-      </div>
+      </div> --}}
     </div>
   </div>
   <div id="btn-to-add" class="fixed-action-btn" style="bottom: 50px; right: 50px;">
@@ -230,12 +208,12 @@
 
   /* label focus color */
   .input-field input[type=text]:focus + label {
-    color: #000;
+    color: black;
   }
   /* label underline focus color */
   .input-field input[type=text]:focus {
-    border-bottom: 1px solid #000;
-    box-shadow: 0 1px 0 0 #000;
+    border-bottom: 1px solid black;
+    box-shadow: 0 1px 0 0 black;
   }
 
   </style>
@@ -245,7 +223,7 @@
   <script>
 
   $(document).ready(function(){
-    // $('#competitor-container').fadeIn(500);
+    $('#competitor-container').fadeIn(500);
     $('#btn-to-compare').hide();
     $('.modal').modal();
     $('.tabs').tabs();

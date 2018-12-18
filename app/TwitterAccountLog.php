@@ -12,8 +12,5 @@ class TwitterAccountLog extends Model
 
   protected $keyType = 'string';
 
-  public function user()
-  {
-    return $this->belongsTo('App\User','id');
-  }
+
 }

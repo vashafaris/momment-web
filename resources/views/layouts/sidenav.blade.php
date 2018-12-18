@@ -1,17 +1,19 @@
 <?php
 $display = 'none';
 $color = 'grey !important';
+$account = '';
 if (Auth::user()->twitterAccount)
 {
   $display = '';
   $color = '';
+  $account = 'none';
 }
 ?>
-<nav style="background-color:black" class="right">
+<nav style="background-color:black">
   {{-- <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
   <a href="https://twitter.com/intent/tweet" class="twitter-hashtag-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> --}}
   <div class="nav-wrapper">
-    <a href="https://twitter.com/intent/tweet" class="twitter-hashtag-button brand-logo right" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <a class="twitter-hashtag-button" href="https://twitter.com/intent/tweet"><i class="fab fa-twitter"></i>Tweet</a>
     <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
   </div>
 
@@ -23,12 +25,12 @@ if (Auth::user()->twitterAccount)
         <img src="images/bg2.jpg">
       </div> --}}
       <h4 class="white-text">Momment</h4>
-      <span class="white-text name">Vasha Farisi</span>
-      <span class="white-text email">vashafarisi@momment.com</span>
+      <span class="white-text name">{{Auth::user()->name}}</span>
+      <span class="white-text email">{{Auth::user()->email}}</span>
     </div>
   </li>
-    <li><a href="engage"><i class="fas fa-user-tie"></i>Akun Twitter</a></li>
-    <li><div class="divider"></div></li>
+    <li><a href="{{ route('engage')}}" style="display:{{$account}}"><i class="fas fa-user-tie"></i>Akun Twitter</a></li>
+    <li><div class="divider" style="display:{{$account}}"></div></li>
     <li><a href="{{ route('dashboard') }}" style="display:{{$display}}"><i class="fas fa-columns"></i>Dashboard</a></li>
     <li><a href="{{ route('compare') }}" style="display:{{$display}}"><i class="fas fa-balance-scale"></i>Komparasi</a></li>
     <li><a href="{{ route('trends') }}" style="display:{{$display}}"><i class="fas fa-chart-line"></i>Tren Topik Twitter</a></li>

@@ -93,7 +93,7 @@ class EngageController extends Controller
 
   public function showAccount()
   {
-    $accountData = DB::select('select * from twitter_accounts_log where twitter_id = (select twitter_id from twitter_accounts where account_id = ' . Auth::user()->id . ')');
+    $accountData = DB::select('select top 1 * from twitter_accounts_log where twitter_id = (select twitter_id from twitter_accounts where account_id = ' . Auth::user()->id . ') order by created_at desc');
 
     return response()->json(
             [
