@@ -3,18 +3,18 @@
 @section('content')
   <section>
     <div class="row">
+      <h4>Dashboard</h4>
       <div class="col s12 m12">
-        <div class="card-panel background1">
-          <h5 class="center white-text">Akun Twitter</h5>
-          <hr>
+        <div class="card-panel background-none z-depth-0">
+
           <div id="search-result">
 
           </div>
         </div>
       </div>
       <div class="col s12 m12">
-        <div class="card-panel background1 ">
-          <h5 class="center white-text">Laporan Aktivitas</h5>
+        <div class="card-panel  background-none z-depth-0" style="padding-top:0px!important">
+          <h5 class="black-text" style="font-weight:200">Laporan Aktivitas</h5>
           <hr>
           <div class="row">
             <div class="col s12 m12">
@@ -166,37 +166,47 @@
   </div>
 </div>
 <div class="col s12 m12">
-  <div class="card-panel z-depth-0">
+  <div class="card-panel background-none z-depth-0">
     <h5 class="black-text" style="font-size:16px;font-weight:200">5 Tweet mendapatkan retweet terbanyak<i class="material-icons right">face</i></h5>
     <hr>
     <div class="card-panel">
       {{-- <img src="{{$photo_url}}" style="position:absolute;height: 50px;width: 50px;object-fit: cover;border: 2px solid white;border-radius: 50%;">
       <span style="left:20%"> </span> --}}
       <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[0]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
+      <center><img class="responsive-img materialboxed" src="{{$topTweets[0]->tweet_media}}"></center>
+      <br>
       <div class="chip">
         Mendapatkan {{$topTweets[0]->retweet_count}} retweet
       </div>
     </div>
     <div class="card-panel">
       <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[1]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
+      <center><img class="responsive-img materialboxed" src="{{$topTweets[1]->tweet_media}}"></center>
+      <br>
       <div class="chip">
         Mendapatkan {{$topTweets[1]->retweet_count}} retweet
       </div>
     </div>
     <div class="card-panel">
       <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[2]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
+      <center><img class="responsive-img materialboxed" src="{{$topTweets[2]->tweet_media}}"></center>
+      <br>
       <div class="chip">
         Mendapatkan {{$topTweets[2]->retweet_count}} retweet
       </div>
     </div>
     <div class="card-panel">
       <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[3]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
+      <center><img class="responsive-img materialboxed" src="{{$topTweets[3]->tweet_media}}"></center>
+      <br>
       <div class="chip">
         Mendapatkan {{$topTweets[3]->retweet_count}} retweet
       </div>
     </div>
     <div class="card-panel">
       <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[4]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
+      <center><img class="responsive-img materialboxed" src="{{$topTweets[4]->tweet_media}}"></center>
+      <br>
       <div class="chip">
         Mendapatkan {{$topTweets[4]->retweet_count}} retweet
       </div>
@@ -320,6 +330,15 @@ I am convenient because I require little markup to use effectively. I am similar
     background: linear-gradient(to right, #FF4B2B, #FF416C); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
 
+  .background-none {
+    background: none;
+  }
+
+  .responsive-img {
+    max-height: 400px;
+    border-radius: 5%;
+  }
+
   </style>
 @endsection
 
@@ -328,6 +347,7 @@ I am convenient because I require little markup to use effectively. I am similar
 
   $(document).ready(function(){
     $('.collapsible').collapsible();
+    $('.materialboxed').materialbox();
   });
 
   $(document).ready(function () {
@@ -484,6 +504,7 @@ I am convenient because I require little markup to use effectively. I am similar
 
         resultContainer.html(
           '<div class="card white card-profile">' +
+          '<h5 class="black-text" style="font-weight:200;padding:24px;">Akun Twitter</h5>' +
           '<div class="card-image" ' + banner + '>' +
           photo +
           '<span class="card-title">' + data.response[0].name + '</span>' +

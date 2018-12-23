@@ -9,18 +9,17 @@ if (Auth::user()->twitterAccount)
   $account = 'none';
 }
 ?>
-<nav style="background-color:black">
-  {{-- <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-  <a href="https://twitter.com/intent/tweet" class="twitter-hashtag-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> --}}
+{{-- <nav style="background-color:white">
+
   <div class="nav-wrapper">
     <a class="twitter-hashtag-button" href="https://twitter.com/intent/tweet"><i class="fab fa-twitter"></i>Tweet</a>
     <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
   </div>
 
-</nav>
-  <ul id="slide-out" class="sidenav sidenav-fixed">
+</nav> --}}
+  <ul id="slide-out" class="sidenav sidenav-fixed" style="background-color: #3a3f51">
     {{-- <li><div class="user-view" style="background: linear-gradient(to right, #c94b4b, #4b134f);"> --}}
-      <li><div class="user-view" style="background-color: black">
+      <li><div class="user-view" >
       {{-- <div class="background" style="background-size:cover">
         <img src="images/bg2.jpg">
       </div> --}}
@@ -29,48 +28,12 @@ if (Auth::user()->twitterAccount)
       <span class="white-text email">{{Auth::user()->email}}</span>
     </div>
   </li>
-    <li><a href="{{ route('engage')}}" style="display:{{$account}}"><i class="fas fa-user-tie"></i>Akun Twitter</a></li>
-    <li><div class="divider" style="display:{{$account}}"></div></li>
-    <li><a href="{{ route('dashboard') }}" style="display:{{$display}}"><i class="fas fa-columns"></i>Dashboard</a></li>
-    <li><a href="{{ route('compare') }}" style="display:{{$display}}"><i class="fas fa-balance-scale"></i>Komparasi</a></li>
-    <li><a href="{{ route('trends') }}" style="display:{{$display}}"><i class="fas fa-chart-line"></i>Tren Topik Twitter</a></li>
     <li><div class="divider"></div></li>
-    <li><a href="{{ route('logout') }}"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+    <li class="white-text"><a href="{{ route('engage')}}" style="display:{{$account}}"><i class="fas fa-user-tie" style="color:white"></i>Akun Twitter</a></li>
+    <li><div class="divider" style="display:{{$account}}"></div></li>
+    <li><a href="{{ route('dashboard') }}" style="display:{{$display}};color:#b4b6bd" ><i class="fas fa-columns" style="color:white"></i>Dashboard</a></li>
+    <li><a href="{{ route('compare') }}" style="display:{{$display}};color:#b4b6bd" ><i class="fas fa-balance-scale" style="color:white"></i>Komparasi</a></li>
+    <li><a href="{{ route('trends') }}" style="display:{{$display}};color:#b4b6bd" ><i class="fas fa-chart-line" style="color:white"></i>Tren Topik Twitter</a></li>
+    <li><div class="divider"></div></li>
+    <li><a href="{{ route('logout') }}" style="color:#b4b6bd"><i class="fas fa-sign-out-alt" style="color:white"></i>Logout</a></li>
   </ul>
-
-{{--
-  <div id="container">
-
-  <div id="menu">
-
-    <ul id="slide-out" class="side-nav fixed">
-      <li><a href="#!">First Sidebar Link</a></li>
-      <li><a href="#!">Second Sidebar Link</a></li>
-      <li class="no-padding">
-        <ul class="collapsible collapsible-accordion">
-          <li>
-            <a class="collapsible-header">Dropdown<i class="material-icons">arrow_drop_down</i></a>
-            <div class="collapsible-body">
-              <ul>
-                <li><a href="#!">First</a></li>
-                <li><a href="#!">Second</a></li>
-                <li><a href="#!">Third</a></li>
-                <li><a href="#!">Fourth</a></li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-
-  <div id="content">
-    <a href="#" data-activates="slide-out" class="button-collapse hide-on-large-only"><i class="material-icons">menu</i></a>
-
-    <h3>Simple Materialize Responsive Side Menu</h3>
-
-    <p>Resize browser to see what it looks like in (a) brwoser (b) mobile devices</p>
-
-  </div>
-
-</div>  --}}

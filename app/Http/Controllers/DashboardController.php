@@ -49,7 +49,6 @@ class DashboardController extends Controller
       $avgLikes = $like[0]->favorite/7;
 
       $topTweets = DB::select('select top 5 * FROM twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = ' . Auth::user()->twitterAccount->twitter_id . ' order by retweet_count desc ');
-
       $topLikes = DB::select('select top 5 * FROM twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = ' . Auth::user()->twitterAccount->twitter_id . ' order by favorite_count desc ');
 
       $competitor = DB::select('select competitor_id as competitor_id from competitor where twitter_id = ' . Auth::user()->twitterAccount->twitter_id);

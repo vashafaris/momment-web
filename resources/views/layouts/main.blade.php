@@ -56,7 +56,7 @@
   }
   </style>
 </head>
-<body style="background-color: #E0E0E0;{{-- padding-bottom: 125px;--}}">
+<body style="background-color: #f0f3f4;{{-- padding-bottom: 125px;--}}">
 
 
   @include('layouts.sidenav')
