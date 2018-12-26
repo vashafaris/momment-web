@@ -255,52 +255,6 @@ class CompareController extends Controller
       $followersDay6Comp = 0;
     }
 
-    // $tempFollowers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . Auth::user()->twitterAccount->twitter_id . ' and cast(created_at as date) = DATEADD(day, -1, convert(date, GETDATE()))');
-    // $temp2Followers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . Auth::user()->twitterAccount->twitter_id . ' and cast(created_at as date) = DATEADD(day, -2, convert(date, GETDATE()))');
-    // $followersDay1 = $tempFollowers[0]->followers_count - $temp2Followers[0]->followers_count;
-    // $tempFollowers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . Auth::user()->twitterAccount->twitter_id . ' and cast(created_at as date) = DATEADD(day, -2, convert(date, GETDATE()))');
-    // $temp2Followers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . Auth::user()->twitterAccount->twitter_id . ' and cast(created_at as date) = DATEADD(day, -3, convert(date, GETDATE()))');
-    // $followersDay2 = $tempFollowers[0]->followers_count - $temp2Followers[0]->followers_count;
-    // $tempFollowers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . Auth::user()->twitterAccount->twitter_id . ' and cast(created_at as date) = DATEADD(day, -3, convert(date, GETDATE()))');
-    // $temp2Followers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . Auth::user()->twitterAccount->twitter_id . ' and cast(created_at as date) = DATEADD(day, -4, convert(date, GETDATE()))');
-    // $followersDay3 = $tempFollowers[0]->followers_count - $temp2Followers[0]->followers_count;
-    // $tempFollowers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . Auth::user()->twitterAccount->twitter_id . ' and cast(created_at as date) = DATEADD(day, -4, convert(date, GETDATE()))');
-    // $temp2Followers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . Auth::user()->twitterAccount->twitter_id . ' and cast(created_at as date) = DATEADD(day, -5, convert(date, GETDATE()))');
-    // $followersDay4 = $tempFollowers[0]->followers_count - $temp2Followers[0]->followers_count;
-    // $tempFollowers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . Auth::user()->twitterAccount->twitter_id . ' and cast(created_at as date) = DATEADD(day, -5, convert(date, GETDATE()))');
-    // $temp2Followers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . Auth::user()->twitterAccount->twitter_id . ' and cast(created_at as date) = DATEADD(day, -6, convert(date, GETDATE()))');
-    // $followersDay5 = $tempFollowers[0]->followers_count - $temp2Followers[0]->followers_count;
-    // $tempFollowers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . Auth::user()->twitterAccount->twitter_id . ' and cast(created_at as date) = DATEADD(day, -6, convert(date, GETDATE()))');
-    // $temp2Followers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . Auth::user()->twitterAccount->twitter_id . ' and cast(created_at as date) = DATEADD(day, -7, convert(date, GETDATE()))');
-    // $followersDay6 = $tempFollowers[0]->followers_count - $temp2Followers[0]->followers_count;
-    //
-    //
-    // $tempFollowers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . $id . ' and cast(created_at as date) = DATEADD(day, 0, convert(date, GETDATE()))');
-    // $temp2Followers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . $id . ' and cast(created_at as date) = DATEADD(day, -1, convert(date, GETDATE()))');
-    // $followersDay0Comp = $tempFollowers[0]->followers_count - $temp2Followers[0]->followers_count;
-    // $tempFollowers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . $id . ' and cast(created_at as date) = DATEADD(day, -1, convert(date, GETDATE()))');
-    // $temp2Followers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . $id . ' and cast(created_at as date) = DATEADD(day, -2, convert(date, GETDATE()))');
-    // $followersDay1Comp = $tempFollowers[0]->followers_count - $temp2Followers[0]->followers_count;
-    // $tempFollowers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . $id . ' and cast(created_at as date) = DATEADD(day, -2, convert(date, GETDATE()))');
-    // $temp2Followers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . $id . ' and cast(created_at as date) = DATEADD(day, -3, convert(date, GETDATE()))');
-    // $followersDay2Comp = $tempFollowers[0]->followers_count - $temp2Followers[0]->followers_count;
-    // $tempFollowers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . $id . ' and cast(created_at as date) = DATEADD(day, -3, convert(date, GETDATE()))');
-    // $temp2Followers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . $id . ' and cast(created_at as date) = DATEADD(day, -4, convert(date, GETDATE()))');
-    // $followersDay3Comp = $tempFollowers[0]->followers_count - $temp2Followers[0]->followers_count;
-    // $tempFollowers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . $id . ' and cast(created_at as date) = DATEADD(day, -4, convert(date, GETDATE()))');
-    // $temp2Followers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . $id . ' and cast(created_at as date) = DATEADD(day, -5, convert(date, GETDATE()))');
-    // $followersDay4Comp = $tempFollowers[0]->followers_count - $temp2Followers[0]->followers_count;
-    // $tempFollowers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . $id . ' and cast(created_at as date) = DATEADD(day, -5, convert(date, GETDATE()))');
-    // $temp2Followers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . $id . ' and cast(created_at as date) = DATEADD(day, -6, convert(date, GETDATE()))');
-    // $followersDay5Comp = $tempFollowers[0]->followers_count - $temp2Followers[0]->followers_count;
-    // $tempFollowers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . $id . ' and cast(created_at as date) = DATEADD(day, -6, convert(date, GETDATE()))');
-    // $temp2Followers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = ' . $id . ' and cast(created_at as date) = DATEADD(day, -7, convert(date, GETDATE()))');
-    // $followersDay6Comp = $tempFollowers[0]->followers_count - $temp2Followers[0]->followers_count;
-
-
-
-
-
     $postingDay0 = DB::select('select count(*) as count from twitter_tweets where twitter_id = '. Auth::user()->twitterAccount->twitter_id . ' and cast(tweet_created as date) = DATEADD(day, 0, convert(date, GETDATE()))');
     $postingDay1 = DB::select('select count(*) as count from twitter_tweets where twitter_id = '. Auth::user()->twitterAccount->twitter_id . ' and cast(tweet_created as date) = DATEADD(day, -1, convert(date, GETDATE()))');
     $postingDay2 = DB::select('select count(*) as count from twitter_tweets where twitter_id = '. Auth::user()->twitterAccount->twitter_id . ' and cast(tweet_created as date) = DATEADD(day, -2, convert(date, GETDATE()))');
@@ -308,6 +262,8 @@ class CompareController extends Controller
     $postingDay4 = DB::select('select count(*) as count from twitter_tweets where twitter_id = '. Auth::user()->twitterAccount->twitter_id . ' and cast(tweet_created as date) = DATEADD(day, -4, convert(date, GETDATE()))');
     $postingDay5 = DB::select('select count(*) as count from twitter_tweets where twitter_id = '. Auth::user()->twitterAccount->twitter_id . ' and cast(tweet_created as date) = DATEADD(day, -5, convert(date, GETDATE()))');
     $postingDay6 = DB::select('select count(*) as count from twitter_tweets where twitter_id = '. Auth::user()->twitterAccount->twitter_id . ' and cast(tweet_created as date) = DATEADD(day, -6, convert(date, GETDATE()))');
+
+    
 
     $postingDay0Comp = DB::select('select count(*) as count from twitter_tweets where twitter_id = '. $id . ' and cast(tweet_created as date) = DATEADD(day, 0, convert(date, GETDATE()))');
     $postingDay1Comp = DB::select('select count(*) as count from twitter_tweets where twitter_id = '. $id . ' and cast(tweet_created as date) = DATEADD(day, -1, convert(date, GETDATE()))');
@@ -324,37 +280,6 @@ class CompareController extends Controller
     $retweetDay4 = DB::select('select SUM(retweet_count) as retweet from twitter_tweets where twitter_id = '. Auth::user()->twitterAccount->twitter_id . ' and cast(tweet_created as date) = DATEADD(day, -4, convert(date, GETDATE()))');
     $retweetDay5 = DB::select('select SUM(retweet_count) as retweet from twitter_tweets where twitter_id = '. Auth::user()->twitterAccount->twitter_id . ' and cast(tweet_created as date) = DATEADD(day, -5, convert(date, GETDATE()))');
     $retweetDay6 = DB::select('select SUM(retweet_count) as retweet from twitter_tweets where twitter_id = '. Auth::user()->twitterAccount->twitter_id . ' and cast(tweet_created as date) = DATEADD(day, -6, convert(date, GETDATE()))');
-
-    // $retweetDay0 = $retweetDay0[0]->retweet;
-    // $retweetDay1 = $retweetDay1[0]->retweet;
-    // $retweetDay2 = $retweetDay2[0]->retweet;
-    // $retweetDay3 = $retweetDay3[0]->retweet;
-    // $retweetDay4 = $retweetDay4[0]->retweet;
-    // $retweetDay5 = $retweetDay5[0]->retweet;
-    // $retweetDay6 = $retweetDay6[0]->retweet;
-    //
-    // dd(empty($retweetDay1[0]->retweet));
-    // if (empty($retweetDay0[0]->retweet)) {
-    //   $retweetDay0 = 0;
-    // }
-    // if (empty($retweetDay1[0]->retweet)) {
-    //   $retweetDay1 = 0;
-    // }
-    // if (empty($retweetDay2[0]->retweet)) {
-    //   $retweetDay2 = 0;
-    // }
-    // if (empty($retweetDay3[0]->retweet)) {
-    //   $retweetDay3 = 0;
-    // }
-    // if (empty($retweetDay4[0]->retweet)) {
-    //   $retweetDay4 = 0;
-    // }
-    // if (empty($retweetDay5[0]->retweet)) {
-    //   $retweetDay5 = 0;
-    // }
-    // if (empty($retweetDay6[0]->retweet)) {
-    //   $retweetDay6 = 0;
-    // }
 
     $retweetDay0Comp = DB::select('select SUM(retweet_count) as retweet from twitter_tweets where twitter_id = '. $id . ' and cast(tweet_created as date) = DATEADD(day, 0, convert(date, GETDATE()))');
     $retweetDay1Comp = DB::select('select SUM(retweet_count) as retweet from twitter_tweets where twitter_id = '. $id . ' and cast(tweet_created as date) = DATEADD(day, -1, convert(date, GETDATE()))');

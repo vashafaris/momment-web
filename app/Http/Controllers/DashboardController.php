@@ -93,8 +93,8 @@ class DashboardController extends Controller
         $recommended1 = "";
       }
 
-      $temp = DB::select('select top 1 photo_url as photo_url from twitter_accounts_log where twitter_id = ' . Auth::user()->twitterAccount->twitter_id . ' order by created_at desc' );
-      $photo_url = $temp[0]->photo_url;
+      $temp = DB::select('select top 1 * from twitter_accounts_log where twitter_id = ' . Auth::user()->twitterAccount->twitter_id . ' order by created_at desc' );
+      $twitter_account_log = $temp[0];
       return view('contents.dashboard', [
         'account' => Auth::user(),
         'postingDay0' => $postingDay0,
@@ -115,7 +115,7 @@ class DashboardController extends Controller
         'topTweets' => $topTweets,
         'topLikes' => $topLikes,
         'recommended1' => $recommended1,
-        'photo_url' => $photo_url
+        'twitter_account_log' => $twitter_account_log
       ]);
     }
 

@@ -9,14 +9,21 @@ if (Auth::user()->twitterAccount)
   $account = 'none';
 }
 ?>
-{{-- <nav style="background-color:white">
+<div class="navbar-fixed">
+<nav style="background-color:white">
 
   <div class="nav-wrapper">
-    <a class="twitter-hashtag-button" href="https://twitter.com/intent/tweet"><i class="fab fa-twitter"></i>Tweet</a>
-    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    <a href="#" id="header" class="brand-logo" style="font-weight:200;color:black;position:absolute;left:320px;top:3px"></a>
+    <ul id="nav-mobile" class="right">
+        <a class="twitter-hashtag-button" href="https://twitter.com/intent/tweet"><i class="fab fa-twitter"></i>Tweet</a>
+        <a style="color:black;position:absolute;left:5px;top:3px" href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </ul>
   </div>
 
-</nav> --}}
+
+
+</nav>
+</div>
   <ul id="slide-out" class="sidenav sidenav-fixed" style="background-color: #3a3f51">
     {{-- <li><div class="user-view" style="background: linear-gradient(to right, #c94b4b, #4b134f);"> --}}
       <li><div class="user-view" >

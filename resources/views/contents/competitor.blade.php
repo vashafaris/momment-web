@@ -320,7 +320,6 @@
       url: '{{ url('/compare/showComparison')  . '/' }}' + id,
       data: '_token = {{ csrf_token() }}',
       success: function(data) {
-        console.log(data);
 
         var likes = '?';
         if (parseFloat(data.likes) > parseFloat(data.likesComp)) {

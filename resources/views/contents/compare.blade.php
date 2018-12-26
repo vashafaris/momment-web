@@ -9,17 +9,19 @@
           <div class="card-panel">
             <h5 class="center black-text">Daftar Kompetitor</h5>
             <hr>
-            <ul class="collection">
+            <ul class="collection with-header">
               @if(count($competitors) > 0)
-              @foreach($competitors as $competitor)
-              <li class="collection-item avatar">
-                <img src="{{$competitor->photo_url}}" class="center" style="position:absolute;height: 50px;width: 50px;object-fit: cover;border: 2px solid white;border-radius: 50%;top: 15px;left: 15px;">
-                <span class="title">{{$competitor->name}}</span>
-                <p style="color:grey">@<?php echo $competitor->screen_name?></p>
-                <a href="{{url('compare/id/' . $competitor->twitter_id)}}" class="secondary-content"><i class="material-icons">grade</i></a>
-              </li>
-            @endforeach
-            @endif
+                @foreach($competitors as $competitor)
+                  <li class="collection-item avatar">
+                    <img src="{{$competitor->photo_url}}" class="center" style="position:absolute;height: 50px;width: 50px;object-fit: cover;border: 2px solid white;border-radius: 50%;top: 15px;left: 15px;">
+                    <span class="title">{{$competitor->name}}</span>
+                    <p style="color:grey">@<?php echo $competitor->screen_name?></p>
+                    <a href="{{url('compare/id/' . $competitor->twitter_id)}}" class="secondary-content"><i class="material-icons">grade</i></a>
+                  </li>
+                @endforeach
+              @else
+                <li class="collection-header center"><h6>Kompetitor Tidak Ditemukan!</h6></li>
+              @endif
             </ul>
 
             {{-- <div id="search-result">
@@ -54,90 +56,90 @@
       </div>
 
       {{-- <div id="compare-container">
-        <div class="row">
-          <div class="col s12 m12">
-            <div class="card-panel ">
-              <h5 class="center black-text">Akun Twitter</h5>
-              <hr>
-              <div class="row">
-                <div class="col s12">
-                  <ul class="tabs">
-                    <li class="tab col s6"><a href="#test1">Profil Kompetitor</a></li>
-                    <li class="tab col s6"><a href="#test2">Komparasi Aktivitas</a></li>
-                  </ul>
-                </div>
-                <div id="test1" class="col s12">
-
-                </div>
-
-
-                <div id="test2" class="col s12">
-                  <div class="card-panel white">
-                    <table class="highlight">
-                      <thead>
-                        <tr>
-                          <th></th>
-                          <th>@ridwankamil</th>
-                          <th>@sandiuno</th>
-                        </tr>
-                      </thead>
-
-                      <tbody>
-                        <tr>
-                          <td>Posting Tweet</td>
-                          <td>12</td>
-                          <td>16</td>
-                        </tr>
-                        <tr>
-                          <td>Peningkatan Followers</td>
-                          <td>4333</td>
-                          <td>7312</td>
-                        </tr>
-                        <tr>
-                          <td>Total Retweet</td>
-                          <td>524</td>
-                          <td>555</td>
-                        </tr>
-                        <tr>
-                          <td>Total Likes</td>
-                          <td>142</td>
-                          <td>4243</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <div class="row">
-                      <div class="col s12 m6 vertical-divider">
-                        <div class="card-panel">
-                          <h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Posting<i class="fab fa-twitter right"></i></h5>
-                          <hr>
-                          <canvas id="myChart" width="200" height="200"></canvas>
-                        </div>
-                      </div>
-
-                      <div class="col 12 m6">
-                        <div class="card-panel">
-                          <h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Posting<i class="fab fa-twitter right"></i></h5>
-                          <hr>
-                          <canvas id="myChart" width="200" height="200"></canvas>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div> --}}
-    </div>
+      <div class="row">
+      <div class="col s12 m12">
+      <div class="card-panel ">
+      <h5 class="center black-text">Akun Twitter</h5>
+      <hr>
+      <div class="row">
+      <div class="col s12">
+      <ul class="tabs">
+      <li class="tab col s6"><a href="#test1">Profil Kompetitor</a></li>
+      <li class="tab col s6"><a href="#test2">Komparasi Aktivitas</a></li>
+    </ul>
   </div>
-  <div id="btn-to-add" class="fixed-action-btn" style="bottom: 50px; right: 50px;">
-    <a onClick="btnAdd()" class="btn-floating btn waves-effect waves-light red modal-trigger" style="font-size:30px"><i class="material-icons">add</i></a>
-  </div>
-  <div id="btn-to-compare" class="fixed-action-btn" style="bottom: 50px; right: 50px; display:none">
-    <a onClick="btnCompare()" class="btn-floating btn waves-effect waves-light red modal-trigger" style="font-size:30px"><i class="material-icons">list</i></a>
-  </div>
+  <div id="test1" class="col s12">
+
+</div>
+
+
+<div id="test2" class="col s12">
+<div class="card-panel white">
+<table class="highlight">
+<thead>
+<tr>
+<th></th>
+<th>@ridwankamil</th>
+<th>@sandiuno</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Posting Tweet</td>
+<td>12</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Peningkatan Followers</td>
+<td>4333</td>
+<td>7312</td>
+</tr>
+<tr>
+<td>Total Retweet</td>
+<td>524</td>
+<td>555</td>
+</tr>
+<tr>
+<td>Total Likes</td>
+<td>142</td>
+<td>4243</td>
+</tr>
+</tbody>
+</table>
+<div class="row">
+<div class="col s12 m6 vertical-divider">
+<div class="card-panel">
+<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Posting<i class="fab fa-twitter right"></i></h5>
+<hr>
+<canvas id="myChart" width="200" height="200"></canvas>
+</div>
+</div>
+
+<div class="col 12 m6">
+<div class="card-panel">
+<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Posting<i class="fab fa-twitter right"></i></h5>
+<hr>
+<canvas id="myChart" width="200" height="200"></canvas>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div> --}}
+</div>
+</div>
+<div id="btn-to-add" class="fixed-action-btn" style="bottom: 50px; right: 50px;">
+  <a onClick="btnAdd()" class="btn-floating btn waves-effect waves-light red modal-trigger" style="font-size:30px"><i class="material-icons">add</i></a>
+</div>
+<div id="btn-to-compare" class="fixed-action-btn" style="bottom: 50px; right: 50px; display:none">
+  <a onClick="btnCompare()" class="btn-floating btn waves-effect waves-light red modal-trigger" style="font-size:30px"><i class="material-icons">list</i></a>
+</div>
 </section>
 @endsection
 
