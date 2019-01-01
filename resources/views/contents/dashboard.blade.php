@@ -119,7 +119,14 @@
                 </div>
               </div>
             </div>
-            <div class="col s12 m6">
+            <div class="col s12 m12">
+              <div class="card-panel">
+                <h5 class="black-text" style="font-size:16px;font-weight:200">Analisis Sentimen<i class="fas fa-comments right"></i></h5>
+                <hr>
+                <center><canvas id="chartSentiment"></canvas></center>
+              </div>
+            </div>
+            {{-- <div class="col s12 m6">
               <div class="card-panel">
                 <h5 class="black-text" style="font-size:16px;font-weight:200">Analisis Sentimen Positif<i class="fas fa-comments right"></i></h5>
                 <hr>
@@ -134,7 +141,7 @@
                 <center style="top:20px"><span style="font-size:70px;color:#F49227;top:20px">30
                 </span><span style="font-size:40px;color:#F49227;">%</span></center>
               </div>
-            </div>
+            </div> --}}
           </div>
         </div>
       </div>
@@ -320,114 +327,26 @@
 
   $(document).ready(function () {
 
-    var postingDay0 = {{$postingDay0[0]->count}};
-    var postingDay1 = {{$postingDay1[0]->count}};
-    var postingDay2 = {{$postingDay2[0]->count}};
-    var postingDay3 = {{$postingDay3[0]->count}};
-    var postingDay4 = {{$postingDay4[0]->count}};
-    var postingDay5 = {{$postingDay5[0]->count}};
-    var postingDay6 = {{$postingDay6[0]->count}};
-
-    var ctx = document.getElementById("myChart");
+    var ctx = document.getElementById("chartSentiment");
     var myChart = new Chart(ctx, {
-      type: 'line',
+      type: 'pie',
       data: {
-        labels: ["H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1"],
+        labels: [
+          'Red',
+          'Yellow',
+          'Blue'
+        ],
         datasets: [{
-          label: '= Tweet Posted',
-          data: [postingDay0,postingDay1,postingDay2,postingDay3,postingDay4,postingDay5,postingDay6],
-          backgroundColor: [
-            'rgba(0,255,255, 0.2)'
-          ],
-          borderColor: [
-            'rgba(0,192,255,1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero:true
-            }
-          }]
-        }
-      }
-    });
-
-    var ctx2 = document.getElementById("myChart2");
-    var myChart = new Chart(ctx2, {
-      type: 'line',
-      data: {
-        labels: ["H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1"],
-        datasets: [{
-          label: '= Grafik Retweet',
-          data: [4200, 700, 2530, 3203, 1529, 2832],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255,99,132,1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero:true
-            }
-          }]
-        }
-      }
-    });
-
-    var ctx3 = document.getElementById("myChart3");
-    var myChart = new Chart(ctx3, {
-      type: 'line',
-      data: {
-        labels: ["H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1"],
-        datasets: [{
-          label: '= Grafik Likes',
-          data: [4200, 700, 2530, 3203, 1529, 2832],
-          backgroundColor: [
-            'rgba(255, 255, 0, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255,99,132,1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero:true
-            }
-          }]
-        }
+          data: [10, 20, 30]
+        }],
+        borderColor: [
+          'rgba(0,23,153,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+        ]
       }
     });
   });
-
   $( document ).ready(function() {
     var spinner =
     '<div class="card white">' +
