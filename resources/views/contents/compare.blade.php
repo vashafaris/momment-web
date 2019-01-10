@@ -2,112 +2,70 @@
 
 @section('content')
   <section>
-    <div class="row">
-      <div class="col s12 m12">
-
-        <div id="competitor-container" style="display:none">
-          <div class="card-panel">
-            <h5 class="center black-text">Daftar Kompetitor</h5>
+    <div id="compare-container">
+      <div class="row">
+        <div class="col s12 m12">
+          <div class="card-panel ">
+            <h5 class="center black-text">Akun Twitter Kompetitor</h5>
             <hr>
-            <ul class="collection with-header">
-              @if(count($competitors) > 0)
-                @foreach($competitors as $competitor)
-                  <li class="collection-item avatar">
-                    <img src="{{$competitor->photo_url}}" class="center" style="position:absolute;height: 50px;width: 50px;object-fit: cover;border: 2px solid white;border-radius: 50%;top: 15px;left: 15px;">
-                    <span class="title">{{$competitor->name}}</span>
-                    <p style="color:grey">@<?php echo $competitor->screen_name?></p>
-                    <a href="{{url('compare/id/' . $competitor->twitter_id)}}" class="secondary-content"><i class="material-icons">grade</i></a>
-                  </li>
-                @endforeach
-              @else
-                <li class="collection-header center"><h6>Kompetitor Tidak Ditemukan!</h6></li>
-              @endif
-            </ul>
+            <div class="row">
+              <div class="col s12">
 
-            {{-- <div id="search-result">
+                <div id="competitor-result">
 
-          </div> --}}
-        </div>
-      </div>
+                </div>
 
-      <div id="competitor-compare">
+                <div id="comparison">
+                  {{-- <div class="card-panel white">
+                  <table class="highlight">
+                  <thead>
+                  <tr>
+                  <th></th>
+                  <th>@ridwankamil</th>
+                  <th>@sandiuno</th>
+                </tr>
+              </thead>
 
-      </div>
-
-      <div id="add-competitor-container" style="display:none">
-        <div class="card-panel ">
-          <h5 class="center black-text">Tambahkan Kompetitor</h5>
-          <hr>
-          <div class="row">
-            <div class="input-field col s10 m10 l10">
-              <i class="material-icons prefix ">account_circle</i>
-              <input id="username-twitter" type="text" class="validate" style="color:white">
-              <label for="icon_prefix">Username Twitter</label>
-            </div>
-            <div class="col s2 m2 l2">
-              <div class="waves-effect waves-light btn white" id="btn-search" onCLick="search()" style="margin-top:20px;margin-left:20px"><i class="fas fa-search" style="color:black;"></i></div>
-            </div>
-          </div>
-          <div id="search-result">
-
-          </div>
-        </div>
-
-      </div>
-
-      {{-- <div id="compare-container">
-      <div class="row">
-      <div class="col s12 m12">
-      <div class="card-panel ">
-      <h5 class="center black-text">Akun Twitter</h5>
-      <hr>
-      <div class="row">
-      <div class="col s12">
-      <ul class="tabs">
-      <li class="tab col s6"><a href="#test1">Profil Kompetitor</a></li>
-      <li class="tab col s6"><a href="#test2">Komparasi Aktivitas</a></li>
-    </ul>
-  </div>
-  <div id="test1" class="col s12">
-
+              <tbody>
+              <tr>
+              <td>Posting Tweet</td>
+              <td>12</td>
+              <td>16</td>
+            </tr>
+            <tr>
+            <td>Peningkatan Followers</td>
+            <td>4333</td>
+            <td>7312</td>
+          </tr>
+          <tr>
+          <td>Total Retweet</td>
+          <td>524</td>
+          <td>555</td>
+        </tr>
+        <tr>
+        <td>Total Likes</td>
+        <td>142</td>
+        <td>4243</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row">
+  <div class="col s12 m6 vertical-divider">
+  <div class="card-panel">
+  <h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Posting<i class="fab fa-twitter right"></i></h5>
+  <hr>
+  <canvas id="myChart" width="200" height="200"></canvas>
+</div>
 </div>
 
+<div class="col 12 m6">
+<div class="card-panel">
+<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Posting<i class="fab fa-twitter right"></i></h5>
+<hr>
+<canvas id="myChart2" width="200" height="200"></canvas>
+</div>
+</div>
 
-<div id="test2" class="col s12">
-<div class="card-panel white">
-<table class="highlight">
-<thead>
-<tr>
-<th></th>
-<th>@ridwankamil</th>
-<th>@sandiuno</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>Posting Tweet</td>
-<td>12</td>
-<td>16</td>
-</tr>
-<tr>
-<td>Peningkatan Followers</td>
-<td>4333</td>
-<td>7312</td>
-</tr>
-<tr>
-<td>Total Retweet</td>
-<td>524</td>
-<td>555</td>
-</tr>
-<tr>
-<td>Total Likes</td>
-<td>142</td>
-<td>4243</td>
-</tr>
-</tbody>
-</table>
-<div class="row">
 <div class="col s12 m6 vertical-divider">
 <div class="card-panel">
 <h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Posting<i class="fab fa-twitter right"></i></h5>
@@ -116,7 +74,39 @@
 </div>
 </div>
 
-<div class="col 12 m6">
+<div class="col s12 m6">
+<div class="card-panel">
+<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Posting<i class="fab fa-twitter right"></i></h5>
+<hr>
+<canvas id="myChart" width="200" height="200"></canvas>
+</div>
+</div>
+
+<div class="col s12 m6 vertical-divider">
+<div class="card-panel">
+<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Posting<i class="fab fa-twitter right"></i></h5>
+<hr>
+<canvas id="myChart" width="200" height="200"></canvas>
+</div>
+</div>
+
+<div class="col s12 m6">
+<div class="card-panel">
+<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Posting<i class="fab fa-twitter right"></i></h5>
+<hr>
+<canvas id="myChart" width="200" height="200"></canvas>
+</div>
+</div>
+
+<div class="col s12 m6 vertical-divider">
+<div class="card-panel">
+<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Posting<i class="fab fa-twitter right"></i></h5>
+<hr>
+<canvas id="myChart" width="200" height="200"></canvas>
+</div>
+</div>
+
+<div class="col s12 m6">
 <div class="card-panel">
 <h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Posting<i class="fab fa-twitter right"></i></h5>
 <hr>
@@ -124,31 +114,24 @@
 </div>
 </div>
 </div>
-</div>
+</div> --}}
+
 </div>
 </div>
 </div>
 </div>
 </div>
 
-</div> --}}
 </div>
-</div>
-<div id="btn-to-add" class="fixed-action-btn" style="bottom: 50px; right: 50px;">
-  <a onClick="btnAdd()" class="btn-floating btn waves-effect waves-light red modal-trigger" style="font-size:30px"><i class="material-icons">add</i></a>
-</div>
-<div id="btn-to-compare" class="fixed-action-btn" style="bottom: 50px; right: 50px; display:none">
-  <a onClick="btnCompare()" class="btn-floating btn waves-effect waves-light red modal-trigger" style="font-size:30px"><i class="material-icons">list</i></a>
+
+<div id="btn-back" class="fixed-action-btn" style="bottom: 50px; right: 50px;">
+  <a href="{{url('compare')}}" class="btn-floating btn waves-effect waves-light red modal-trigger" style="font-size:30px"><i class="material-icons">arrow_back</i></a>
 </div>
 </section>
 @endsection
 
 @section('custom-style')
   <style>
-  .vertical-divider {
-    border-right: 1px solid #DDDDDD;
-  }
-
   .tabs .indicator {
     background: color(#5F0F4E alpha(75%) blackness(20%));
     height: 60px;
@@ -210,12 +193,12 @@
 
   /* label focus color */
   .input-field input[type=text]:focus + label {
-    color: black;
+    color: #000;
   }
   /* label underline focus color */
   .input-field input[type=text]:focus {
-    border-bottom: 1px solid black;
-    box-shadow: 0 1px 0 0 black;
+    border-bottom: 1px solid #000;
+    box-shadow: 0 1px 0 0 #000;
   }
 
   </style>
@@ -223,63 +206,8 @@
 
 @section('custom-script')
   <script>
-
   $(document).ready(function(){
-    $('#competitor-container').fadeIn(500);
-    $('#btn-to-compare').hide();
-    $('.modal').modal();
-    $('.tabs').tabs();
-
-    var africa = [86,114,106,106,107,111,133,221,783,2478];
-    var ctx = document.getElementById("myChart");
-    var myChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ["H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1"],
-        datasets: [{
-          label: '= Tweet Posted',
-          data: [8, 0, 3, 5, 2, 3],
-          backgroundColor: [
-            'rgba(0,255,255, 0.2)'
-          ],
-          borderColor: [
-            'rgba(0,192,255,1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero:true
-            }
-          }]
-        }
-      }
-    });
-  });
-
-  function btnAdd() {
-    $("#competitor-container").hide();
-    $("#btn-to-add").hide();
-    $("#add-competitor-container").fadeIn(500);
-    $("#btn-to-compare").fadeIn(500);
-  }
-
-  function btnCompare() {
-    $("#add-competitor-container").hide();
-    $("#btn-to-compare").hide();
-    $("#competitor-container").fadeIn(500);
-    $("#btn-to-add").fadeIn(500);
-  }
-
-  function search() {
+    var id = {{$competitor->twitter_id}}
     var spinner =
     '<div class="card white">' +
     '<div class="card-content" align="center">' +
@@ -296,167 +224,594 @@
     '</div>' +
     '</div>' +
     '</div>';
-    var resultContainer = $('#search-result');
+    var resultContainer = $('#competitor-result');
     resultContainer.hide();
     resultContainer.html(spinner);
     resultContainer.fadeIn(500);
     $.ajax({
       type: 'GET',
-      url: '{{ url('/compare/search') }}' + '/' + $('#username-twitter').val(),
+      url: '{{ url('/compare/showCompetitor')  . '/' }}' + id,
       data: '_token = {{ csrf_token() }}',
       success: function(data) {
-        switch (data.status) {
-          case 200:
-          if (data.response.profile != null) {
-            var banner = (data.response.profile[0].banner_url !== null) ?
-            'style="background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.4)), url(\'' + data.response.profile[0].banner_url + '\');height: 200px;width: 100%;background-size: cover;background-position: center;"' :
-            'style="background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.4)), url(\'{{ asset('images/default -background.jpg ') }}\');height: 200px;width: 100%;background-size: cover;background-position: center;"';
-            var photo = (data.response.profile[0].photo_url !== null) ?
-            '<img src="' + data.response.profile[0].photo_url + '" style="height: 64px;width: 64px;object-fit: cover;border: 2px solid white;position: absolute;border-radius: 50%;top: 70px;left: 24px;">' :
-            '<img src="{{ asset('images/default -photo.png ') }}" style="height: 64px;width: 64px;object-fit: cover;border: 2px solid white;position: absolute;border-radius: 50%;top: 70px;left: 24px;">';
-            var location = (data.response.profile[0].location !== null) ?
-            '<div class="divider" style="margin: 10px 0;"></div>' +
-            '<span style="font-size: 10pt;margin: 10px 0;"><i class="fas fa-map-marker-alt"></i> &nbsp; ' + data.response.profile[0].location + '</span>' :
-            '';
-            var since = (data.response.profile[0].created !== null) ?
-            '<div class="divider" style="margin: 10px 0;"></div>' +
-            '<span style="font-size: 10pt;margin: 10px 0;"><i class="far fa-calendar-alt"></i> &nbsp; Terdaftar Sejak ' + formatDate(new Date(data.response.profile[0].created)) + '</span>' :
-            '';
-            var engageButton = (!data.response.isEngage) ?
-            '<center><a class="waves-effect waves-light btn modal-trigger" href="#engage-modal" style="background-color: #5F0F4E;"><i class="material-icons left">add</i> Tambahkan Kompetitor</a></center>' :
-            '<center><a class="waves-effect waves-light btn modal-trigger disabled" href="#engage-modal" style="background-color: #5F0F4E;"><i class="material-icons left">close</i> Kompetitor</a></center>'
 
-            resultContainer.html(
-              '<div class="card white card-profile">' +
-              '<div class="card-image" ' + banner + '>' +
-              photo +
-              '<span class="card-title">' + data.response.profile[0].name + '</span>' +
-              '<span class="card-title" style="font-size: 9pt;top: 145px;">@' + data.response.profile[0].screen_name + '</span>' +
-              '</div>' +
-              '<div class="card-content">' +
-              '<blockquote style="font-size: 10pt; margin-top: 5px;"><i class="fas fa-quote-right fa-xs"></i> ' + data.response.profile[0].description + ' <i class="fas fa-quote-left fa-xs"></i></blockquote>' +
-              '<div class="divider" style="margin: 10px 0;"></div>' +
-              '<div class="row" style="margin-bottom: 0px !important;">' +
-              '<div class="col s4" style="text-align: center;font-size: 10pt;">' +
-              '<span style="font-weight: bold;">Tweet</span><br/>' +
-              '<span style="color: #F49227;font-size: 12pt;font-weight: bold;">' + formatBigNumber(data.response.profile[0].statuses_count) + '</span>' +
-              '</div>' +
-              '<div class="col s4" style="text-align: center;font-size: 10pt;">' +
-              '<span style="font-weight: bold;">Followers</span><br/>' +
-              '<span style="color: #F49227;font-size: 12pt;font-weight: bold;">' + formatBigNumber(data.response.profile[0].followers_count) + '</span>' +
-              '</div>' +
-              '<div class="col s4" style="text-align: center;font-size: 10pt;">' +
-              '<span style="font-weight: bold;">Following</span><br/>' +
-              '<span style="color: #F49227;font-size: 12pt;font-weight: bold;">' + formatBigNumber(data.response.profile[0].friends_count) + '</span>' +
-              '</div>' +
-              '</div>' +
-              location +
-              since +
-              '<div class="divider" style="margin: 10px 0;"></div>' +
-              engageButton +
-              '<div id="engage-modal" class="modal">' +
-              '<div class="modal-content">' +
-              '<p>Tambahkan ' + data.response.profile[0].name + ' sebagai kompetitor anda ?</p>' +
-              '</div>' +
-              '<div class="modal-footer">' +
-              '<a href="#!" id="add-confirmation-yes" class="modal-close modal-action waves-effect waves-green btn-flat">Ya</a>' +
-              '<a href="#!" id="add-confirmation-no" class="modal-close waves-effect waves-red btn-flat">Tidak</a>' +
-              '</div>' +
-              '</div>' +
-              '</div>' +
-              '</div>'
-            );
+        var banner = (data.response[0].banner_url !== null) ?
+        'style="background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.4)), url(\'' + data.response[0].banner_url + '\');height: 200px;width: 100%;background-size: cover;background-position: center;"' :
+        'style="background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.4)), url(\'{{ asset('images/default -background.jpg ') }}\');height: 200px;width: 100%;background-size: cover;background-position: center;"';
+        var photo = (data.response[0].photo_url !== null) ?
+        '<img src="' + data.response[0].photo_url + '" style="height: 64px;width: 64px;object-fit: cover;border: 2px solid white;position: absolute;border-radius: 50%;top: 70px;left: 24px;">' :
+        '<img src="{{ asset('images/default -photo.png ') }}" style="height: 64px;width: 64px;object-fit: cover;border: 2px solid white;position: absolute;border-radius: 50%;top: 70px;left: 24px;">';
+        var location = (data.response[0].location !== null) ?
+        '<div class="divider" style="margin: 10px 0;"></div>' +
+        '<span style="font-size: 10pt;margin: 10px 0;"><i class="fas fa-map-marker-alt"></i> &nbsp; ' + data.response[0].location + '</span>' :
+        '';
+        var since = (data.response[0].created !== null) ?
+        '<div class="divider" style="margin: 10px 0;"></div>' +
+        '<span style="font-size: 10pt;margin: 10px 0;"><i class="far fa-calendar-alt"></i> &nbsp; Terdaftar Sejak ' + formatDate(new Date(data.response[0].created)) + '</span>' :
+        '';
 
-            // Action Button
-            if (!data.response.isEngage) {
-              $('.modal').modal();
-            }
-            $('#search-result .btn').on('click', function() {
-              var addButton = $(this);
-              $('#add-confirmation-yes').on('click', function() {
-                $.ajax({
-                  type: 'GET',
-                  url: '{{ url('/compare/add') }}' + '/' + (data.response.profile[0].screen_name),
-                  data: '_token = {{ csrf_token() }}',
-                  success: function(data) {
-                    if (data.status === 200) {
-                      $('.modal').modal();
-                      $('#add-confirmation .modal-content').html('<p>Berhasil Menambahkan Kompetitor</p>');
-                      $('#add-confirmation #add-confirmation-yes').hide();
-                      $('#add-confirmation #add-confirmation-no').html('OK');
-                      $('#add-confirmation').modal('open');
-                      addButton.html('<i class="material-icons left">close</i> Berhasil Menambahkan Kompetitor');
-                      addButton.addClass('disabled');
-                      window.location.reload();
-                    } else {
-                      $('.modal').modal();
-                      $('#add-confirmation .modal-content').html('<p>Gagal Menambahkan Kompetitor');
-                      $('#add-confirmation #add-confirmation-yes').hide();
-                      $('#add-confirmation #add-confirmation-no').html('OK');
-                      $('#add-confirmation').modal('open');
-                    }
-                  },
-                  error: function() {
-                    $('.modal').modal();
-                    $('#add-confirmation .modal-content').html('<p>Gagal Menambahkan Kompetitor</p>');
-                    $('#add-confirmation #add-confirmation-yes').hide();
-                    $('#add-confirmation #add-confirmation-no').html('OK');
-                    $('#add-confirmation').modal('open');
-                  }
-                });
-              });
-            });
-          } else {
-            // Not found
-            resultContainer.html(
-              '<div class="card red darken-1">' +
-              '<div class="card-content white-text">' +
-              '<p><i class="fas fa-book"></i> Mohon maaf akun ' + $('#username-twitter').val() + ' tidak ditemukan !</p>' +
-              '</div>' +
-              '</div>'
-            );
-          }
-          break;
-          case 401:
-          resultContainer.html(
-            '<div class="card red darken-1">' +
-            '<div class="card-content white-text">' +
-            '<p><i class="fas fa-book"></i> Im sorry, your spell is missing. Please try to re-login..</p>' +
-            '</div>' +
-            '</div>'
-          );
-          break;
-          case 404 :
-          resultContainer.html(
-            '<div class="card red darken-1">' +
-            '<div class="card-content white-text">' +
-            '<p><i class="fas fa-book"></i> Im sorry, Data will available tomorrow</p>' +
-            '</div>' +
-            '</div>'
-          );
-          default:
-          resultContainer.html(
-            '<div class="card red darken-1">' +
-            '<div class="card-content white-text">' +
-            '<p><i class="fas fa-book"></i> Im sorry, magician might be sick. Trying to recover..</p>' +
-            '</div>' +
-            '</div>'
-          );
-          break;
-        }
-        resultContainer.fadeIn(600);
+        resultContainer.html(
+          '<div class="card white card-profile">' +
+          '<div class="card-image" ' + banner + '>' +
+          photo +
+          '<span class="card-title">' + data.response[0].name + '</span>' +
+          '<span class="card-title" style="font-size: 9pt;top: 145px;">@' + data.response[0].screen_name + '</span>' +
+          '</div>' +
+          '<div class="card-content">' +
+          '<blockquote style="font-size: 10pt; margin-top: 5px;"><i class="fas fa-quote-right fa-xs"></i> ' + data.response[0].description + ' <i class="fas fa-quote-left fa-xs"></i></blockquote>' +
+          '<div class="divider" style="margin: 10px 0;"></div>' +
+          '<div class="row" style="margin-bottom: 0px !important;">' +
+          '<div class="col s4" style="text-align: center;font-size: 10pt;">' +
+          '<span style="font-weight: bold;">Tweet</span><br/>' +
+          '<span style="color: #F49227;font-size: 12pt;font-weight: bold;">' + formatBigNumber(data.response[0].statuses_count) + '</span>' +
+          '</div>' +
+          '<div class="col s4" style="text-align: center;font-size: 10pt;">' +
+          '<span style="font-weight: bold;">Followers</span><br/>' +
+          '<span style="color: #F49227;font-size: 12pt;font-weight: bold;">' + formatBigNumber(data.response[0].followers_count) + '</span>' +
+          '</div>' +
+          '<div class="col s4" style="text-align: center;font-size: 10pt;">' +
+          '<span style="font-weight: bold;">Following</span><br/>' +
+          '<span style="color: #F49227;font-size: 12pt;font-weight: bold;">' + formatBigNumber(data.response[0].friends_count) + '</span>' +
+          '</div>' +
+          '</div>' +
+          location +
+          since +
+          '<div class="divider" style="margin: 10px 0;"></div>' +
+          '</div>' +
+          '</div>'
+        );
       },
       error: function() {
         resultContainer.html(
           '<div class="card red darken-1">' +
           '<div class="card-content white-text">' +
-          '<p><i class="fas fa-book"></i> Im sorry, magician might be sick. Trying to recover..</p>' +
+          '<p><i class="fas fa-book"></i> Mohon maaf terjadi kesalahan, silahkan coba kembali</p>' +
           '</div>' +
           '</div>'
         );
         resultContainer.fadeIn(600);
       }
     });
-  }
-  </script>
+  });
+
+  $(document).ready(function(){
+    var id = {{$competitor->twitter_id}}
+    var spinner =
+    '<div class="card white">' +
+    '<div class="card-content" align="center">' +
+    '<div class="preloader-wrapper small active">' +
+    '<div class="spinner-layer spinner-blue-only">' +
+    '<div class="circle-clipper left">' +
+    '<div class="circle"></div>' +
+    '</div><div class="gap-patch">' +
+    '<div class="circle"></div>' +
+    '</div><div class="circle-clipper right">' +
+    '<div class="circle"></div>' +
+    '</div>' +
+    '</div>' +
+    '</div>' +
+    '</div>' +
+    '</div>';
+    var resultContainer = $('#comparison');
+    resultContainer.hide();
+    resultContainer.html(spinner);
+    resultContainer.fadeIn(500);
+    $.ajax({
+      type: 'GET',
+      url: '{{ url('/compare/showComparison')  . '/' }}' + id,
+      data: '_token = {{ csrf_token() }}',
+      success: function(data) {
+
+        var likes = '?';
+        if (parseFloat(data.likes) > parseFloat(data.likesComp)) {
+          likes =   '<td style="color:green;font-weight:bold"><center>' + data.likes + '</center></td><td style="color:red;font-weight:bold"><center>' + data.likesComp + '</center></td>';
+        } else if (parseFloat(data.likes) < parseFloat(data.likesComp)) {
+          likes =  '<td style="color:red;font-weight:bold"><center>' + data.likes + '</center></td><td style="color:green;font-weight:bold"><center>' + data.likesComp + '</center></td>';
+        } else {
+          likes = '<td style="color:grey;font-weight:bold"><center>' + data.likes + '</center></td><td style="color:grey;font-weight:bold"><center>' + data.likesComp + '</center></td>';
+        }
+
+        var followers = '?';
+        if (parseFloat(data.followers) > parseFloat(data.followersComp)) {
+          followers =   '<td style="color:green;font-weight:bold"><center>' + data.followers + '</center></td><td style="color:red;font-weight:bold"><center>' + data.followersComp + '</center></td>';
+        } else if (parseFloat(data.followers) < parseFloat(data.followersComp)) {
+          followers =  '<td style="color:red;font-weight:bold"><center>' + data.followers + '</center></td><td style="color:green;font-weight:bold"><center>' + data.followersComp + '</center></td>';
+        } else {
+          followers = '<td style="color:grey;font-weight:bold"><center>' + data.followers + '</center></td><td style="color:grey;font-weight:bold"><center>' + data.followersComp + '</center></td>';
+        }
+
+        var tweets = '?';
+        if (parseFloat(data.posts) > parseFloat(data.postsComp)) {
+          tweets =   '<td style="color:green;font-weight:bold"><center>' + data.posts + '</center></td><td style="color:red;font-weight:bold"><center>' + data.postsComp + '</center></td>';
+        } else if (parseFloat(data.posts) < parseFloat(data.postsComp)) {
+          tweets =  '<td style="color:red;font-weight:bold"><center>' + data.posts + '</center></td><td style="color:green;font-weight:bold"><center>' + data.postsComp + '</center></td>';
+        } else {
+          tweets = '<td style="color:grey;font-weight:bold"><center>' + data.posts + '</center></td><td style="color:grey;font-weight:bold"><center>' + data.postsComp + '</center></td>';
+        }
+
+        var retweets = '?';
+        if (parseFloat(data.retweets) > parseFloat(data.retweetsComp)) {
+          retweets =   '<td style="color:green;font-weight:bold"><center>' + data.retweets + '</center></td><td style="color:red;font-weight:bold"><center>' + data.retweetsComp + '</center></td>';
+        } else if (parseFloat(data.retweets) < parseFloat(data.retweetsComp)) {
+          retweets =  '<td style="color:red;font-weight:bold"><center>' + data.retweets + '</center></td><td style="color:green;font-weight:bold"><center>' + data.retweetsComp + '</center></td>';
+        } else {
+          retweets = '<td style="color:grey;font-weight:bold"><center>' + data.retweets + '</center></td><td style="color:grey;font-weight:bold"><center>' + data.retweetsComp + '</center></td>';
+        }
+
+        resultContainer.html(
+          '<div class="card-panel white">' +
+          '<br><hr><h4><center>Tabel Komparasi</center></h4><hr><br>' +
+          '<table class="highlight">' +
+          '<thead>' +
+          '<tr>' +
+          '<th></th>' +
+          '<th style="font-weight:bold"><center>@' + data.accountData[0].screen_name + '<center></th>' +
+          '<th style="font-weight:bold"><center>@' + data.accountDataComp[0].screen_name + '<center></th>' +
+          '</tr>' +
+          '</thead>' +
+
+          '<tbody>' +
+          '<tr>' +
+          '<td>Peningkatan Followers</td>' +
+          followers +
+          '</tr>' +
+          '<tr>' +
+          '<td>Posting Tweet</td>' +
+          tweets +
+          '</tr>' +
+          '<tr>' +
+          '<td>Total Retweet</td>' +
+          retweets +
+          '</tr>' +
+          '<tr>' +
+          '<td>Total Likes</td>' +
+          likes +
+          '</tr>' +
+          '</tbody>' +
+          '</table>' +
+          '<br><hr><h4><center>Detail Komparasi</center></h4><hr><br>' +
+          '<div class="row">' +
+          '<div class="col s12 m6 vertical-divider">' +
+          '<h6 style="font-weight:bold"><center>@' + data.accountData[0].screen_name + '</center></h6>' +
+          '</div>' +
+
+          '<div class="col s12 m6">' +
+          '<h6 style="font-weight:bold"><center>@' + data.accountDataComp[0].screen_name + '</center></h6>' +
+          '</div>' +
+
+          '<div class="col s12 m6 vertical-divider">' +
+          '<div class="card-panel">' +
+          '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Followers<i class="fab fa-twitter right"></i></h5>' +
+          '<hr>' +
+          '<canvas id="followersChart" width="200" height="200"></canvas>' +
+          '</div>' +
+          '</div>' +
+
+          '<div class="col s12 m6">' +
+          '<div class="card-panel">' +
+          '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Followers<i class="fab fa-twitter right"></i></h5>' +
+          '<hr>' +
+          '<canvas id="followersChartComp" width="200" height="200"></canvas>' +
+          '</div>' +
+          '</div>' +
+
+          '<div class="col s12 m6 vertical-divider">' +
+          '<div class="card-panel">' +
+          '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Posting<i class="fab fa-twitter right"></i></h5>' +
+          '<hr>' +
+          '<canvas id="postingChart" width="200" height="200"></canvas>' +
+          '</div>' +
+          '</div>' +
+
+          '<div class="col s12 m6">' +
+          '<div class="card-panel">' +
+          '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Posting<i class="fab fa-twitter right"></i></h5>' +
+          '<hr>' +
+          '<canvas id="postingCompChart" width="200" height="200"></canvas>' +
+          '</div>' +
+          '</div>' +
+
+          '<div class="col s12 m6 vertical-divider">' +
+          '<div class="card-panel">' +
+          '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Retweet<i class="fab fa-twitter right"></i></h5>' +
+          '<hr>' +
+          '<canvas id="retweetChart" width="200" height="200"></canvas>' +
+          '</div>' +
+          '</div>' +
+
+          '<div class="col s12 m6">' +
+          '<div class="card-panel">' +
+          '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Retweet<i class="fab fa-twitter right"></i></h5>' +
+          '<hr>' +
+          '<canvas id="retweetChartComp" width="200" height="200"></canvas>' +
+          '</div>' +
+          '</div>' +
+
+          '<div class="col s12 m6 vertical-divider">' +
+          '<div class="card-panel">' +
+          '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Likes<i class="fab fa-twitter right"></i></h5>' +
+          '<hr>' +
+          '<canvas id="likesChart" width="200" height="200"></canvas>' +
+          '</div>' +
+          '</div>' +
+
+          '<div class="col s12 m6">' +
+          '<div class="card-panel">' +
+          '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Likes<i class="fab fa-twitter right"></i></h5>' +
+          '<hr>' +
+          '<canvas id="likesChartComp" width="200" height="200"></canvas>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>'
+        );
+
+        //Chart
+
+        var followersDay0 = data.followersDay0;
+        var followersDay1 = data.followersDay1;
+        var followersDay2 = data.followersDay2;
+        var followersDay3 = data.followersDay3;
+        var followersDay4 = data.followersDay4;
+        var followersDay5 = data.followersDay5;
+        var followersDay6 = data.followersDay6;
+
+        var ctx = document.getElementById("followersChart");
+        var followersChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ["H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
+            datasets: [{
+              label: '= Jumlah Followers',
+              data: [followersDay6,followersDay5,followersDay4,followersDay3,followersDay2,followersDay1,followersDay0],
+              backgroundColor: [
+                'rgba(0,23,153, 0.2)'
+              ],
+              borderColor: [
+                'rgba(0,23,153,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero:true
+                }
+              }]
+            }
+          }
+        });
+
+        var followersDay0Comp = data.followersDay0Comp;
+        var followersDay1Comp = data.followersDay1Comp;
+        var followersDay2Comp = data.followersDay2Comp;
+        var followersDay3Comp = data.followersDay3Comp;
+        var followersDay4Comp = data.followersDay4Comp;
+        var followersDay5Comp = data.followersDay5Comp;
+        var followersDay6Comp = data.followersDay6Comp;
+
+        var ctx = document.getElementById("followersChartComp");
+        var followersChartComp = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ["H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
+            datasets: [{
+              label: '= Jumlah Followers',
+              data: [followersDay6Comp,followersDay5Comp,followersDay4Comp,followersDay3Comp,followersDay2Comp,followersDay1Comp,followersDay0Comp],
+              backgroundColor: [
+                'rgba(0,23,153,0.2)'
+              ],
+              borderColor: [
+                'rgba(0,23,153,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero:true
+                }
+              }]
+            }
+          }
+        });
+
+        var postingDay0 = data.postingDay0[0].count;
+        var postingDay1 = data.postingDay1[0].count;
+        var postingDay2 = data.postingDay2[0].count;
+        var postingDay3 = data.postingDay3[0].count;
+        var postingDay4 = data.postingDay4[0].count;
+        var postingDay5 = data.postingDay5[0].count;
+        var postingDay6 = data.postingDay6[0].count;
+
+        var ctx = document.getElementById("postingChart");
+        var postingChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ["H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
+            datasets: [{
+              label: '= Jumlah Tweet',
+              data: [postingDay6,postingDay5,postingDay4,postingDay3,postingDay2,postingDay1,postingDay0],
+              backgroundColor: [
+                'rgba(0,255,255, 0.2)'
+              ],
+              borderColor: [
+                'rgba(0,192,255,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero:true
+                }
+              }]
+            }
+          }
+        });
+
+        var postingDay0Comp = data.postingDay0Comp[0].count;
+        var postingDay1Comp = data.postingDay1Comp[0].count;
+        var postingDay2Comp = data.postingDay2Comp[0].count;
+        var postingDay3Comp = data.postingDay3Comp[0].count;
+        var postingDay4Comp = data.postingDay4Comp[0].count;
+        var postingDay5Comp = data.postingDay5Comp[0].count;
+        var postingDay6Comp = data.postingDay6Comp[0].count;
+
+        var ctx = document.getElementById("postingCompChart");
+        var postingCompChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ["H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
+            datasets: [{
+              label: '= Jumlah Tweet',
+              data: [postingDay6Comp,postingDay5Comp,postingDay4Comp,postingDay3Comp,postingDay2Comp,postingDay1Comp,postingDay0Comp],
+              backgroundColor: [
+                'rgba(0,255,255, 0.2)'
+              ],
+              borderColor: [
+                'rgba(0,192,255,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero:true
+                }
+              }]
+            }
+          }
+        });
+
+        var retweetDay0 = data.retweetDay0[0].retwee;
+        var retweetDay1 = data.retweetDay1[0].retweet;
+        var retweetDay2 = data.retweetDay2[0].retweet;
+        var retweetDay3 = data.retweetDay3[0].retweet;
+        var retweetDay4 = data.retweetDay4[0].retweet;
+        var retweetDay5 = data.retweetDay5[0].retweet;
+        var retweetDay6 = data.retweetDay6[0].retweet;
+
+        var ctx = document.getElementById("retweetChart");
+        var retweetChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ["H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
+            datasets: [{
+              label: '= Jumlah Retweet',
+              data: [retweetDay6,retweetDay5,retweetDay4,retweetDay3,retweetDay2,retweetDay1,retweetDay0],
+              backgroundColor: [
+                'rgba(255,0,0, 0.2)'
+              ],
+              borderColor: [
+                'rgba(255,0,0, 0.2)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero:true
+                }
+              }]
+            }
+          }
+        });
+
+        var retweetDay0Comp = data.retweetDay0Comp[0].retweet;
+        var retweetDay1Comp = data.retweetDay1Comp[0].retweet;
+        var retweetDay2Comp = data.retweetDay2Comp[0].retweet;
+        var retweetDay3Comp = data.retweetDay3Comp[0].retweet;
+        var retweetDay4Comp = data.retweetDay4Comp[0].retweet;
+        var retweetDay5Comp = data.retweetDay5Comp[0].retweet;
+        var retweetDay6Comp = data.retweetDay6Comp[0].retweet;
+
+        var ctx = document.getElementById("retweetChartComp");
+        var retweetChartComp = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ["H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
+            datasets: [{
+              label: '= Jumlah Retweet',
+              data: [retweetDay6Comp,retweetDay5Comp,retweetDay4Comp,retweetDay3Comp,retweetDay2Comp,retweetDay1Comp,retweetDay0Comp],
+              backgroundColor: [
+                'rgba(255,0,0, 0.2)'
+              ],
+              borderColor: [
+                'rgba(255,0,0, 0.2)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero:true
+                }
+              }]
+            }
+          }
+        });
+
+        var likesDay0 = data.likesDay0[0].favorite;
+        var likesDay1 = data.likesDay1[0].favorite;
+        var likesDay2 = data.likesDay2[0].favorite;
+        var likesDay3 = data.likesDay3[0].favorite;
+        var likesDay4 = data.likesDay4[0].favorite;
+        var likesDay5 = data.likesDay5[0].favorite;
+        var likesDay6 = data.likesDay6[0].favorite;
+
+        var ctx = document.getElementById("likesChart");
+        var likesChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ["H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
+            datasets: [{
+              label: '= Jumlah Likes',
+              data: [likesDay6,likesDay5,likesDay4,likesDay3,likesDay2,likesDay1,likesDay0],
+              backgroundColor: [
+                'rgba(255,255,0, 0.2)'
+              ],
+              borderColor: [
+                'rgba(255,255,0, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero:true
+                }
+              }]
+            }
+          }
+        });
+
+        var likesDay0Comp = data.likesDay0Comp[0].favorite;
+        var likesDay1Comp = data.likesDay1Comp[0].favorite;
+        var likesDay2Comp = data.likesDay2Comp[0].favorite;
+        var likesDay3Comp = data.likesDay3Comp[0].favorite;
+        var likesDay4Comp = data.likesDay4Comp[0].favorite;
+        var likesDay5Comp = data.likesDay5Comp[0].favorite;
+        var likesDay6Comp = data.likesDay6Comp[0].favorite;
+
+        var ctx = document.getElementById("likesChartComp");
+        var likesChartComp = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ["H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
+            datasets: [{
+              label: '= Jumlah Likes',
+              data: [likesDay6Comp,likesDay5Comp,likesDay4Comp,likesDay3Comp,likesDay2Comp,likesDay1Comp,likesDay0Comp],
+              backgroundColor: [
+                'rgba(255,255,0, 0.2)'
+              ],
+              borderColor: [
+                'rgba(255,255,0, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero:true
+                }
+              }]
+            }
+          }
+        });
+
+        //end Chart
+
+
+      },
+      error: function() {
+        resultContainer.html(
+          '<div class="card red darken-1">' +
+          '<div class="card-content white-text">' +
+          '<p><i class="fas fa-book"></i> Mohon maaf terjadi kesalahan, silahkan coba kembali</p>' +
+          '</div>' +
+          '</div>'
+        );
+        resultContainer.fadeIn(600);
+      }
+
+    });
+  });
+
+</script>
 @endsection

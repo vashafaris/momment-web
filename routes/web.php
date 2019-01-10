@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/', 'DashboardController@index')->name('dashboard');
 
     Route::get('/compare', 'CompareController@index')->name('compare');
+    Route::get('/competitor', 'CompareController@index')->name('competitor');
 
     Route::get('/trends', 'TrendingController@index')->name('trends');
 

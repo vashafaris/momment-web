@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col s12 m12">
         <div class="card-panel background-none z-depth-0">
-          <h5 class="black-text" style="font-weight:200">Profil Akun Twitter</h5>
+          <h5 class="black-text">Profil Akun Twitter</h5>
           <hr>
           <div id="search-result">
 
@@ -14,7 +14,7 @@
       </div>
       <div class="col s12 m12">
         <div class="card-panel  background-none z-depth-0" style="padding-top:0px!important">
-          <h5 class="black-text" style="font-weight:200">Laporan Aktivitas</h5>
+          <h5 class="black-text" >Laporan Aktivitas</h5>
           <hr>
           <div class="row">
             <div class="col s12 m12">
@@ -147,7 +147,7 @@
       </div>
       <div class="col s12 m12">
         <div class="card-panel background-none z-depth-0" style="padding-top:0px">
-          <h5 class="black-text" style="font-weight:200">5 Tweet Terbaik Anda</h5>
+          <h5 class="black-text" >5 Tweet Terbaik Anda</h5>
           <hr>
           <div class="card-panel">
             <div class="row">

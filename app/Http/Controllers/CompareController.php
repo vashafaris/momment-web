@@ -28,7 +28,7 @@ class CompareController extends Controller
        $temp = DB::select('select top 1 * from twitter_accounts_log where twitter_id = ' . $competitorTemp[$i]->competitor_id . ' order by created_at desc');
        $competitors[$i] = $temp[0];
     }
-    return view('contents.compare', [
+    return view('contents.competitor', [
       'account' => Auth::user(),
       'competitors' => $competitors
     ]);
@@ -38,7 +38,7 @@ class CompareController extends Controller
   {
     $competitorTemp = DB::select('select * from twitter_accounts_log where twitter_id = ' . $id);
     $competitor = $competitorTemp[0];
-    return view('contents.competitor', [
+    return view('contents.compare', [
       'account' => Auth::user(),
       'competitor' => $competitor
     ]);
@@ -263,7 +263,7 @@ class CompareController extends Controller
     $postingDay5 = DB::select('select count(*) as count from twitter_tweets where twitter_id = '. Auth::user()->twitterAccount->twitter_id . ' and cast(tweet_created as date) = DATEADD(day, -5, convert(date, GETDATE()))');
     $postingDay6 = DB::select('select count(*) as count from twitter_tweets where twitter_id = '. Auth::user()->twitterAccount->twitter_id . ' and cast(tweet_created as date) = DATEADD(day, -6, convert(date, GETDATE()))');
 
-    
+
 
     $postingDay0Comp = DB::select('select count(*) as count from twitter_tweets where twitter_id = '. $id . ' and cast(tweet_created as date) = DATEADD(day, 0, convert(date, GETDATE()))');
     $postingDay1Comp = DB::select('select count(*) as count from twitter_tweets where twitter_id = '. $id . ' and cast(tweet_created as date) = DATEADD(day, -1, convert(date, GETDATE()))');
