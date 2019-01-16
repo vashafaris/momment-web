@@ -164,6 +164,12 @@
               <div class="chip">
                 Mendapatkan {{$topTweets[0]->retweet_count}} retweet
               </div>
+              <div class="chip">
+                Mendapatkan {{$topTweets[0]->favorite_count}} likes
+              </div>
+              <div class="chip">
+                Mendapatkan {{$topTweets[0]->replies_count}} replies
+              </div>
             </div>
           </div>
           <div class="card-panel">
@@ -180,6 +186,12 @@
               </div>
               <div class="chip">
                 Mendapatkan {{$topTweets[1]->retweet_count}} retweet
+              </div>
+              <div class="chip">
+                Mendapatkan {{$topTweets[1]->favorite_count}} likes
+              </div>
+              <div class="chip">
+                Mendapatkan {{$topTweets[1]->replies_count}} replies
               </div>
             </div>
           </div>
@@ -198,6 +210,12 @@
               <div class="chip">
                 Mendapatkan {{$topTweets[2]->retweet_count}} retweet
               </div>
+              <div class="chip">
+                Mendapatkan {{$topTweets[2]->favorite_count}} likes
+              </div>
+              <div class="chip">
+                Mendapatkan {{$topTweets[2]->replies_count}} replies
+              </div>
             </div>
           </div>
           <div class="card-panel">
@@ -215,6 +233,12 @@
               <div class="chip">
                 Mendapatkan {{$topTweets[3]->retweet_count}} retweet
               </div>
+              <div class="chip">
+                Mendapatkan {{$topTweets[3]->favorite_count}} likes
+              </div>
+              <div class="chip">
+                Mendapatkan {{$topTweets[3]->replies_count}} replies
+              </div>
             </div>
           </div>
           <div class="card-panel">
@@ -231,6 +255,12 @@
               </div>
               <div class="chip">
                 Mendapatkan {{$topTweets[4]->retweet_count}} retweet
+              </div>
+              <div class="chip">
+                Mendapatkan {{$topTweets[4]->favorite_count}} likes
+              </div>
+              <div class="chip">
+                Mendapatkan {{$topTweets[4]->replies_count}} replies
               </div>
             </div>
           </div>

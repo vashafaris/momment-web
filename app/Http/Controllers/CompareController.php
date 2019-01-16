@@ -48,9 +48,12 @@ class CompareController extends Controller
   {
     $result = shell_exec("python " . public_path() . "\API\SearchTwitter.py " . $username);
     $result = json_decode($result);
-    $isEngage = false;
-    if (TwitterAccount::where('twitter_id', '=', $result[0]->user_id)->where('is_competitor', '=' ,'1')->exists()) {
-      $isEngage = true;
+    $isCompetitor = false;
+    $id = Auth::user()->id;
+    $twitter_id =  DB::select('select distinct twitter_id from twitter_accounts where account_id = ' . $id);
+    $check = DB::select('select * from competitor where twitter_id = ' . $twitter_id[0]->twitter_id . ' and competitor_id = ' . $result[0]->user_id);
+    if(!empty($check)) {
+      $isCompetitor = true;
     }
 
     return response()->json(
@@ -59,7 +62,7 @@ class CompareController extends Controller
         'message' => 'success',
         'response' => [
           'profile' => $result,
-          'isEngage' => $isEngage
+          'isEngage' => $isCompetitor
         ]
       ]
     );
@@ -106,6 +109,26 @@ class CompareController extends Controller
       return response()->json([
         'status' => 405,
         'message' => 'gagal menambah kompetitor'
+      ]);
+    }
+  }
+
+  public function deleteAccount($idCompetitor)
+  {
+    $id = Auth::user()->id;
+    $twitter_id =  DB::select('select distinct twitter_id from twitter_accounts where account_id = ' . $id);
+    if($delete = DB::table('competitor')->where([
+      'twitter_id' => $twitter_id[0]->twitter_id,
+      'competitor_id' => $idCompetitor
+    ])->delete()){
+      return response()-> json([
+        'status'=> 200,
+        'message'=> 'competitor has been successfully deleted'
+      ]);
+    } else {
+      return response()->json([
+        'status'=> 401,
+        'message'=> 'failed delete competitor'
       ]);
     }
   }

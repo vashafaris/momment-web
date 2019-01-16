@@ -23,13 +23,12 @@
           @if(count($competitors) > 0)
             @foreach($competitors as $competitor)
               <li class="collection-item avatar">
+                <input type="hidden" value="{{ $competitor->screen_name }}">
                 <img src="{{$competitor->photo_url}}" class="center" style="position:absolute;height: 50px;width: 50px;object-fit: cover;border: 2px solid white;border-radius: 50%;top: 15px;left: 15px;">
                 <span class="title">{{$competitor->name}}</span>
                 <p style="color:grey">@<?php echo $competitor->screen_name?></p>
                 <a href="{{url('compare/id/' . $competitor->twitter_id)}}" class="waves-effect waves-light btn secondary-content" style="background-color:#1b95e0"><i class="material-icons left">info_outline</i>Detail</a>
-                {{-- <a class="waves-effect waves-light btn red secondary-content" style="right:150px"><i class="material-icons left">delete</i>Hapus</a> --}}
-                <a class="waves-effect waves-light btn modal-trigger red secondary-content" href="#modal1" style="right:150px"><i class="material-icons left">delete</i>Hapus</a>
-                {{-- <button data-target="modal1" class="btn modal-trigger waves-effect waves-light red secondary-content" style="right:150px"><i class="material-icons left">delete</i>Hapus</button> --}}
+                <a class="waves-effect waves-light btn modal-trigger red secondary-content delete-confirmation" id="{{$competitor->twitter_id}}"  href="#modal1" style="right:150px"><i class="material-icons left">delete</i>Hapus</a>
               </li>
             @endforeach
           @else
@@ -49,8 +48,8 @@
             <p>Apakah anda yakin untuk menghapus kompetitor ?</p>
           </div>
           <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Tidak</a>
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Ya</a>
+            <a href="#!" class="modal-close waves-effect waves-red btn-flat">Tidak</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat delete-competitor">Ya</a>
           </div>
         </div>
     </div>
@@ -61,10 +60,10 @@
   </div>
 
   <div id="add-competitor-container" style="display:none">
-    <div class="card-panel ">
-      <h5 class="center black-text">Tambahkan Kompetitor</h5>
+    <div class="card-panel background-none z-depth-0">
+      <h5 class="black-text">Tambahkan Kompetitor</h5>
       <hr>
-      <div class="row">
+      <div class="row z-depth-1" style="background-color:white">
         <div class="input-field col s10 m10 l10">
           <i class="material-icons prefix ">account_circle</i>
           <input id="username-twitter" type="text" class="validate" >
@@ -176,6 +175,48 @@
 
 @section('custom-script')
   <script>
+
+  $('.delete-confirmation').on('click', function () {
+    var selectedObj = $(this), resultContainer;
+    // var id = $(selectedObj).parentElement();
+    competitor_id = selectedObj[0].id;
+    console.log(selectedObj[0].id);
+    console.log("testing");
+    $('.delete-competitor').on('click', function () {
+      console.log(competitor_id);
+      $.ajax({
+        type: 'GET',
+        url: '{{ url('/compare/delete') . '/' }}' + competitor_id,
+        data: '_token = {{ csrf_token() }}',
+        success: function (data) {
+          console.log(data);
+          if (data.status === 200) {
+            $('.modal1').modal();
+            $('#delete-confirmation .modal-content3').html('<center><p>Competitor deleted</p></center>');
+            $('#delete-confirmation #delete-confirmation-yes').hide();
+            $('#delete-confirmation #delete-confirmation-no').html('OK');
+            $('#delete-confirmation').modal('open');
+            window.location.reload();
+          } else {
+            $('.modal1').modal();
+            $('#delete-confirmation .modal-content3').html('<p>Im sorry, the wizard might be sick, try again later.</p>');
+            $('#delete-confirmation #delete-confirmation-yes').hide();
+            $('#delete-confirmation #delete-confirmation-no').html('OK');
+            $('#delete-confirmation').modal('open');
+            window.location.reload();
+          }
+        },
+        error: function () {
+          $('.modal1').modal();
+          $('#delete-confirmation .modal-content3').html('<p>Im sorry, the wizard might be sick, try again later.</p>');
+          $('#delete-confirmation #delete-confirmation-yes').hide();
+          $('#delete-confirmation #delete-confirmation-no').html('OK');
+          $('#delete-confirmation').modal('open');
+          window.location.reload();
+        }
+      });
+    });
+  });
 
   $(document).ready(function(){
     document.getElementById("header").innerHTML = "Kompetitor";

@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/compare/search/{username}', 'CompareController@search');
     Route::get('/compare/add/{username}', 'CompareController@addAccount');
+    Route::get('/compare/delete/{competitor_id}', 'CompareController@deleteAccount');
     Route::get('/compare/id/{id}', 'CompareController@compare');
     Route::get('/compare/showCompetitor/{id}', 'CompareController@showCompetitorAccount');
     Route::get('/compare/showComparison/{id}', 'CompareController@showComparisonAccount');
