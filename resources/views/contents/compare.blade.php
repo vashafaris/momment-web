@@ -188,7 +188,7 @@
           resultContainer.html(
             '<div class="card red darken-1">' +
             '<div class="card-content white-text">' +
-            '<p><i class="fas fa-book"></i> Mohon maaf terjadi kesalahan, silahkan coba kembali</p>' +
+            '<p><i class="fas fa-book"></i> Mohon maaf data sedang kami kumpulkan, silahkan coba kembali besok</p>' +
             '</div>' +
             '</div>'
           );
@@ -707,7 +707,7 @@
           resultContainer.html(
             '<div class="card red darken-1">' +
             '<div class="card-content white-text">' +
-            '<p><i class="fas fa-book"></i> Mohon maaf terjadi kesalahan, silahkan coba kembali</p>' +
+            '<p><i class="fas fa-book"></i>  Mohon maaf data sedang kami kumpulkan, silahkan coba kembali besok</p>' +
             '</div>' +
             '</div>'
           );

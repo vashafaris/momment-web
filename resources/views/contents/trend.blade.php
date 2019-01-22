@@ -1,4 +1,4 @@
-@extends('layouts.main')
+{{-- @extends('layouts.main')
 
 @section('content')
     <section>
@@ -15,9 +15,6 @@
                       <h5 class="center black-text">{{$trend->trend}}</h5>
                       <hr>
                       <div>
-                        {{-- <div>
-                          <h6 style="color:grey">testing</h6>
-                        </div> --}}
                         <div class="carousel">
                           @foreach ($twitterDetails as $detail)
                             @if($detail->id_to_trending == $trend->id_to_details)
@@ -212,4 +209,4 @@ $( document ).ready(function() {
       });
     // }
     </script>
-@endsection
+@endsection --}}

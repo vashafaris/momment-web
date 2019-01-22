@@ -63,14 +63,14 @@
     <div class="card-panel background-none z-depth-0">
       <h5 class="black-text">Tambahkan Kompetitor</h5>
       <hr>
-      <div class="row z-depth-1" style="background-color:white">
-        <div class="input-field col s10 m10 l10">
+      <div class="row z-depth-1" style="background-color:white;margin-left:0px;margin-right:0px">
+        <div class="input-field col s10 m10 l11">
           <i class="material-icons prefix ">account_circle</i>
           <input id="username-twitter" type="text" class="validate" >
           <label for="icon_prefix">Username Twitter</label>
         </div>
-        <div class="col s2 m2 l2">
-          <div class="waves-effect waves-light btn white" id="btn-search" onCLick="search()" style="margin-top:20px;margin-left:20px"><i class="fas fa-search" style="color:black;"></i></div>
+        <div class="col s2 m2 l1">
+          <div class="waves-effect waves-light btn" id="btn-search" onCLick="search()" style="margin-top:20px;"><i class="fas fa-search" style="color:white;"></i></div>
         </div>
       </div>
       <div id="search-result">

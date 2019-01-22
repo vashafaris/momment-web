@@ -3,92 +3,46 @@
 @section('content')
   <section>
     <div class="row">
-      <div class="col s12 m12">
-        <div class="card-panel background1">
-          <h5 class="center white-text">Trending Topik Hari Ini</h5>
-          <hr>
-          <div class="row">
-            <div class="col s12 m12">
-              <div class="card-panel white">
-                
-                @if(count($twitterTrend) > 0)
-                  <ul class="collapsible">
-                    @foreach($twitterTrend as $trend)
-                      <li>
-                        <div class="collapsible-header"><i class="fab fa-twitter" style="color:#0084b4"></i>{{$trend->trend}}</div>
-                        <div class="collapsible-body">
-                          @foreach($twitterDetails as $detail)
-                            @if($detail->id_to_trending == $trend->id_to_details)
-
-                              <div class="row">
-
-                                <div class="col s1">
-
-                                </div>
-                                <div class="col s10">
-                                  <img src="{{$detail->photo_url}}" class="center" style="height: 50px;width: 50px;object-fit: cover;border: 2px solid white;border-radius: 50%;top: 70px;left: 24px;">
-                                  <span style="top:10px">{{htmlentities($detail->name)}}</span>
-                                  <span style="color:grey;font-size:10px">({{$detail->username}})</span><br><br>
-                                  @if(!empty($detail->tweet_pic))
-                                    <img src="{{$detail->tweet_pic}}" style="max-width:90%;max-height:80%;object-fit: cover;margin: 0 auto;">
-                                  @endif
-                                  <blockquote><i class="fas fa-quote-right fa-xs"></i> {{strval($detail->tweet)}} <i class="fas fa-quote-left fa-xs"></i></blockquote>
-                                </div>
-                              </div>
-                              <hr>
-                            @endif
-                          @endforeach
-                        </div>
-                      </li>
-                    @endforeach
-                    {{-- <li>
-                    <div class="collapsible-header">
-                    <img src="{{$detail->photo_url}}" class="center" style="height: 40px;width: 40px;object-fit: cover;border: 2px solid white;border-radius: 50%;top: 70px;left: 24px;">
-                    <span>@if($detail->id_to_trending == $trend->id_to_details) {{$detail->name}}@endif</span>&nbsp;<span style="color:grey">@if($detail->id_to_trending == $trend->id_to_details){{$detail->username}}@endif</span>
-                  </div>
-                  <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                </li> --}}
-              </ul>
-            @endif
-            {{-- <div class="carousel carousel-slider center"> --}}
-            {{-- <div class="carousel-fixed-item center">
-            {{-- <a class="btn waves-effect white grey-text darken-text-2">button</a> --}}
-            {{-- </div> --}}
-            {{-- @if(count($twitterTrend) > 0) --}}
-            {{-- @foreach ($twitterTrend as $trend)
-            <div class="carousel-item white black-text">
-            <h2>{{$trend->trend}}</h2>
-            <ul class="collapsible">
-            @foreach ($twitterDetails as $detail)
-            @if($detail->id_to_trending == $trend->id_to_details)
-            <li>
-            <div class="collapsible-header">
-            <img src="{{$detail->photo_url}}" class="center" style="height: 40px;width: 40px;object-fit: cover;border: 2px solid white;border-radius: 50%;top: 70px;left: 24px;">
-            <span>@if($detail->id_to_trending == $trend->id_to_details) {{$detail->name}}@endif</span>&nbsp;<span style="color:grey">@if($detail->id_to_trending == $trend->id_to_details){{$detail->username}}@endif</span>
-          </div>
-          <div class="collapsible-body">
-          <img src="{{$detail->tweet_pic}}" class="center" style="height: 300px;width: 300px;object-fit: cover;"><br>
-          <span>vasha farisi sarwan halim</span>
-        </div>
-      @endif
-    @endforeach
-  </li>
-</ul>
-</div>
-@endforeach --}}
-{{-- @endif --}}
-</div>
+      <div class="card-panel">
 
 
-</div>
-</div>
-
-
-</div>
-</div>
-</div>
-</div>
-</section>
+        @if(count($twitterTrend) > 0)
+          <ul class="collapsible">
+            @foreach($twitterTrend as $trend)
+              <li><div class="collapsible-header"><i class="fab fa-twitter" style="color:#0084b4"></i>{{$trend->trend}}</div>
+                <div class="collapsible-body">
+                  @foreach($twitterDetails as $detail)
+                    @if($detail->id_trend== $trend->id_trend)
+                      <div class="row">
+                      <div class="col m2">
+                        <center><img src="{{$detail->photo_url}}" style="height: 75px;width: 75px;object-fit: cover;border: 2px solid white;border-radius: 50%;"></center>
+                      </div>
+                      <div class="col m10">
+                        <span>{{$detail->name}}</span><span style="color:grey">&nbsp;(@</span><span style="color:grey">{{$detail->screen_name}}</span><span style="color:grey">)</span>
+                        <blockquote><i class="fas fa-quote-left"></i> {{$detail->tweet}} <i class="fas fa-quote-right"></i></blockquote>
+                        <center><img class="responsive-img materialboxed" src="{{$detail->tweet_pic}}"></center>
+                        <br>
+                      </div>
+                      <div class="chip">
+                        Mendapatkan {{$detail->retweet_count}} retweet
+                      </div>
+                      <div class="chip">
+                        Mendapatkan {{$detail->favorite_count}} likes
+                      </div>
+                      <div class="chip">
+                        Mendapatkan {{$detail->replies_count}} replies
+                      </div>
+                    </div>
+                    @endif
+                  @endforeach
+                </div>
+              </li>
+            @endforeach
+          </ul>
+        @endif
+      </div>
+    </div>
+  </section>
 @endsection
 
 @section('custom-style')
