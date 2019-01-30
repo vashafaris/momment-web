@@ -78,7 +78,6 @@ class EngageController extends Controller
     $twitterAccountLog->location = $response[0]->location;
     $twitterAccountLog->created = $response[0]->created;
     if($twitterAccount->save() && $twitterAccountLog->save()){
-      $update = shell_exec("python " . public_path() . "\API\UpdateTweetAndLog.py");
       return response()->json([
         'status' =>200,
         'message' => 'berhasil menyambungkan akun'

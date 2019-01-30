@@ -304,7 +304,7 @@
 
             '<div class="col s12 m6 vertical-divider">' +
             '<div class="card-panel">' +
-            '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Followers<i class="fab fa-twitter right"></i></h5>' +
+            '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Peningkatan Followers<i class="fab fa-twitter right"></i></h5>' +
             '<hr>' +
             '<canvas id="followersChart" width="200" height="200"></canvas>' +
             '</div>' +
@@ -312,7 +312,7 @@
 
             '<div class="col s12 m6">' +
             '<div class="card-panel">' +
-            '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Followers<i class="fab fa-twitter right"></i></h5>' +
+            '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Peningkatan Followers<i class="fab fa-twitter right"></i></h5>' +
             '<hr>' +
             '<canvas id="followersChartComp" width="200" height="200"></canvas>' +
             '</div>' +
@@ -378,25 +378,18 @@
           var followersDay4 = data.followersDay4;
           var followersDay5 = data.followersDay5;
           var followersDay6 = data.followersDay6;
+          var followersDay7 = data.followersDay7;
 
           var ctx = document.getElementById("followersChart");
           var followersChart = new Chart(ctx, {
             type: 'line',
             data: {
-              labels: ["H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
+              labels: ["H - 7", "H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
               datasets: [{
-                label: '= Jumlah Followers',
-                data: [followersDay6,followersDay5,followersDay4,followersDay3,followersDay2,followersDay1,followersDay0],
+                label: '= Jumlah Peningkatan Followers',
+                data: [followersDay7, followersDay6,followersDay5,followersDay4,followersDay3,followersDay2,followersDay1,followersDay0],
                 backgroundColor: [
                   'rgba(0,23,153, 0.2)'
-                ],
-                borderColor: [
-                  'rgba(0,23,153,1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
                 ],
                 borderWidth: 1
               }]
@@ -419,25 +412,18 @@
           var followersDay4Comp = data.followersDay4Comp;
           var followersDay5Comp = data.followersDay5Comp;
           var followersDay6Comp = data.followersDay6Comp;
+          var followersDay7Comp = data.followersDay7Comp;
 
           var ctx = document.getElementById("followersChartComp");
           var followersChartComp = new Chart(ctx, {
             type: 'line',
             data: {
-              labels: ["H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
+              labels: ["H - 7", "H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
               datasets: [{
-                label: '= Jumlah Followers',
-                data: [followersDay6Comp,followersDay5Comp,followersDay4Comp,followersDay3Comp,followersDay2Comp,followersDay1Comp,followersDay0Comp],
+                label: '= Jumlah Peningkatan Followers',
+                data: [followersDay7Comp, followersDay6Comp,followersDay5Comp,followersDay4Comp,followersDay3Comp,followersDay2Comp,followersDay1Comp,followersDay0Comp],
                 backgroundColor: [
                   'rgba(0,23,153,0.2)'
-                ],
-                borderColor: [
-                  'rgba(0,23,153,1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
                 ],
                 borderWidth: 1
               }]
@@ -453,32 +439,25 @@
             }
           });
 
-          var postingDay0 = data.postingDay0[0].count;
-          var postingDay1 = data.postingDay1[0].count;
-          var postingDay2 = data.postingDay2[0].count;
-          var postingDay3 = data.postingDay3[0].count;
-          var postingDay4 = data.postingDay4[0].count;
-          var postingDay5 = data.postingDay5[0].count;
-          var postingDay6 = data.postingDay6[0].count;
+          var postingDay0 = data.postingDay0;
+          var postingDay1 = data.postingDay1;
+          var postingDay2 = data.postingDay2;
+          var postingDay3 = data.postingDay3;
+          var postingDay4 = data.postingDay4;
+          var postingDay5 = data.postingDay5;
+          var postingDay6 = data.postingDay6;
+          var postingDay7 = data.postingDay7;
 
           var ctx = document.getElementById("postingChart");
           var postingChart = new Chart(ctx, {
             type: 'line',
             data: {
-              labels: ["H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
+              labels: ["H - 7", "H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
               datasets: [{
                 label: '= Jumlah Tweet',
-                data: [postingDay6,postingDay5,postingDay4,postingDay3,postingDay2,postingDay1,postingDay0],
+                data: [postingDay7, postingDay6,postingDay5,postingDay4,postingDay3,postingDay2,postingDay1,postingDay0],
                 backgroundColor: [
                   'rgba(0,255,255, 0.2)'
-                ],
-                borderColor: [
-                  'rgba(0,192,255,1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
                 ],
                 borderWidth: 1
               }]
@@ -494,32 +473,25 @@
             }
           });
 
-          var postingDay0Comp = data.postingDay0Comp[0].count;
-          var postingDay1Comp = data.postingDay1Comp[0].count;
-          var postingDay2Comp = data.postingDay2Comp[0].count;
-          var postingDay3Comp = data.postingDay3Comp[0].count;
-          var postingDay4Comp = data.postingDay4Comp[0].count;
-          var postingDay5Comp = data.postingDay5Comp[0].count;
-          var postingDay6Comp = data.postingDay6Comp[0].count;
+          var postingDay0Comp = data.postingDay0Comp;
+          var postingDay1Comp = data.postingDay1Comp;
+          var postingDay2Comp = data.postingDay2Comp;
+          var postingDay3Comp = data.postingDay3Comp;
+          var postingDay4Comp = data.postingDay4Comp;
+          var postingDay5Comp = data.postingDay5Comp;
+          var postingDay6Comp = data.postingDay6Comp;
+          var postingDay7Comp = data.postingDay7Comp;
 
           var ctx = document.getElementById("postingCompChart");
           var postingCompChart = new Chart(ctx, {
             type: 'line',
             data: {
-              labels: ["H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
+              labels: ["H - 7", "H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
               datasets: [{
                 label: '= Jumlah Tweet',
-                data: [postingDay6Comp,postingDay5Comp,postingDay4Comp,postingDay3Comp,postingDay2Comp,postingDay1Comp,postingDay0Comp],
+                data: [postingDay7Comp, postingDay6Comp,postingDay5Comp,postingDay4Comp,postingDay3Comp,postingDay2Comp,postingDay1Comp,postingDay0Comp],
                 backgroundColor: [
                   'rgba(0,255,255, 0.2)'
-                ],
-                borderColor: [
-                  'rgba(0,192,255,1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
                 ],
                 borderWidth: 1
               }]
@@ -535,32 +507,25 @@
             }
           });
 
-          var retweetDay0 = data.retweetDay0[0].retwee;
-          var retweetDay1 = data.retweetDay1[0].retweet;
-          var retweetDay2 = data.retweetDay2[0].retweet;
-          var retweetDay3 = data.retweetDay3[0].retweet;
-          var retweetDay4 = data.retweetDay4[0].retweet;
-          var retweetDay5 = data.retweetDay5[0].retweet;
-          var retweetDay6 = data.retweetDay6[0].retweet;
+          var retweetDay0 = data.retweetDay0;
+          var retweetDay1 = data.retweetDay1;
+          var retweetDay2 = data.retweetDay2;
+          var retweetDay3 = data.retweetDay3;
+          var retweetDay4 = data.retweetDay4;
+          var retweetDay5 = data.retweetDay5;
+          var retweetDay6 = data.retweetDay6;
+          var retweetDay7 = data.retweetDay7;
 
           var ctx = document.getElementById("retweetChart");
           var retweetChart = new Chart(ctx, {
             type: 'line',
             data: {
-              labels: ["H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
+              labels: ["H - 7", "H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
               datasets: [{
                 label: '= Jumlah Retweet',
-                data: [retweetDay6,retweetDay5,retweetDay4,retweetDay3,retweetDay2,retweetDay1,retweetDay0],
+                data: [retweetDay7, retweetDay6,retweetDay5,retweetDay4,retweetDay3,retweetDay2,retweetDay1,retweetDay0],
                 backgroundColor: [
                   'rgba(255,0,0, 0.2)'
-                ],
-                borderColor: [
-                  'rgba(255,0,0, 0.2)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
                 ],
                 borderWidth: 1
               }]
@@ -576,32 +541,25 @@
             }
           });
 
-          var retweetDay0Comp = data.retweetDay0Comp[0].retweet;
-          var retweetDay1Comp = data.retweetDay1Comp[0].retweet;
-          var retweetDay2Comp = data.retweetDay2Comp[0].retweet;
-          var retweetDay3Comp = data.retweetDay3Comp[0].retweet;
-          var retweetDay4Comp = data.retweetDay4Comp[0].retweet;
-          var retweetDay5Comp = data.retweetDay5Comp[0].retweet;
-          var retweetDay6Comp = data.retweetDay6Comp[0].retweet;
+          var retweetDay0Comp = data.retweetDay0Comp;
+          var retweetDay1Comp = data.retweetDay1Comp;
+          var retweetDay2Comp = data.retweetDay2Comp;
+          var retweetDay3Comp = data.retweetDay3Comp;
+          var retweetDay4Comp = data.retweetDay4Comp;
+          var retweetDay5Comp = data.retweetDay5Comp;
+          var retweetDay6Comp = data.retweetDay6Comp;
+          var retweetDay7Comp = data.retweetDay7Comp;
 
           var ctx = document.getElementById("retweetChartComp");
           var retweetChartComp = new Chart(ctx, {
             type: 'line',
             data: {
-              labels: ["H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
+              labels: ["H - 7", "H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
               datasets: [{
                 label: '= Jumlah Retweet',
-                data: [retweetDay6Comp,retweetDay5Comp,retweetDay4Comp,retweetDay3Comp,retweetDay2Comp,retweetDay1Comp,retweetDay0Comp],
+                data: [retweetDay7Comp, retweetDay6Comp,retweetDay5Comp,retweetDay4Comp,retweetDay3Comp,retweetDay2Comp,retweetDay1Comp,retweetDay0Comp],
                 backgroundColor: [
                   'rgba(255,0,0, 0.2)'
-                ],
-                borderColor: [
-                  'rgba(255,0,0, 0.2)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
                 ],
                 borderWidth: 1
               }]
@@ -617,32 +575,25 @@
             }
           });
 
-          var likesDay0 = data.likesDay0[0].favorite;
-          var likesDay1 = data.likesDay1[0].favorite;
-          var likesDay2 = data.likesDay2[0].favorite;
-          var likesDay3 = data.likesDay3[0].favorite;
-          var likesDay4 = data.likesDay4[0].favorite;
-          var likesDay5 = data.likesDay5[0].favorite;
-          var likesDay6 = data.likesDay6[0].favorite;
+          var likesDay0 = data.likesDay0;
+          var likesDay1 = data.likesDay1;
+          var likesDay2 = data.likesDay2;
+          var likesDay3 = data.likesDay3;
+          var likesDay4 = data.likesDay4;
+          var likesDay5 = data.likesDay5;
+          var likesDay6 = data.likesDay6;
+          var likesDay7 = data.likesDay7;
 
           var ctx = document.getElementById("likesChart");
           var likesChart = new Chart(ctx, {
             type: 'line',
             data: {
-              labels: ["H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
+              labels: ["H - 7","H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
               datasets: [{
                 label: '= Jumlah Likes',
-                data: [likesDay6,likesDay5,likesDay4,likesDay3,likesDay2,likesDay1,likesDay0],
+                data: [likesDay7,likesDay6,likesDay5,likesDay4,likesDay3,likesDay2,likesDay1,likesDay0],
                 backgroundColor: [
                   'rgba(255,255,0, 0.2)'
-                ],
-                borderColor: [
-                  'rgba(255,255,0, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
                 ],
                 borderWidth: 1
               }]
@@ -658,32 +609,25 @@
             }
           });
 
-          var likesDay0Comp = data.likesDay0Comp[0].favorite;
-          var likesDay1Comp = data.likesDay1Comp[0].favorite;
-          var likesDay2Comp = data.likesDay2Comp[0].favorite;
-          var likesDay3Comp = data.likesDay3Comp[0].favorite;
-          var likesDay4Comp = data.likesDay4Comp[0].favorite;
-          var likesDay5Comp = data.likesDay5Comp[0].favorite;
-          var likesDay6Comp = data.likesDay6Comp[0].favorite;
+          var likesDay0Comp = data.likesDay0Comp;
+          var likesDay1Comp = data.likesDay1Comp;
+          var likesDay2Comp = data.likesDay2Comp;
+          var likesDay3Comp = data.likesDay3Comp;
+          var likesDay4Comp = data.likesDay4Comp;
+          var likesDay5Comp = data.likesDay5Comp;
+          var likesDay6Comp = data.likesDay6Comp;
+          var likesDay7Comp = data.likesDay7Comp;
 
           var ctx = document.getElementById("likesChartComp");
           var likesChartComp = new Chart(ctx, {
             type: 'line',
             data: {
-              labels: ["H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
+              labels: ["H - 7", "H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
               datasets: [{
                 label: '= Jumlah Likes',
-                data: [likesDay6Comp,likesDay5Comp,likesDay4Comp,likesDay3Comp,likesDay2Comp,likesDay1Comp,likesDay0Comp],
+                data: [likesDay7Comp,likesDay6Comp,likesDay5Comp,likesDay4Comp,likesDay3Comp,likesDay2Comp,likesDay1Comp,likesDay0Comp],
                 backgroundColor: [
                   'rgba(255,255,0, 0.2)'
-                ],
-                borderColor: [
-                  'rgba(255,255,0, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
                 ],
                 borderWidth: 1
               }]

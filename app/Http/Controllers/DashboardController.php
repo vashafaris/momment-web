@@ -48,8 +48,10 @@ class DashboardController extends Controller
       $like = DB::select('select SUM(favorite_count) as favorite FROM twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\'');
       $avgLikes = $like[0]->favorite/7;
 
-      $topTweets = DB::select('select top 5 * FROM twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\' order by retweet_count desc ');
-      $topLikes = DB::select('select top 5 * FROM twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\' order by favorite_count desc ');
+      $topTweets = DB::select('select top 5 * FROM twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\' order by recommendation desc ');
+      //
+      // $topTweets = shell_exec("python D:\wp3.py");
+      // dd($topTweets);
 
       $competitor = DB::select('select competitor_id as competitor_id from competitor where twitter_id = ' . Auth::user()->twitterAccount->twitter_id);
       $postingComp = 0;
@@ -95,6 +97,21 @@ class DashboardController extends Controller
 
       $temp = DB::select('select top 1 * from twitter_accounts_log where twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\' order by created_at desc' );
       $twitter_account_log = $temp[0];
+
+      $positiveSentiment = DB::select(' select count(twitter_replies.replies_id) as count from twitter_replies join twitter_tweets on twitter_replies.tweet_id = twitter_tweets.tweet_id where twitter_id = \''. Auth::user()->twitterAccount->twitter_id .'\'  and twitter_replies.sentiment = \'positif\'');
+      $negativeSentiment = DB::select(' select count(twitter_replies.replies_id) as count from twitter_replies join twitter_tweets on twitter_replies.tweet_id = twitter_tweets.tweet_id where twitter_id = \''. Auth::user()->twitterAccount->twitter_id .'\'  and twitter_replies.sentiment = \'negatif\'');
+      $neutralSentiment = DB::select(' select count(twitter_replies.replies_id) as count from twitter_replies join twitter_tweets on twitter_replies.tweet_id = twitter_tweets.tweet_id where twitter_id = \''. Auth::user()->twitterAccount->twitter_id .'\'  and twitter_replies.sentiment = \'netral\'');
+
+      $totalSentiment = $positiveSentiment[0]->count + $negativeSentiment[0]->count + $neutralSentiment[0]->count;
+      if ($totalSentiment > 0) {
+      $positiveSentiment = $positiveSentiment[0]->count / $totalSentiment * 100;
+      $negativeSentiment = $negativeSentiment[0]->count / $totalSentiment * 100;
+      $neutralSentiment = $neutralSentiment[0]->count / $totalSentiment * 100;
+    } else {
+      $postivieSentiment = 0;
+      $negativeSentiment = 0;
+      $neutralSentiment = 0;
+    }
       return view('contents.dashboard', [
         'account' => Auth::user(),
         'postingDay0' => $postingDay0,
@@ -113,9 +130,12 @@ class DashboardController extends Controller
         'avgRetweetsComp' => round($avgRetweetsComp),
         'avgLikesComp' =>round($avgLikesComp),
         'topTweets' => $topTweets,
-        'topLikes' => $topLikes,
         'recommended1' => $recommended1,
-        'twitter_account_log' => $twitter_account_log
+        'twitter_account_log' => $twitter_account_log,
+        'positiveSentiment' => round($positiveSentiment,2),
+        'negativeSentiment' => round($negativeSentiment,2),
+        'neutralSentiment' => round($neutralSentiment,2),
+        'totalSentiment' => $totalSentiment
       ]);
     }
 

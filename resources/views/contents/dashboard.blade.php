@@ -18,11 +18,19 @@
           <hr>
           <div class="row">
             <div class="col s12 m12">
-              <div class="card-panel">
-                <h5 class="black-text" style="font-size:16px;font-weight:200">Rekomendasi<i class="fas fa-lightbulb right"></i></h5>
+              <div class="card-panel background-recommendation white-text">
+                <h5 style="font-size:16px;font-weight:200">Rekomendasi<i class="fas fa-lightbulb right"></i></h5>
                 <hr>
                 <div class="row">
-                  <div class="col m8 offset-m4">
+                  <div class="col m4 center vertical-divider">
+                      <br>
+                      <i class="far fa-frown" style="color:white;font-size:120px"></i>
+                      <br>
+                      <br>
+
+                  </div>
+                  <div class="col m8">
+                    <br>
                     <span style="display:{{$recommended1}}"><i class="fas fa-lightbulb"></i> Posting tweet hari ini</span><br>
                     <span><i class="fas fa-lightbulb"></i> Sebaiknya hari ini anda post 2 tweet lagi</span><br>
                     <span><i class="fas fa-lightbulb"></i> Menanggapi mention masuk kepada anda</span><br>
@@ -119,32 +127,24 @@
                 </div>
               </div>
             </div>
+
+            @if($totalSentiment > 0)
             <div class="col s12 m12">
               <div class="card-panel">
                 <h5 class="black-text" style="font-size:16px;font-weight:200">Analisis Sentimen<i class="fas fa-comments right"></i></h5>
                 <hr>
                 <center><canvas id="chartSentiment"></canvas></center>
+                <span class="right" style="font-weight:200">* angka dalam persen</span>
+                <br>
               </div>
             </div>
-            {{-- <div class="col s12 m6">
-              <div class="card-panel">
-                <h5 class="black-text" style="font-size:16px;font-weight:200">Analisis Sentimen Positif<i class="fas fa-comments right"></i></h5>
-                <hr>
-                <center style="top:20px"><span style="font-size:70px;color:#F49227;top:20px">70
-                </span><span style="font-size:40px;color:#F49227;">%</span></center>
-              </div>
-            </div>
-            <div class="col s12 m6">
-              <div class="card-panel">
-                <h5 class="black-text" style="font-size:16px;font-weight:200">Analisis Sentimen Negatif<i class="fas fa-comments right"></i></h5>
-                <hr>
-                <center style="top:20px"><span style="font-size:70px;color:#F49227;top:20px">30
-                </span><span style="font-size:40px;color:#F49227;">%</span></center>
-              </div>
-            </div> --}}
+          @endif
           </div>
         </div>
       </div>
+
+      @if(!empty($topTweets[0]->retweet_count))
+
       <div class="col s12 m12">
         <div class="card-panel background-none z-depth-0" style="padding-top:0px">
           <h5 class="black-text" >5 Tweet Terbaik Anda</h5>
@@ -172,6 +172,9 @@
               </div>
             </div>
           </div>
+
+          @if(!empty($topTweets[1]->retweet_count))
+
           <div class="card-panel">
             <div class="row">
               <div class="col m2">
@@ -195,6 +198,12 @@
               </div>
             </div>
           </div>
+
+        @endif
+
+
+        @if(!empty($topTweets[2]->retweet_count))
+
           <div class="card-panel">
             <div class="row">
               <div class="col m2">
@@ -218,6 +227,12 @@
               </div>
             </div>
           </div>
+
+        @endif
+
+
+        @if(!empty($topTweets[3]->retweet_count))
+
           <div class="card-panel">
             <div class="row">
               <div class="col m2">
@@ -241,6 +256,11 @@
               </div>
             </div>
           </div>
+
+        @endif
+
+
+          @if(!empty($topTweets[4]->retweet_count))
           <div class="card-panel">
             <div class="row">
               <div class="col m2">
@@ -264,8 +284,14 @@
               </div>
             </div>
           </div>
+
+        @endif
+
         </div>
       </div>
+
+    @endif
+
     </div>
     @php
 
@@ -334,6 +360,10 @@
     background: linear-gradient(to right, #FF4B2B, #FF416C); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
 
+  .background-recommendation {
+  background: linear-gradient(to right, #159957, #155799);
+  }
+
   .background-none {
     background: none;
   }
@@ -341,6 +371,10 @@
   .responsive-img {
     max-height: 400px;
     border-radius: 5%;
+  }
+
+  .vertical-divider {
+      border-right: 2px solid #AAAAAA;
   }
 
   </style>
@@ -359,21 +393,22 @@
 
     var ctx = document.getElementById("chartSentiment");
     var myChart = new Chart(ctx, {
-      type: 'pie',
+      type: 'doughnut',
       data: {
         labels: [
-          'Red',
-          'Yellow',
-          'Blue'
+          'Positif',
+          'Negatif',
+          'Netral'
         ],
         datasets: [{
-          data: [10, 20, 30]
+          label: 'Percentage',
+          data: [{{$positiveSentiment}}, {{$negativeSentiment}}, {{$neutralSentiment}}],
+          backgroundColor: [
+            "#27c24c",
+            "#ff6384",
+            "#9E9E9E",
+          ]
         }],
-        borderColor: [
-          'rgba(0,23,153,1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-        ]
       }
     });
   });
