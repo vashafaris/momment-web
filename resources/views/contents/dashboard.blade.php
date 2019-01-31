@@ -24,12 +24,13 @@
                 <div class="row">
                   <div class="col m4 center vertical-divider">
                       <br>
-                      <i class="far fa-frown" style="color:white;font-size:120px"></i>
+                      <i class="{{$insightIcon}}" style="color:white;font-size:120px"></i>
                       <br>
                       <br>
+                      <span>{{$insightText}}</span>
 
                   </div>
-                  <div class="col m8">
+                  <div class="col m7 offset-m1">
                     <br>
                     <span style="display:{{$recommended1}}"><i class="fas fa-lightbulb"></i> Posting tweet hari ini</span><br>
                     <span><i class="fas fa-lightbulb"></i> Sebaiknya hari ini anda post 2 tweet lagi</span><br>

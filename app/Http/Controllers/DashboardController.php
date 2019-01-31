@@ -25,16 +25,6 @@ class DashboardController extends Controller
         'account' => Auth::user()
       ]);
     } else {
-
-      $postingDay0 = DB::select('select count(*) as count from twitter_tweets where twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\' and cast(tweet_created as date) = DATEADD(day, 0, convert(date, GETDATE()))');
-      $postingDay1 = DB::select('select count(*) as count from twitter_tweets where twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\' and cast(tweet_created as date) = DATEADD(day, -1, convert(date, GETDATE()))');
-      $postingDay2 = DB::select('select count(*) as count from twitter_tweets where twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\' and cast(tweet_created as date) = DATEADD(day, -2, convert(date, GETDATE()))');
-      $postingDay3 = DB::select('select count(*) as count from twitter_tweets where twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\' and cast(tweet_created as date) = DATEADD(day, -3, convert(date, GETDATE()))');
-      $postingDay4 = DB::select('select count(*) as count from twitter_tweets where twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\' and cast(tweet_created as date) = DATEADD(day, -4, convert(date, GETDATE()))');
-      $postingDay5 = DB::select('select count(*) as count from twitter_tweets where twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\' and cast(tweet_created as date) = DATEADD(day, -5, convert(date, GETDATE()))');
-      $postingDay6 = DB::select('select count(*) as count from twitter_tweets where twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\' and cast(tweet_created as date) = DATEADD(day, -6, convert(date, GETDATE()))');
-      $chartPosting = [$postingDay0[0]->count, $postingDay1[0]->count, $postingDay2[0]->count, $postingDay3[0]->count, $postingDay4[0]->count, $postingDay5[0]->count, $postingDay6[0]->count];
-
       $followersNow = DB::select('select top 1 followers_count as followers_count from twitter_accounts_log WHERE NOT (cast(created_at as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(created_at as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\' order by created_at desc');
       $followersWeekAgo = DB::select('select top 1 followers_count as followers_count from twitter_accounts_log WHERE NOT (cast(created_at as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(created_at as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\' order by created_at asc');
       $avgFollowers = ($followersNow[0]->followers_count - $followersWeekAgo[0]->followers_count)/7;
@@ -104,23 +94,58 @@ class DashboardController extends Controller
 
       $totalSentiment = $positiveSentiment[0]->count + $negativeSentiment[0]->count + $neutralSentiment[0]->count;
       if ($totalSentiment > 0) {
-      $positiveSentiment = $positiveSentiment[0]->count / $totalSentiment * 100;
-      $negativeSentiment = $negativeSentiment[0]->count / $totalSentiment * 100;
-      $neutralSentiment = $neutralSentiment[0]->count / $totalSentiment * 100;
-    } else {
-      $postivieSentiment = 0;
-      $negativeSentiment = 0;
-      $neutralSentiment = 0;
-    }
+        $positiveSentiment = $positiveSentiment[0]->count / $totalSentiment * 100;
+        $negativeSentiment = $negativeSentiment[0]->count / $totalSentiment * 100;
+        $neutralSentiment = $neutralSentiment[0]->count / $totalSentiment * 100;
+      } else {
+        $postivieSentiment = 0;
+        $negativeSentiment = 0;
+        $neutralSentiment = 0;
+      }
+
+      if($avgFollowers > $avgFollowersComp) {
+        $insightFollowers = 1;
+      } else {
+        $insightFollowers = 0;
+      }
+
+      if ($avgPosts > $avgFollowersComp) {
+        $insightPosts = 1;
+      } else {
+        $insightPosts = 0;
+      }
+
+      if ($avgRetweets > $avgRetweetsComp) {
+        $insightRetweets = 1;
+      } else {
+        $insightRetweets = 0;
+      }
+
+      if ($avgLikes > $avgLikesComp) {
+        $insightLikes = 1;
+      } else {
+        $insightLikes = 0;
+      }
+
+      if ($positiveSentiment > $negativeSentiment) {
+        $insightSentiment = 1;
+      } else {
+        $insightSentiment = 0;
+      }
+
+      $insight = $insightFollowers + $insightPosts + $insightRetweets + $insightLikes + $insightSentiment;
+
+      if ($insight >= 3) {
+        $insightIcon = 'far fa-smile';
+        $insightText = "Aktivitas anda pada minggu ini baik !";
+      } else {
+        $insightIcon = 'far fa-frown';
+        $insightText = "Aktivitas anda pada minggu ini perlu ditingkatkan !";
+      }
+
+
       return view('contents.dashboard', [
         'account' => Auth::user(),
-        'postingDay0' => $postingDay0,
-        'postingDay1' => $postingDay1,
-        'postingDay2' => $postingDay2,
-        'postingDay3' => $postingDay3,
-        'postingDay4' => $postingDay4,
-        'postingDay5' => $postingDay5,
-        'postingDay6' => $postingDay6,
         'avgFollowers' => round($avgFollowers),
         'avgPosts' => round($avgPosts),
         'avgRetweets' => round($avgRetweets),
@@ -135,7 +160,9 @@ class DashboardController extends Controller
         'positiveSentiment' => round($positiveSentiment,2),
         'negativeSentiment' => round($negativeSentiment,2),
         'neutralSentiment' => round($neutralSentiment,2),
-        'totalSentiment' => $totalSentiment
+        'totalSentiment' => $totalSentiment,
+        'insightIcon' => $insightIcon,
+        'insightText' => $insightText
       ]);
     }
 
