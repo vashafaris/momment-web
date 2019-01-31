@@ -78,7 +78,6 @@ class DashboardController extends Controller
         $avgFollowersComp = "null";
       }
 
-      $recommended1 = "none";
       $alreadyTweet = DB::select('select * from twitter_tweets where cast(created_at as date) = CURRENT_TIMESTAMP and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\'');
       // dd(!empty($alreadyTweet);
       if (empty(DB::select('select * from twitter_tweets where cast(created_at as date) = CURRENT_TIMESTAMP and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\''))) {
@@ -109,7 +108,7 @@ class DashboardController extends Controller
         $insightFollowers = 0;
       }
 
-      if ($avgPosts > $avgFollowersComp) {
+      if ($avgPosts > $avgPostsComp) {
         $insightPosts = 1;
       } else {
         $insightPosts = 0;
@@ -137,12 +136,23 @@ class DashboardController extends Controller
 
       if ($insight >= 3) {
         $insightIcon = 'far fa-smile';
-        $insightText = "Aktivitas anda pada minggu ini baik !";
+        $insightText = "Aktivitas anda seminggu ini baik !";
       } else {
         $insightIcon = 'far fa-frown';
-        $insightText = "Aktivitas anda pada minggu ini perlu ditingkatkan !";
+        $insightText = "Aktivitas anda seminggu ini perlu ditingkatkan !";
       }
 
+      $recommendations = array();
+      if (empty(DB::select('select * from twitter_tweets where cast(tweet_created as date) = cast(CURRENT_TIMESTAMP as date) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\''))) {
+        array_push($recommendations,"Posting tweet hari ini");
+      }
+      if ($insightPosts == 0) {
+        $postRecommendation = round($avgPostsComp) - round($avgPosts) + 1;
+        array_push($recommendations,"Sebaiknya hari ini anda post " . $postRecommendation . " tweet lagi");
+      }
+      if (empty(DB::select('select * from twitter_tweets where reply_screen_name is not NULL and cast(tweet_created as date) = cast(CURRENT_TIMESTAMP as date) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\''))) {
+        array_push($recommendations,"Menanggapi mention masuk kepada anda");
+      }
 
       return view('contents.dashboard', [
         'account' => Auth::user(),
@@ -155,7 +165,7 @@ class DashboardController extends Controller
         'avgRetweetsComp' => round($avgRetweetsComp),
         'avgLikesComp' =>round($avgLikesComp),
         'topTweets' => $topTweets,
-        'recommended1' => $recommended1,
+        'recommendations' => $recommendations,
         'twitter_account_log' => $twitter_account_log,
         'positiveSentiment' => round($positiveSentiment,2),
         'negativeSentiment' => round($negativeSentiment,2),

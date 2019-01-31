@@ -32,10 +32,10 @@
                   </div>
                   <div class="col m7 offset-m1">
                     <br>
-                    <span style="display:{{$recommended1}}"><i class="fas fa-lightbulb"></i> Posting tweet hari ini</span><br>
-                    <span><i class="fas fa-lightbulb"></i> Sebaiknya hari ini anda post 2 tweet lagi</span><br>
-                    <span><i class="fas fa-lightbulb"></i> Menanggapi mention masuk kepada anda</span><br>
-                    <span><i class="fas fa-lightbulb"></i> Menanggapi tren topik hari ini</span>
+                    @foreach($recommendations as $recommendation)
+                      <span><i class="fas fa-lightbulb"></i> {{$recommendation}}</span><br>
+                    @endforeach
+                    <span><i class="fas fa-lightbulb"></i> Menanggapi tren topik hari ini, <u><a href="{{url('trends')}}" style="color:white">klik disini</a></u></span>
                   </div>
                 </div>
               </div>
