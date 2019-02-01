@@ -23,11 +23,11 @@
                 <hr>
                 <div class="row">
                   <div class="col m4 center vertical-divider">
-                      <br>
-                      <i class="{{$insightIcon}}" style="color:white;font-size:120px"></i>
-                      <br>
-                      <br>
-                      <span>{{$insightText}}</span>
+                    <br>
+                    <i class="{{$insightIcon}}" style="color:white;font-size:120px"></i>
+                    <br>
+                    <br>
+                    <span>{{$insightText}}</span>
 
                   </div>
                   <div class="col m7 offset-m1">
@@ -35,6 +35,7 @@
                     @foreach($recommendations as $recommendation)
                       <span><i class="fas fa-lightbulb"></i> {{$recommendation}}</span><br>
                     @endforeach
+                    <span><i class="fas fa-lightbulb"></i> Sebaiknya anda posting tweet pada pukul {{$dateCreated[0]->hour}}.00 WIB</span><br>
                     <span><i class="fas fa-lightbulb"></i> Menanggapi tren topik hari ini, <u><a href="{{url('trends')}}" style="color:white">klik disini</a></u></span>
                   </div>
                 </div>
@@ -130,168 +131,168 @@
             </div>
 
             @if($totalSentiment > 0)
-            <div class="col s12 m12">
-              <div class="card-panel">
-                <h5 class="black-text" style="font-size:16px;font-weight:200">Analisis Sentimen<i class="fas fa-comments right"></i></h5>
-                <hr>
-                <center><canvas id="chartSentiment"></canvas></center>
-                <span class="right" style="font-weight:200">* angka dalam persen</span>
-                <br>
+              <div class="col s12 m12">
+                <div class="card-panel">
+                  <h5 class="black-text" style="font-size:16px;font-weight:200">Analisis Sentimen<i class="fas fa-comments right"></i></h5>
+                  <hr>
+                  <center><canvas id="chartSentiment"></canvas></center>
+                  <span class="right" style="font-weight:200">* angka dalam persen</span>
+                  <br>
+                </div>
               </div>
-            </div>
-          @endif
+            @endif
           </div>
         </div>
       </div>
 
       @if(!empty($topTweets[0]->retweet_count))
 
-      <div class="col s12 m12">
-        <div class="card-panel background-none z-depth-0" style="padding-top:0px">
-          <h5 class="black-text" >5 Tweet Terbaik Anda</h5>
-          <hr>
-          <div class="card-panel">
-            <div class="row">
-              <div class="col m2">
-                <center><img src="{{$twitter_account_log->photo_url}}" style="height: 75px;width: 75px;object-fit: cover;border: 2px solid white;border-radius: 50%;"></center>
-              </div>
-              <div class="col m10">
-                <span>{{$twitter_account_log->name}}</span><span style="color:grey">&nbsp;(@</span><span style="color:grey">{{$twitter_account_log->screen_name}}</span><span style="color:grey">)</span>
-                <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[0]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
-                <center><img class="responsive-img materialboxed" src="{{$topTweets[0]->tweet_media}}"></center>
-                <br>
+        <div class="col s12 m12">
+          <div class="card-panel background-none z-depth-0" style="padding-top:0px">
+            <h5 class="black-text" >5 Tweet Terbaik Anda</h5>
+            <hr>
+            <div class="card-panel">
+              <div class="row">
+                <div class="col m2">
+                  <center><img src="{{$twitter_account_log->photo_url}}" style="height: 75px;width: 75px;object-fit: cover;border: 2px solid white;border-radius: 50%;"></center>
+                </div>
+                <div class="col m10">
+                  <span>{{$twitter_account_log->name}}</span><span style="color:grey">&nbsp;(@</span><span style="color:grey">{{$twitter_account_log->screen_name}}</span><span style="color:grey">)</span>
+                  <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[0]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
+                  <center><img class="responsive-img materialboxed" src="{{$topTweets[0]->tweet_media}}"></center>
+                  <br>
 
-              </div>
-              <div class="chip">
-                Mendapatkan {{$topTweets[0]->retweet_count}} retweet
-              </div>
-              <div class="chip">
-                Mendapatkan {{$topTweets[0]->favorite_count}} likes
-              </div>
-              <div class="chip">
-                Mendapatkan {{$topTweets[0]->replies_count}} replies
+                </div>
+                <div class="chip">
+                  Mendapatkan {{$topTweets[0]->retweet_count}} retweet
+                </div>
+                <div class="chip">
+                  Mendapatkan {{$topTweets[0]->favorite_count}} likes
+                </div>
+                <div class="chip">
+                  Mendapatkan {{$topTweets[0]->replies_count}} replies
+                </div>
               </div>
             </div>
+
+            @if(!empty($topTweets[1]->retweet_count))
+
+              <div class="card-panel">
+                <div class="row">
+                  <div class="col m2">
+                    <center><img src="{{$twitter_account_log->photo_url}}" style="height: 75px;width: 75px;object-fit: cover;border: 2px solid white;border-radius: 50%;"></center>
+                  </div>
+                  <div class="col m10">
+                    <span>{{$twitter_account_log->name}}</span><span style="color:grey">&nbsp;(@</span><span style="color:grey">{{$twitter_account_log->screen_name}}</span><span style="color:grey">)</span>
+                    <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[1]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
+                    <center><img class="responsive-img materialboxed" src="{{$topTweets[1]->tweet_media}}"></center>
+                    <br>
+
+                  </div>
+                  <div class="chip">
+                    Mendapatkan {{$topTweets[1]->retweet_count}} retweet
+                  </div>
+                  <div class="chip">
+                    Mendapatkan {{$topTweets[1]->favorite_count}} likes
+                  </div>
+                  <div class="chip">
+                    Mendapatkan {{$topTweets[1]->replies_count}} replies
+                  </div>
+                </div>
+              </div>
+
+            @endif
+
+
+            @if(!empty($topTweets[2]->retweet_count))
+
+              <div class="card-panel">
+                <div class="row">
+                  <div class="col m2">
+                    <center><img src="{{$twitter_account_log->photo_url}}" style="height: 75px;width: 75px;object-fit: cover;border: 2px solid white;border-radius: 50%;"></center>
+                  </div>
+                  <div class="col m10">
+                    <span>{{$twitter_account_log->name}}</span><span style="color:grey">&nbsp;(@</span><span style="color:grey">{{$twitter_account_log->screen_name}}</span><span style="color:grey">)</span>
+                    <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[2]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
+                    <center><img class="responsive-img materialboxed" src="{{$topTweets[2]->tweet_media}}"></center>
+                    <br>
+
+                  </div>
+                  <div class="chip">
+                    Mendapatkan {{$topTweets[2]->retweet_count}} retweet
+                  </div>
+                  <div class="chip">
+                    Mendapatkan {{$topTweets[2]->favorite_count}} likes
+                  </div>
+                  <div class="chip">
+                    Mendapatkan {{$topTweets[2]->replies_count}} replies
+                  </div>
+                </div>
+              </div>
+
+            @endif
+
+
+            @if(!empty($topTweets[3]->retweet_count))
+
+              <div class="card-panel">
+                <div class="row">
+                  <div class="col m2">
+                    <center><img src="{{$twitter_account_log->photo_url}}" style="height: 75px;width: 75px;object-fit: cover;border: 2px solid white;border-radius: 50%;"></center>
+                  </div>
+                  <div class="col m10">
+                    <span>{{$twitter_account_log->name}}</span><span style="color:grey">&nbsp;(@</span><span style="color:grey">{{$twitter_account_log->screen_name}}</span><span style="color:grey">)</span>
+                    <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[3]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
+                    <center><img class="responsive-img materialboxed" src="{{$topTweets[3]->tweet_media}}"></center>
+                    <br>
+
+                  </div>
+                  <div class="chip">
+                    Mendapatkan {{$topTweets[3]->retweet_count}} retweet
+                  </div>
+                  <div class="chip">
+                    Mendapatkan {{$topTweets[3]->favorite_count}} likes
+                  </div>
+                  <div class="chip">
+                    Mendapatkan {{$topTweets[3]->replies_count}} replies
+                  </div>
+                </div>
+              </div>
+
+            @endif
+
+
+            @if(!empty($topTweets[4]->retweet_count))
+              <div class="card-panel">
+                <div class="row">
+                  <div class="col m2">
+                    <center><img src="{{$twitter_account_log->photo_url}}" style="height: 75px;width: 75px;object-fit: cover;border: 2px solid white;border-radius: 50%;"></center>
+                  </div>
+                  <div class="col m10">
+                    <span>{{$twitter_account_log->name}}</span><span style="color:grey">&nbsp;(@</span><span style="color:grey">{{$twitter_account_log->screen_name}}</span><span style="color:grey">)</span>
+                    <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[4]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
+                    <center><img class="responsive-img materialboxed" src="{{$topTweets[4]->tweet_media}}"></center>
+                    <br>
+
+                  </div>
+                  <div class="chip">
+                    Mendapatkan {{$topTweets[4]->retweet_count}} retweet
+                  </div>
+                  <div class="chip">
+                    Mendapatkan {{$topTweets[4]->favorite_count}} likes
+                  </div>
+                  <div class="chip">
+                    Mendapatkan {{$topTweets[4]->replies_count}} replies
+                  </div>
+                </div>
+              </div>
+
+            @endif
+
           </div>
-
-          @if(!empty($topTweets[1]->retweet_count))
-
-          <div class="card-panel">
-            <div class="row">
-              <div class="col m2">
-                <center><img src="{{$twitter_account_log->photo_url}}" style="height: 75px;width: 75px;object-fit: cover;border: 2px solid white;border-radius: 50%;"></center>
-              </div>
-              <div class="col m10">
-                <span>{{$twitter_account_log->name}}</span><span style="color:grey">&nbsp;(@</span><span style="color:grey">{{$twitter_account_log->screen_name}}</span><span style="color:grey">)</span>
-                <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[1]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
-                <center><img class="responsive-img materialboxed" src="{{$topTweets[1]->tweet_media}}"></center>
-                <br>
-
-              </div>
-              <div class="chip">
-                Mendapatkan {{$topTweets[1]->retweet_count}} retweet
-              </div>
-              <div class="chip">
-                Mendapatkan {{$topTweets[1]->favorite_count}} likes
-              </div>
-              <div class="chip">
-                Mendapatkan {{$topTweets[1]->replies_count}} replies
-              </div>
-            </div>
-          </div>
-
-        @endif
-
-
-        @if(!empty($topTweets[2]->retweet_count))
-
-          <div class="card-panel">
-            <div class="row">
-              <div class="col m2">
-                <center><img src="{{$twitter_account_log->photo_url}}" style="height: 75px;width: 75px;object-fit: cover;border: 2px solid white;border-radius: 50%;"></center>
-              </div>
-              <div class="col m10">
-                <span>{{$twitter_account_log->name}}</span><span style="color:grey">&nbsp;(@</span><span style="color:grey">{{$twitter_account_log->screen_name}}</span><span style="color:grey">)</span>
-                <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[2]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
-                <center><img class="responsive-img materialboxed" src="{{$topTweets[2]->tweet_media}}"></center>
-                <br>
-
-              </div>
-              <div class="chip">
-                Mendapatkan {{$topTweets[2]->retweet_count}} retweet
-              </div>
-              <div class="chip">
-                Mendapatkan {{$topTweets[2]->favorite_count}} likes
-              </div>
-              <div class="chip">
-                Mendapatkan {{$topTweets[2]->replies_count}} replies
-              </div>
-            </div>
-          </div>
-
-        @endif
-
-
-        @if(!empty($topTweets[3]->retweet_count))
-
-          <div class="card-panel">
-            <div class="row">
-              <div class="col m2">
-                <center><img src="{{$twitter_account_log->photo_url}}" style="height: 75px;width: 75px;object-fit: cover;border: 2px solid white;border-radius: 50%;"></center>
-              </div>
-              <div class="col m10">
-                <span>{{$twitter_account_log->name}}</span><span style="color:grey">&nbsp;(@</span><span style="color:grey">{{$twitter_account_log->screen_name}}</span><span style="color:grey">)</span>
-                <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[3]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
-                <center><img class="responsive-img materialboxed" src="{{$topTweets[3]->tweet_media}}"></center>
-                <br>
-
-              </div>
-              <div class="chip">
-                Mendapatkan {{$topTweets[3]->retweet_count}} retweet
-              </div>
-              <div class="chip">
-                Mendapatkan {{$topTweets[3]->favorite_count}} likes
-              </div>
-              <div class="chip">
-                Mendapatkan {{$topTweets[3]->replies_count}} replies
-              </div>
-            </div>
-          </div>
-
-        @endif
-
-
-          @if(!empty($topTweets[4]->retweet_count))
-          <div class="card-panel">
-            <div class="row">
-              <div class="col m2">
-                <center><img src="{{$twitter_account_log->photo_url}}" style="height: 75px;width: 75px;object-fit: cover;border: 2px solid white;border-radius: 50%;"></center>
-              </div>
-              <div class="col m10">
-                <span>{{$twitter_account_log->name}}</span><span style="color:grey">&nbsp;(@</span><span style="color:grey">{{$twitter_account_log->screen_name}}</span><span style="color:grey">)</span>
-                <blockquote><i class="fas fa-quote-left"></i> {{$topTweets[4]->tweet_content}} <i class="fas fa-quote-right"></i></blockquote>
-                <center><img class="responsive-img materialboxed" src="{{$topTweets[4]->tweet_media}}"></center>
-                <br>
-
-              </div>
-              <div class="chip">
-                Mendapatkan {{$topTweets[4]->retweet_count}} retweet
-              </div>
-              <div class="chip">
-                Mendapatkan {{$topTweets[4]->favorite_count}} likes
-              </div>
-              <div class="chip">
-                Mendapatkan {{$topTweets[4]->replies_count}} replies
-              </div>
-            </div>
-          </div>
-
-        @endif
-
         </div>
-      </div>
 
-    @endif
+      @endif
 
     </div>
     @php
@@ -362,7 +363,7 @@
   }
 
   .background-recommendation {
-  background: linear-gradient(to right, #159957, #155799);
+    background: linear-gradient(to right, #159957, #155799);
   }
 
   .background-none {
@@ -375,7 +376,7 @@
   }
 
   .vertical-divider {
-      border-right: 2px solid #AAAAAA;
+    border-right: 2px solid #AAAAAA;
   }
 
   </style>

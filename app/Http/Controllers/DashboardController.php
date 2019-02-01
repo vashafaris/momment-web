@@ -17,31 +17,25 @@ class DashboardController extends Controller
 
   public function index()
   {
-
-
-
     if (!Auth::user()->twitterAccount){
       return view('contents.engage', [
         'account' => Auth::user()
       ]);
     } else {
-      $followersNow = DB::select('select top 1 followers_count as followers_count from twitter_accounts_log WHERE NOT (cast(created_at as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(created_at as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\' order by created_at desc');
-      $followersWeekAgo = DB::select('select top 1 followers_count as followers_count from twitter_accounts_log WHERE NOT (cast(created_at as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(created_at as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\' order by created_at asc');
+      $followersNow = DB::select('select top 1 followers_count as followers_count from twitter_accounts_log WHERE NOT (cast(created_at as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(created_at as date) >= DATEADD(day, 0, convert(date, GETDATE()))) and twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\' order by created_at desc');
+      $followersWeekAgo = DB::select('select top 1 followers_count as followers_count from twitter_accounts_log WHERE NOT (cast(created_at as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(created_at as date) >= DATEADD(day, 0, convert(date, GETDATE()))) and twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\' order by created_at asc');
       $avgFollowers = ($followersNow[0]->followers_count - $followersWeekAgo[0]->followers_count)/7;
 
-      $posting = DB::select('select count(tweet_id) as posting FROM twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\'');
+      $posting = DB::select('select count(tweet_id) as posting FROM twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 0, convert(date, GETDATE()))) and twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\'');
       $avgPosts = $posting[0]->posting/7;
 
-      $retweet = DB::select('select SUM(retweet_count) as retweet FROM twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\'');
+      $retweet = DB::select('select SUM(retweet_count) as retweet FROM twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 0, convert(date, GETDATE()))) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\'');
       $avgRetweets = $retweet[0]->retweet/7;
 
-      $like = DB::select('select SUM(favorite_count) as favorite FROM twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\'');
+      $like = DB::select('select SUM(favorite_count) as favorite FROM twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 0, convert(date, GETDATE()))) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\'');
       $avgLikes = $like[0]->favorite/7;
 
-      $topTweets = DB::select('select top 5 * FROM twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\' order by recommendation desc ');
-      //
-      // $topTweets = shell_exec("python D:\wp3.py");
-      // dd($topTweets);
+      $topTweets = DB::select('select top 5 * FROM twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 0, convert(date, GETDATE()))) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\' order by recommendation desc ');
 
       $competitor = DB::select('select competitor_id as competitor_id from competitor where twitter_id = ' . Auth::user()->twitterAccount->twitter_id);
       $postingComp = 0;
@@ -79,7 +73,7 @@ class DashboardController extends Controller
       }
 
       $alreadyTweet = DB::select('select * from twitter_tweets where cast(created_at as date) = CURRENT_TIMESTAMP and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\'');
-      // dd(!empty($alreadyTweet);
+
       if (empty(DB::select('select * from twitter_tweets where cast(created_at as date) = CURRENT_TIMESTAMP and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\''))) {
         $recommended1 = "";
       }
@@ -108,7 +102,7 @@ class DashboardController extends Controller
         $insightFollowers = 0;
       }
 
-      if ($avgPosts > $avgPostsComp) {
+      if (round($avgPosts) > round($avgPostsComp)) {
         $insightPosts = 1;
       } else {
         $insightPosts = 0;
@@ -146,6 +140,7 @@ class DashboardController extends Controller
       if (empty(DB::select('select * from twitter_tweets where cast(tweet_created as date) = cast(CURRENT_TIMESTAMP as date) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\''))) {
         array_push($recommendations,"Posting tweet hari ini");
       }
+
       if ($insightPosts == 0) {
         $postRecommendation = round($avgPostsComp) - round($avgPosts) + 1;
         array_push($recommendations,"Sebaiknya hari ini anda post " . $postRecommendation . " tweet lagi");
@@ -153,6 +148,7 @@ class DashboardController extends Controller
       if (empty(DB::select('select * from twitter_tweets where reply_screen_name is not NULL and cast(tweet_created as date) = cast(CURRENT_TIMESTAMP as date) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\''))) {
         array_push($recommendations,"Menanggapi mention masuk kepada anda");
       }
+      $dateCreated = DB::select('select datepart(hour,tweet_created) as \'hour\', count(datepart(hour,tweet_created)) as \'count\' from ( select top 10 * from twitter_tweets  WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 0, convert(date, GETDATE()))) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\'  order by recommendation desc) a  group by datepart(hour,tweet_created) order by count desc');
 
       return view('contents.dashboard', [
         'account' => Auth::user(),
@@ -172,7 +168,8 @@ class DashboardController extends Controller
         'neutralSentiment' => round($neutralSentiment,2),
         'totalSentiment' => $totalSentiment,
         'insightIcon' => $insightIcon,
-        'insightText' => $insightText
+        'insightText' => $insightText,
+        'dateCreated' => $dateCreated
       ]);
     }
 
@@ -187,13 +184,4 @@ class DashboardController extends Controller
   {
     return view('auth.register');
   }
-
-  // public function dashboard()
-  // {
-  //   $userTweets = DB::select('select * from twitter_tweets where twitter_id = (select twitter_id from twitter_accounts where account_id = 1) and cast (tweet_created as date) >= dateadd(day,datediff(day,7,GETDATE()),0)')
-  //   return view('contents.dashboard', [
-  //       'account' => Auth::user(),
-  //       'userTweets' => $userTweets
-  //   ]);
-  // }
 }
