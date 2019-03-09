@@ -131,36 +131,6 @@
     resultContainer.hide();
     resultContainer.html(spinner);
     resultContainer.fadeIn(500);
-    // $.ajax({
-    //     type:'GET',
-    //     url:'{{ url('/engage/search') }}' + '/' + $('#username-twitter').val(),
-    //     data:'_token = {{ csrf_token() }}',
-    //     success:function(data){
-    //       $('#myModal #twitter-form #search-form-twitter #twitter-search').on('click', function(event){
-    //     event.preventDefault();
-    //     var resultContainer = $('#search-result-twitter');
-    //
-    //     // Show loading spinner
-    //     var spinner =
-    //     '<div class="card white">' +
-    //     '<div class="card-content" align="center">' +
-    //     '<div class="preloader-wrapper small active">' +
-    //     '<div class="spinner-layer spinner-blue-only">' +
-    //     '<div class="circle-clipper left">' +
-    //     '<div class="circle"></div>' +
-    //     '</div><div class="gap-patch">' +
-    //     '<div class="circle"></div>' +
-    //     '</div><div class="circle-clipper right">' +
-    //     '<div class="circle"></div>' +
-    //     '</div>' +
-    //     '</div>' +
-    //     '</div>' +
-    //     '</div>' +
-    //     '</div>';
-    //     resultContainer.hide();
-    //     resultContainer.html(spinner);
-    //     resultContainer.fadeIn(500);
-
     $.ajax({
       type: 'GET',
       url: '{{ url('/engage/search') }}' + '/' + $('#username-twitter').val(),
@@ -183,12 +153,8 @@
             '<div class="divider" style="margin: 10px 0;"></div>' +
             '<span style="font-size: 10pt;margin: 10px 0;"><i class="far fa-calendar-alt"></i> &nbsp; Terdaftar Sejak ' + formatDate(new Date(data.response.profile[0].created)) + '</span>' :
             '';
-            // var competitorButton = (!data.response.isEngage) ?
-            // '<center><a href="#add-confirmation" class="waves-effect waves-light btn modal-trigger" style="background-color: #5F0F4E;"><i class="material-icons left">add</i> Sambungkan Akun</a></center>' :
-            // '<center><a href="#add-confirmation" class="waves-effect waves-light btn modal-trigger disabled" style="background-color: #5F0F4E;"><i class="material-icons left">close</i> Akun telah terdaftar</a></center>';
-
             var engageButton = (!data.response.isEngage) ?
-            '<center><a class="waves-effect waves-light btn modal-trigger" href="#engage-modal" style="background-color: #5F0F4E;"><i class="material-icons left">add</i> Sambungkan Akun</a></center>' :
+            '<center><a class="waves-effect waves-light btn modal-trigger" href="#engage-modal" style="background-color: #5F0F4E;"><i class="material-icons left">add</i> Tetapkan Akun</a></center>' :
             '<center><a class="waves-effect waves-light btn modal-trigger disabled" href="#engage-modal" style="background-color: #5F0F4E;"><i class="material-icons left">close</i> Akun Telah Terdaftar</a></center>'
 
             resultContainer.html(
@@ -221,7 +187,7 @@
               engageButton +
               '<div id="engage-modal" class="modal">' +
               '<div class="modal-content">' +
-              '<p>Sambungkan akun ' + data.response.profile[0].name + ' sebagai media sosial anda ?</p>' +
+              '<p>Tetapkan akun ' + data.response.profile[0].name + ' sebagai media sosial anda ?</p>' +
               '</div>' +
               '<div class="modal-footer">' +
               '<a href="#!" id="add-confirmation-yes" class="modal-close modal-action waves-effect waves-green btn-flat">Ya</a>' +
@@ -234,10 +200,6 @@
 
             // Action Button
             if (!data.response.isEngage) {
-              // $('#add-confirmation .modal-content').html('<p>Are you sure want to add <b>' + data.response.profile[0].name + '</b> as your competitor?</p>'+
-              //   '<center><a href="#!" id="add-confirmation-no" class="modal-action modal-close waves-effect waves-red btn-flat">No</a>'+
-              //   '<a href="#!" id="add-confirmation-yes" class="modal-action modal-close waves-effect waves-green btn-flat">Yes</a></center>');
-
               $('.modal').modal();
             }
             $('#search-result .btn').on('click', function() {
@@ -287,28 +249,11 @@
             );
           }
           break;
-          case 401:
-          resultContainer.html(
-            '<div class="card red darken-1">' +
-            '<div class="card-content white-text">' +
-            '<p><i class="fas fa-book"></i> Im sorry, your spell is missing. Please try to re-login..</p>' +
-            '</div>' +
-            '</div>'
-          );
-          break;
-          case 404 :
-          resultContainer.html(
-            '<div class="card red darken-1">' +
-            '<div class="card-content white-text">' +
-            '<p><i class="fas fa-book"></i> Im sorry, Data will available tomorrow</p>' +
-            '</div>' +
-            '</div>'
-          );
           default:
           resultContainer.html(
             '<div class="card red darken-1">' +
             '<div class="card-content white-text">' +
-            '<p><i class="fas fa-book"></i> Im sorry, magician might be sick. Trying to recover..</p>' +
+            '<p><i class="fas fa-book"></i> Mohon maaf akun ' + $('#username-twitter').val() + ' tidak ditemukan !</p>' +
             '</div>' +
             '</div>'
           );
@@ -320,7 +265,7 @@
         resultContainer.html(
           '<div class="card red darken-1">' +
           '<div class="card-content white-text">' +
-          '<p><i class="fas fa-book"></i> Im sorry, magician might be sick. Trying to recover..</p>' +
+          '<p><i class="fas fa-book"></i> Mohon maaf akun ' + $('#username-twitter').val() + ' tidak ditemukan !</p>' +
           '</div>' +
           '</div>'
         );

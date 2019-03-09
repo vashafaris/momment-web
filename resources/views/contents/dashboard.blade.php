@@ -41,10 +41,10 @@
                 </div>
               </div>
             </div>
-            <div class="col s12 m3">
+            <div class="col s12 m6">
               <div class="card">
                 <div class="card-content" style="background-color:#27c24c">
-                  <h5 class="white-text activator card-title" style="font-size:14px;font-weight:200">Rata - Rata Followers<i class="fas fa-users right"></i></h5>
+                  <h5 class="white-text activator card-title" style="font-size:14px;font-weight:200">Rata-Rata Mendapatkan Followers<i class="fas fa-users right"></i></h5>
                   <hr>
                   <center class="activator"><span style="font-size:30px;color:white;">{{$avgFollowers}}
                   </span><span style="font-size:10px;color:white;">followers/hari</span></center>
@@ -63,10 +63,10 @@
                 </div>
               </div>
             </div>
-            <div class="col s12 m3">
+            <div class="col s12 m6">
               <div class="card">
                 <div class="card-content" style="background-color:#23b7e5">
-                  <h5 class="white-text activator card-title" style="font-size:14px;font-weight:200">Rata - Rata Posting<i class="fab fa-twitter right"></i></i></h5>
+                  <h5 class="white-text activator card-title" style="font-size:14px;font-weight:200">Rata-Rata Posting<i class="fab fa-twitter right"></i></i></h5>
                   <hr>
                   <center class="activator"><span style="font-size:30px;color:white;">{{$avgPosts}}
                   </span><span style="font-size:10px;color:white;">tweet/hari</span></center>
@@ -85,10 +85,10 @@
                 </div>
               </div>
             </div>
-            <div class="col s12 m3">
+            <div class="col  s12 m4">
               <div class="card">
                 <div class="card-content" style="background-color:#6254b2">
-                  <h5 class="white-text activator card-title" style="font-size:14px;font-weight:200">Rata - Rata Retweet<i class="fas fa-retweet right"></i></h5>
+                  <h5 class="white-text activator card-title" style="font-size:14px;font-weight:200">Rata-Rata Retweet<i class="fas fa-retweet right"></i></h5>
                   <hr>
                   <center class="activator"><span style="font-size:30px;color:white;">{{$avgRetweets}}
                   </span><span style="font-size:10px;color:white;">retweet/hari</span></center>
@@ -107,10 +107,10 @@
                 </div>
               </div>
             </div>
-            <div class="col s12 m3">
+            <div class="col s12 m4">
               <div class="card">
                 <div class="card-content" style="background-color:#fad733">
-                  <h5 class="white-text activator card-title" style="font-size:14px;font-weight:200">Rata - Rata Likes<i class="fas fa-heart right"></i></h5>
+                  <h5 class="white-text activator card-title" style="font-size:14px;font-weight:200">Rata-Rata Likes<i class="fas fa-heart right"></i></h5>
                   <hr>
                   <center class="activator"><span style="font-size:30px;color:white;">{{$avgLikes}}
                   </span><span style="font-size:10px;color:white;">likes/hari</span></center>
@@ -122,6 +122,28 @@
                   @if($avgLikesComp != "null")
                     <center class="activator"><span style="font-size:30px;color:#F49227;">{{$avgLikesComp}}
                     </span><span style="font-size:10px;color:#F49227;">likes/hari</span></center>
+                  @else
+                    <center class="activator"><span style="font-size:14px;color:#F49227;">Kompetitor tidak ditemukan
+                    </span></center>
+                  @endif
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m4">
+              <div class="card">
+                <div class="card-content" style="background-color:#ff6384">
+                  <h5 class="white-text activator card-title" style="font-size:14px;font-weight:200">Rata-Rata Replies<i class="fas fa-reply right"></i></h5>
+                  <hr>
+                  <center class="activator"><span style="font-size:30px;color:white;">{{$avgReplies}}
+                  </span><span style="font-size:10px;color:white;">replies/hari</span></center>
+
+                </div>
+                <div class="card-reveal">
+                  <h5 class="black-text card-title" style="font-size:14px;font-weight:200">Kompetitor<i class="fas fa-users right"></i></h5>
+                  <hr>
+                  @if($avgRepliesComp != "null")
+                    <center class="activator"><span style="font-size:30px;color:#F49227;">{{$avgRepliesComp}}
+                    </span><span style="font-size:10px;color:#F49227;">replies/hari</span></center>
                   @else
                     <center class="activator"><span style="font-size:14px;color:#F49227;">Kompetitor tidak ditemukan
                     </span></center>
@@ -172,6 +194,12 @@
                 <div class="chip">
                   Mendapatkan {{$topTweets[0]->replies_count}} replies
                 </div>
+                <div class="chip">
+                  {{$positiveTopTweet[0]}} reply positif
+                </div>
+                <div class="chip">
+                  {{$negativeTopTweet[0]}} reply negatif
+                </div>
               </div>
             </div>
 
@@ -197,6 +225,12 @@
                   </div>
                   <div class="chip">
                     Mendapatkan {{$topTweets[1]->replies_count}} replies
+                  </div>
+                  <div class="chip">
+                    {{$positiveTopTweet[1]}} reply positif
+                  </div>
+                  <div class="chip">
+                    {{$negativeTopTweet[1]}} reply negatif
                   </div>
                 </div>
               </div>
@@ -227,6 +261,12 @@
                   <div class="chip">
                     Mendapatkan {{$topTweets[2]->replies_count}} replies
                   </div>
+                  <div class="chip">
+                    {{$positiveTopTweet[0]}} reply positif
+                  </div>
+                  <div class="chip">
+                    {{$negativeTopTweet[2]}} reply negatif
+                  </div>
                 </div>
               </div>
 
@@ -256,6 +296,12 @@
                   <div class="chip">
                     Mendapatkan {{$topTweets[3]->replies_count}} replies
                   </div>
+                  <div class="chip">
+                    {{$positiveTopTweet[3]}} reply positif
+                  </div>
+                  <div class="chip">
+                    {{$negativeTopTweet[3]}} reply negatif
+                  </div>
                 </div>
               </div>
 
@@ -283,6 +329,12 @@
                   </div>
                   <div class="chip">
                     Mendapatkan {{$topTweets[4]->replies_count}} replies
+                  </div>
+                  <div class="chip">
+                    {{$positiveTopTweet[4]}} reply positif
+                  </div>
+                  <div class="chip">
+                    {{$negativeTopTweet[4]}} reply negatif
                   </div>
                 </div>
               </div>
@@ -395,7 +447,7 @@
 
     var ctx = document.getElementById("chartSentiment");
     var myChart = new Chart(ctx, {
-      type: 'doughnut',
+      type: 'pie',
       data: {
         labels: [
           'Positif',

@@ -12,5 +12,8 @@ class TwitterAccountLog extends Model
 
   protected $keyType = 'string';
 
+  protected $casts = [
+    'created_at' => 'datetime:Y-m-d',
+];
 
 }

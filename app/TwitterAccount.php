@@ -16,4 +16,9 @@ class TwitterAccount extends Model
     {
       return $this->belongsTo('App\User','id');
     }
+
+    public function twitterTweet()
+    {
+      return $this->hasMany('App\TwitterTweet','twitter_id');
+    }
 }

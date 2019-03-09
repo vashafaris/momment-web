@@ -5,8 +5,8 @@
     <div id="compare-container">
       <div class="row">
         <div class="col s12 m12">
-          <div class="card-panel ">
-            <h5 class="center black-text">Akun Twitter Kompetitor</h5>
+          <div class="card-panel  background-none z-depth-0">
+            <h5 class="black-text">Profil Akun Twitter Kompetitor</h5>
             <hr>
             <div class="row">
               <div class="col s12">
@@ -261,9 +261,19 @@
             retweets = '<td style="color:grey;font-weight:bold"><center>' + data.retweets + '</center></td><td style="color:grey;font-weight:bold"><center>' + data.retweetsComp + '</center></td>';
           }
 
+          var replies = '?';
+          if (parseFloat(data.replies) > parseFloat(data.repliesComp)) {
+            replies =   '<td style="color:green;font-weight:bold"><center>' + data.replies + '</center></td><td style="color:red;font-weight:bold"><center>' + data.repliesComp + '</center></td>';
+          } else if (parseFloat(data.replies) < parseFloat(data.repliesComp)) {
+            replies =  '<td style="color:red;font-weight:bold"><center>' + data.replies + '</center></td><td style="color:green;font-weight:bold"><center>' + data.repliesComp + '</center></td>';
+          } else {
+            replies = '<td style="color:grey;font-weight:bold"><center>' + data.replies + '</center></td><td style="color:grey;font-weight:bold"><center>' + data.repliesComp + '</center></td>';
+          }
+
           resultContainer.html(
+
+            '<br><h5>Tabel Komparasi</h5><hr>' +
             '<div class="card-panel white background-none">' +
-            '<br><hr><h4><center>Tabel Komparasi</center></h4><hr><br>' +
             '<table class="highlight">' +
             '<thead>' +
             '<tr>' +
@@ -275,96 +285,72 @@
 
             '<tbody>' +
             '<tr>' +
-            '<td>Peningkatan Followers</td>' +
+            '<td><i class="fas fa-users"></i>&ensp;Peningkatan Followers</td>' +
             followers +
             '</tr>' +
             '<tr>' +
-            '<td>Posting Tweet</td>' +
+            '<td><i class="fab fa-twitter-square"></i>&ensp;&ensp;Posting Tweet</td>' +
             tweets +
             '</tr>' +
             '<tr>' +
-            '<td>Total Retweet</td>' +
+            '<td><i class="fas fa-retweet"></i></i>&ensp;Total Retweet</td>' +
             retweets +
             '</tr>' +
             '<tr>' +
-            '<td>Total Likes</td>' +
+            '<td><i class="fas fa-heart"></i>&ensp;&ensp;Total Likes</td>' +
             likes +
+            '</tr>' +
+            '<tr>' +
+            '<td><i class="fas fa-reply"></i>&ensp;&ensp;Total Replies</td>' +
+            replies +
             '</tr>' +
             '</tbody>' +
             '</table>' +
-            '<br><hr><h4><center>Detail Komparasi</center></h4><hr><br>' +
+            '</div>' +
+
+            '<br><h5>Detail Grafik Komparasi</h5><hr>' +
+            '<div class="card-panel white background-none">' +
             '<div class="row">' +
-            '<div class="col s12 m6 vertical-divider">' +
-            '<h6 style="font-weight:bold"><center>@' + data.accountData[0].screen_name + '</center></h6>' +
-            '</div>' +
-
             '<div class="col s12 m6">' +
-            '<h6 style="font-weight:bold"><center>@' + data.accountDataComp[0].screen_name + '</center></h6>' +
-            '</div>' +
-
-            '<div class="col s12 m6 vertical-divider">' +
-            '<div class="card-panel">' +
-            '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Peningkatan Followers<i class="fab fa-twitter right"></i></h5>' +
+            '<div class="card-panel z-depth-0">' +
+            '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Peningkatan Followers<i class="fas fa-users right"></i></h5>' +
             '<hr>' +
-            '<canvas id="followersChart" width="200" height="200"></canvas>' +
+            '<canvas id="chartFollowers" width="200" height="200"></canvas>' +
             '</div>' +
             '</div>' +
 
             '<div class="col s12 m6">' +
-            '<div class="card-panel">' +
-            '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Peningkatan Followers<i class="fab fa-twitter right"></i></h5>' +
+            '<div class="card-panel z-depth-0">' +
+            '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Posting<i class="fab fa-twitter-square right"></i></h5>' +
             '<hr>' +
-            '<canvas id="followersChartComp" width="200" height="200"></canvas>' +
-            '</div>' +
-            '</div>' +
-
-            '<div class="col s12 m6 vertical-divider">' +
-            '<div class="card-panel">' +
-            '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Posting<i class="fab fa-twitter right"></i></h5>' +
-            '<hr>' +
-            '<canvas id="postingChart" width="200" height="200"></canvas>' +
+            '<canvas id="chartPosting" width="200" height="200"></canvas>' +
             '</div>' +
             '</div>' +
 
             '<div class="col s12 m6">' +
-            '<div class="card-panel">' +
-            '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Posting<i class="fab fa-twitter right"></i></h5>' +
+            '<div class="card-panel z-depth-0">' +
+            '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Retweet<i class="fas fa-retweet right"></i></h5>' +
             '<hr>' +
-            '<canvas id="postingCompChart" width="200" height="200"></canvas>' +
-            '</div>' +
-            '</div>' +
-
-            '<div class="col s12 m6 vertical-divider">' +
-            '<div class="card-panel">' +
-            '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Retweet<i class="fab fa-twitter right"></i></h5>' +
-            '<hr>' +
-            '<canvas id="retweetChart" width="200" height="200"></canvas>' +
+            '<canvas id="chartRetweet" width="200" height="200"></canvas>' +
             '</div>' +
             '</div>' +
 
             '<div class="col s12 m6">' +
-            '<div class="card-panel">' +
-            '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Retweet<i class="fab fa-twitter right"></i></h5>' +
+            '<div class="card-panel z-depth-0">' +
+            '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Likes<i class="fas fa-heart right"></i></h5>' +
             '<hr>' +
-            '<canvas id="retweetChartComp" width="200" height="200"></canvas>' +
+            '<canvas id="chartLikes" width="200" height="200"></canvas>' +
             '</div>' +
             '</div>' +
 
-            '<div class="col s12 m6 vertical-divider">' +
-            '<div class="card-panel">' +
-            '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Likes<i class="fab fa-twitter right"></i></h5>' +
+            '<div class="col s12 m6 offset-m3">' +
+            '<div class="card-panel z-depth-0">' +
+            '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Replies<i class="fas fa-reply right"></i></h5>' +
             '<hr>' +
-            '<canvas id="likesChart" width="200" height="200"></canvas>' +
+            '<canvas id="chartReplies" width="200" height="200"></canvas>' +
             '</div>' +
             '</div>' +
 
-            '<div class="col s12 m6">' +
-            '<div class="card-panel">' +
-            '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Likes<i class="fab fa-twitter right"></i></h5>' +
-            '<hr>' +
-            '<canvas id="likesChartComp" width="200" height="200"></canvas>' +
-            '</div>' +
-            '</div>' +
             '</div>' +
             '</div>'
           );
@@ -380,30 +366,6 @@
           var followersDay6 = data.followersDay6;
           var followersDay7 = data.followersDay7;
 
-          var ctx = document.getElementById("followersChart");
-          var followersChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-              labels: ["H - 7", "H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
-              datasets: [{
-                label: '= Jumlah Peningkatan Followers',
-                data: [followersDay7, followersDay6,followersDay5,followersDay4,followersDay3,followersDay2,followersDay1,followersDay0],
-                backgroundColor: [
-                  'rgba(0,23,153, 0.2)'
-                ],
-                borderWidth: 1
-              }]
-            },
-            options: {
-              scales: {
-                yAxes: [{
-                  ticks: {
-                    beginAtZero:true
-                  }
-                }]
-              }
-            }
-          });
 
           var followersDay0Comp = data.followersDay0Comp;
           var followersDay1Comp = data.followersDay1Comp;
@@ -414,30 +376,8 @@
           var followersDay6Comp = data.followersDay6Comp;
           var followersDay7Comp = data.followersDay7Comp;
 
-          var ctx = document.getElementById("followersChartComp");
-          var followersChartComp = new Chart(ctx, {
-            type: 'line',
-            data: {
-              labels: ["H - 7", "H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
-              datasets: [{
-                label: '= Jumlah Peningkatan Followers',
-                data: [followersDay7Comp, followersDay6Comp,followersDay5Comp,followersDay4Comp,followersDay3Comp,followersDay2Comp,followersDay1Comp,followersDay0Comp],
-                backgroundColor: [
-                  'rgba(0,23,153,0.2)'
-                ],
-                borderWidth: 1
-              }]
-            },
-            options: {
-              scales: {
-                yAxes: [{
-                  ticks: {
-                    beginAtZero:true
-                  }
-                }]
-              }
-            }
-          });
+
+
 
           var postingDay0 = data.postingDay0;
           var postingDay1 = data.postingDay1;
@@ -448,30 +388,6 @@
           var postingDay6 = data.postingDay6;
           var postingDay7 = data.postingDay7;
 
-          var ctx = document.getElementById("postingChart");
-          var postingChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-              labels: ["H - 7", "H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
-              datasets: [{
-                label: '= Jumlah Tweet',
-                data: [postingDay7, postingDay6,postingDay5,postingDay4,postingDay3,postingDay2,postingDay1,postingDay0],
-                backgroundColor: [
-                  'rgba(0,255,255, 0.2)'
-                ],
-                borderWidth: 1
-              }]
-            },
-            options: {
-              scales: {
-                yAxes: [{
-                  ticks: {
-                    beginAtZero:true
-                  }
-                }]
-              }
-            }
-          });
 
           var postingDay0Comp = data.postingDay0Comp;
           var postingDay1Comp = data.postingDay1Comp;
@@ -482,31 +398,6 @@
           var postingDay6Comp = data.postingDay6Comp;
           var postingDay7Comp = data.postingDay7Comp;
 
-          var ctx = document.getElementById("postingCompChart");
-          var postingCompChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-              labels: ["H - 7", "H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
-              datasets: [{
-                label: '= Jumlah Tweet',
-                data: [postingDay7Comp, postingDay6Comp,postingDay5Comp,postingDay4Comp,postingDay3Comp,postingDay2Comp,postingDay1Comp,postingDay0Comp],
-                backgroundColor: [
-                  'rgba(0,255,255, 0.2)'
-                ],
-                borderWidth: 1
-              }]
-            },
-            options: {
-              scales: {
-                yAxes: [{
-                  ticks: {
-                    beginAtZero:true
-                  }
-                }]
-              }
-            }
-          });
-
           var retweetDay0 = data.retweetDay0;
           var retweetDay1 = data.retweetDay1;
           var retweetDay2 = data.retweetDay2;
@@ -516,30 +407,6 @@
           var retweetDay6 = data.retweetDay6;
           var retweetDay7 = data.retweetDay7;
 
-          var ctx = document.getElementById("retweetChart");
-          var retweetChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-              labels: ["H - 7", "H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
-              datasets: [{
-                label: '= Jumlah Retweet',
-                data: [retweetDay7, retweetDay6,retweetDay5,retweetDay4,retweetDay3,retweetDay2,retweetDay1,retweetDay0],
-                backgroundColor: [
-                  'rgba(255,0,0, 0.2)'
-                ],
-                borderWidth: 1
-              }]
-            },
-            options: {
-              scales: {
-                yAxes: [{
-                  ticks: {
-                    beginAtZero:true
-                  }
-                }]
-              }
-            }
-          });
 
           var retweetDay0Comp = data.retweetDay0Comp;
           var retweetDay1Comp = data.retweetDay1Comp;
@@ -550,30 +417,6 @@
           var retweetDay6Comp = data.retweetDay6Comp;
           var retweetDay7Comp = data.retweetDay7Comp;
 
-          var ctx = document.getElementById("retweetChartComp");
-          var retweetChartComp = new Chart(ctx, {
-            type: 'line',
-            data: {
-              labels: ["H - 7", "H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
-              datasets: [{
-                label: '= Jumlah Retweet',
-                data: [retweetDay7Comp, retweetDay6Comp,retweetDay5Comp,retweetDay4Comp,retweetDay3Comp,retweetDay2Comp,retweetDay1Comp,retweetDay0Comp],
-                backgroundColor: [
-                  'rgba(255,0,0, 0.2)'
-                ],
-                borderWidth: 1
-              }]
-            },
-            options: {
-              scales: {
-                yAxes: [{
-                  ticks: {
-                    beginAtZero:true
-                  }
-                }]
-              }
-            }
-          });
 
           var likesDay0 = data.likesDay0;
           var likesDay1 = data.likesDay1;
@@ -584,31 +427,6 @@
           var likesDay6 = data.likesDay6;
           var likesDay7 = data.likesDay7;
 
-          var ctx = document.getElementById("likesChart");
-          var likesChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-              labels: ["H - 7","H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
-              datasets: [{
-                label: '= Jumlah Likes',
-                data: [likesDay7,likesDay6,likesDay5,likesDay4,likesDay3,likesDay2,likesDay1,likesDay0],
-                backgroundColor: [
-                  'rgba(255,255,0, 0.2)'
-                ],
-                borderWidth: 1
-              }]
-            },
-            options: {
-              scales: {
-                yAxes: [{
-                  ticks: {
-                    beginAtZero:true
-                  }
-                }]
-              }
-            }
-          });
-
           var likesDay0Comp = data.likesDay0Comp;
           var likesDay1Comp = data.likesDay1Comp;
           var likesDay2Comp = data.likesDay2Comp;
@@ -618,19 +436,49 @@
           var likesDay6Comp = data.likesDay6Comp;
           var likesDay7Comp = data.likesDay7Comp;
 
-          var ctx = document.getElementById("likesChartComp");
-          var likesChartComp = new Chart(ctx, {
+          var repliesDay0 = data.repliesDay0;
+          var repliesDay1 = data.repliesDay1;
+          var repliesDay2 = data.repliesDay2;
+          var repliesDay3 = data.repliesDay3;
+          var repliesDay4 = data.repliesDay4;
+          var repliesDay5 = data.repliesDay5;
+          var repliesDay6 = data.repliesDay6;
+          var repliesDay7 = data.repliesDay7;
+
+          var repliesDay0Comp = data.repliesDay0Comp;
+          var repliesDay1Comp = data.repliesDay1Comp;
+          var repliesDay2Comp = data.repliesDay2Comp;
+          var repliesDay3Comp = data.repliesDay3Comp;
+          var repliesDay4Comp = data.repliesDay4Comp;
+          var repliesDay5Comp = data.repliesDay5Comp;
+          var repliesDay6Comp = data.repliesDay6Comp;
+          var repliesDay7Comp = data.repliesDay7Comp;
+
+          var ctx = document.getElementById("chartFollowers");
+          var chartFollowers = new Chart(ctx, {
             type: 'line',
             data: {
               labels: ["H - 7", "H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
               datasets: [{
-                label: '= Jumlah Likes',
-                data: [likesDay7Comp,likesDay6Comp,likesDay5Comp,likesDay4Comp,likesDay3Comp,likesDay2Comp,likesDay1Comp,likesDay0Comp],
+                fill:false,
+                borderColor: 'rgba(0,23,153,0.5)',
+                label: '@' + data.accountData[0].screen_name,
+                data: [followersDay7, followersDay6,followersDay5,followersDay4,followersDay3,followersDay2,followersDay1,followersDay0],
                 backgroundColor: [
-                  'rgba(255,255,0, 0.2)'
+                  'white'
                 ],
-                borderWidth: 1
-              }]
+                borderWidth: 4
+              }, {
+                fill:false,
+                borderColor: 'rgba(255,0,0, 0.5)',
+                label: '@' + data.accountDataComp[0].screen_name,
+                data: [followersDay7Comp, followersDay6Comp,followersDay5Comp,followersDay4Comp,followersDay3Comp,followersDay2Comp,followersDay1Comp,followersDay0Comp],
+                backgroundColor: [
+                  'white'
+                ],
+                borderWidth: 4
+              }
+            ]
             },
             options: {
               scales: {
@@ -643,6 +491,154 @@
             }
           });
 
+          var ctx = document.getElementById("chartPosting");
+          var chartPosting = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: ["H - 7", "H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
+              datasets: [{
+                fill:false,
+                borderColor: 'rgba(0,23,153,0.5)',
+                label: '@' + data.accountData[0].screen_name,
+                data: [postingDay7, postingDay6,postingDay5,postingDay4,postingDay3,postingDay2,postingDay1,postingDay0],
+                backgroundColor: [
+                  'white'
+                ],
+                borderWidth: 4
+              }, {
+                fill:false,
+                borderColor: 'rgba(255,0,0, 0.5)',
+                label: '@' + data.accountDataComp[0].screen_name,
+                data: [postingDay7Comp, postingDay6Comp,postingDay5Comp,postingDay4Comp,postingDay3Comp,postingDay2Comp,postingDay1Comp,postingDay0Comp],
+                backgroundColor: [
+                  'white'
+                ],
+                borderWidth: 4
+              }
+            ]
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero:true
+                  }
+                }]
+              }
+            }
+          });
+
+
+          var ctx = document.getElementById("chartLikes");
+          var chartLikes = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: ["H - 7", "H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
+              datasets: [{
+                fill:false,
+                borderColor: 'rgba(0,23,153,0.5)',
+                label: '@' + data.accountData[0].screen_name,
+                data: [likesDay7, likesDay6,likesDay5,likesDay4,likesDay3,likesDay2,likesDay1,likesDay0],
+                backgroundColor: [
+                  'white'
+                ],
+                borderWidth: 4
+              }, {
+                fill:false,
+                borderColor: 'rgba(255,0,0, 0.5)',
+                label: '@' + data.accountDataComp[0].screen_name,
+                data: [likesDay7Comp, likesDay6Comp,likesDay5Comp,likesDay4Comp,likesDay3Comp,likesDay2Comp,likesDay1Comp,likesDay0Comp],
+                backgroundColor: [
+                  'white'
+                ],
+                borderWidth: 4
+              }
+            ]
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero:true
+                  }
+                }]
+              }
+            }
+          });
+
+          var ctx = document.getElementById("chartRetweet");
+          var chartRetweet = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: ["H - 7", "H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
+              datasets: [{
+                fill:false,
+                borderColor: 'rgba(0,23,153,0.5)',
+                label: '@' + data.accountData[0].screen_name,
+                data: [retweetDay7, retweetDay6,retweetDay5,retweetDay4,retweetDay3,retweetDay2,retweetDay1,retweetDay0],
+                backgroundColor: [
+                  'white'
+                ],
+                borderWidth: 4
+              }, {
+                fill:false,
+                borderColor: 'rgba(255,0,0, 0.5)',
+                label: '@' + data.accountDataComp[0].screen_name,
+                data: [retweetDay7Comp, retweetDay6Comp,retweetDay5Comp,retweetDay4Comp,retweetDay3Comp,retweetDay2Comp,retweetDay1Comp,retweetDay0Comp],
+                backgroundColor: [
+                  'white'
+                ],
+                borderWidth: 4
+              }
+            ]
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero:true
+                  }
+                }]
+              }
+            }
+          });
+
+          var ctx = document.getElementById("chartReplies");
+          var chartReplies = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: ["H - 7", "H - 6", "H - 5", "H - 4", "H - 3", "H - 2", "H - 1", "H - 0"],
+              datasets: [{
+                fill:false,
+                borderColor: 'rgba(0,23,153,0.5)',
+                label: '@' + data.accountData[0].screen_name,
+                data: [repliesDay7, repliesDay6,repliesDay5,repliesDay4,repliesDay3,repliesDay2,repliesDay1,repliesDay0],
+                backgroundColor: [
+                  'white'
+                ],
+                borderWidth: 4
+              }, {
+                fill:false,
+                borderColor: 'rgba(255,0,0, 0.5)',
+                label: '@' + data.accountDataComp[0].screen_name,
+                data: [repliesDay7Comp, repliesDay6Comp,repliesDay5Comp,repliesDay4Comp,repliesDay3Comp,repliesDay2Comp,repliesDay1Comp,repliesDay0Comp],
+                backgroundColor: [
+                  'white'
+                ],
+                borderWidth: 4
+              }
+            ]
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero:true
+                  }
+                }]
+              }
+            }
+          });
           //end Chart
 
 

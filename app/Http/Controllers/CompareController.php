@@ -177,6 +177,12 @@ class CompareController extends Controller
     $like = DB::select('select SUM(favorite_count) as favorite FROM twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = \'' . $id . '\'');
     $likesComp = $like[0]->favorite;
 
+    $replies = DB::select('select SUM(replies_count) as replies from twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\'');
+    $replies = $replies[0]->replies;
+
+    $repliesComp = DB::select('select SUM(replies_count) as replies from twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = \'' . $id . '\'');
+    $repliesComp = $repliesComp[0]->replies;
+
     $tempFollowers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\' and cast(created_at as date) = DATEADD(day, 0, convert(date, GETDATE()))');
     $temp2Followers =  DB::select('select followers_count as followers_count from twitter_accounts_log where twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\' and cast(created_at as date) = DATEADD(day, -1, convert(date, GETDATE()))');
     if (!empty($tempFollowers[0]->followers_count) && !empty($temp2Followers[0]->followers_count)){
@@ -340,6 +346,8 @@ class CompareController extends Controller
     } else {
       $postingDay7 = $postingDay7[0]->count;
     }
+
+
 
     $postingDay0Comp = DB::select('select count(*) as count from twitter_tweets where twitter_id = \''. $id . '\' and cast(tweet_created as date) = DATEADD(day, 0, convert(date, GETDATE()))');
     $postingDay1Comp = DB::select('select count(*) as count from twitter_tweets where twitter_id = \''. $id . '\' and cast(tweet_created as date) = DATEADD(day, -1, convert(date, GETDATE()))');
@@ -605,7 +613,120 @@ class CompareController extends Controller
       $likesDay7Comp = $likesDay7Comp[0]->favorite;
     }
 
-    // dd($likesDay0Comp);
+    $repliesDay0 = DB::select('select SUM(replies_count) as replies from twitter_tweets where twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\' and cast(tweet_created as date) = DATEADD(day, 0, convert(date, GETDATE()))');
+    $repliesDay1 = DB::select('select SUM(replies_count) as replies from twitter_tweets where twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\' and cast(tweet_created as date) = DATEADD(day, -1, convert(date, GETDATE()))');
+    $repliesDay2 = DB::select('select SUM(replies_count) as replies from twitter_tweets where twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\' and cast(tweet_created as date) = DATEADD(day, -2, convert(date, GETDATE()))');
+    $repliesDay3 = DB::select('select SUM(replies_count) as replies from twitter_tweets where twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\' and cast(tweet_created as date) = DATEADD(day, -3, convert(date, GETDATE()))');
+    $repliesDay4 = DB::select('select SUM(replies_count) as replies from twitter_tweets where twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\' and cast(tweet_created as date) = DATEADD(day, -4, convert(date, GETDATE()))');
+    $repliesDay5 = DB::select('select SUM(replies_count) as replies from twitter_tweets where twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\' and cast(tweet_created as date) = DATEADD(day, -5, convert(date, GETDATE()))');
+    $repliesDay6 = DB::select('select SUM(replies_count) as replies from twitter_tweets where twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\' and cast(tweet_created as date) = DATEADD(day, -6, convert(date, GETDATE()))');
+    $repliesDay7 = DB::select('select SUM(replies_count) as replies from twitter_tweets where twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\' and cast(tweet_created as date) = DATEADD(day, -7, convert(date, GETDATE()))');
+
+    if (empty($repliesDay0[0]->replies)) {
+      $repliesDay0 = 0;
+    }else {
+      $repliesDay0 = $repliesDay0[0]->replies;
+    }
+
+    if (empty($repliesDay1[0]->replies)) {
+      $repliesDay1 = 0;
+    }else {
+      $repliesDay1 = $repliesDay1[0]->replies;
+    }
+
+    if (empty($repliesDay2[0]->replies)) {
+      $repliesDay2 = 0;
+    }else {
+      $repliesDay2 = $repliesDay2[0]->replies;
+    }
+
+    if (empty($repliesDay3[0]->replies)) {
+      $repliesDay3 = 0;
+    }else {
+      $repliesDay3 = $repliesDay3[0]->replies;
+    }
+
+    if (empty($repliesDay4[0]->replies)) {
+      $repliesDay4 = 0;
+    }else {
+      $repliesDay4 = $repliesDay4[0]->replies;
+    }
+
+    if (empty($repliesDay5[0]->replies)) {
+      $repliesDay5 = 0;
+    }else {
+      $repliesDay5 = $repliesDay5[0]->replies;
+    }
+
+    if (empty($repliesDay6[0]->replies)) {
+      $repliesDay6 = 0;
+    }else {
+      $repliesDay6 = $repliesDay6[0]->replies;
+    }
+
+    if (empty($repliesDay7[0]->replies)) {
+      $repliesDay7 = 0;
+    }else {
+      $repliesDay7 = $repliesDay7[0]->replies;
+    }
+
+    $repliesDay0Comp = DB::select('select SUM(replies_count) as replies from twitter_tweets where twitter_id = \''. $id . '\' and cast(tweet_created as date) = DATEADD(day, 0, convert(date, GETDATE()))');
+    $repliesDay1Comp = DB::select('select SUM(replies_count) as replies from twitter_tweets where twitter_id = \''. $id . '\' and cast(tweet_created as date) = DATEADD(day, -1, convert(date, GETDATE()))');
+    $repliesDay2Comp = DB::select('select SUM(replies_count) as replies from twitter_tweets where twitter_id = \''. $id . '\' and cast(tweet_created as date) = DATEADD(day, -2, convert(date, GETDATE()))');
+    $repliesDay3Comp = DB::select('select SUM(replies_count) as replies from twitter_tweets where twitter_id = \''. $id . '\' and cast(tweet_created as date) = DATEADD(day, -3, convert(date, GETDATE()))');
+    $repliesDay4Comp = DB::select('select SUM(replies_count) as replies from twitter_tweets where twitter_id = \''. $id . '\' and cast(tweet_created as date) = DATEADD(day, -4, convert(date, GETDATE()))');
+    $repliesDay5Comp = DB::select('select SUM(replies_count) as replies from twitter_tweets where twitter_id = \''. $id . '\' and cast(tweet_created as date) = DATEADD(day, -5, convert(date, GETDATE()))');
+    $repliesDay6Comp = DB::select('select SUM(replies_count) as replies from twitter_tweets where twitter_id = \''. $id . '\' and cast(tweet_created as date) = DATEADD(day, -6, convert(date, GETDATE()))');
+    $repliesDay7Comp = DB::select('select SUM(replies_count) as replies from twitter_tweets where twitter_id = \''. $id . '\' and cast(tweet_created as date) = DATEADD(day, -7, convert(date, GETDATE()))');
+
+    if (empty($repliesDay0Comp[0]->replies)) {
+      $repliesDay0Comp = 0;
+    }else {
+      $repliesDay0Comp = $repliesDay0Comp[0]->replies;
+    }
+
+    if (empty($repliesDay1Comp[0]->replies)) {
+      $repliesDay1Comp = 0;
+    }else {
+      $repliesDay1Comp = $repliesDay1Comp[0]->replies;
+    }
+
+    if (empty($repliesDay2Comp[0]->replies)) {
+      $repliesDay2Comp = 0;
+    }else {
+      $repliesDay2Comp = $repliesDay2Comp[0]->replies;
+    }
+
+    if (empty($repliesDay3Comp[0]->replies)) {
+      $repliesDay3Comp = 0;
+    }else {
+      $repliesDay3Comp = $repliesDay3Comp[0]->replies;
+    }
+
+    if (empty($repliesDay4Comp[0]->replies)) {
+      $repliesDay4Comp = 0;
+    }else {
+      $repliesDay4Comp = $repliesDay4Comp[0]->replies;
+    }
+
+    if (empty($repliesDay5Comp[0]->replies)) {
+      $repliesDay5Comp = 0;
+    }else {
+      $repliesDay5Comp = $repliesDay5Comp[0]->replies;
+    }
+
+    if (empty($repliesDay6Comp[0]->replies)) {
+      $repliesDay6Comp = 0;
+    }else {
+      $repliesDay6Comp = $repliesDay6Comp[0]->replies;
+    }
+
+    if (empty($repliesDay7Comp[0]->replies)) {
+      $repliesDay7Comp = 0;
+    }else {
+      $repliesDay7Comp = $repliesDay7Comp[0]->replies;
+    }
+
     return response()->json(
             [
               'status' => 200,
@@ -616,10 +737,12 @@ class CompareController extends Controller
               'posts' => $posts,
               'retweets' => $retweets,
               'likes' => $likes,
+              'replies' => $replies,
               'followersComp' => $followersComp,
               'postsComp' => $postsComp,
               'retweetsComp' => $retweetsComp,
               'likesComp' => $likesComp,
+              'repliesComp' => $repliesComp,
               'postingDay0' => $postingDay0,
               'postingDay1' => $postingDay1,
               'postingDay2' => $postingDay2,
@@ -683,7 +806,24 @@ class CompareController extends Controller
               'followersDay4Comp' => $followersDay4Comp,
               'followersDay5Comp' => $followersDay5Comp,
               'followersDay6Comp' => $followersDay6Comp,
-              'followersDay7Comp' => $followersDay7Comp
+              'followersDay7Comp' => $followersDay7Comp,
+              'repliesDay0' => $repliesDay0,
+              'repliesDay1' => $repliesDay1,
+              'repliesDay2' => $repliesDay2,
+              'repliesDay3' => $repliesDay3,
+              'repliesDay4' => $repliesDay4,
+              'repliesDay5' => $repliesDay5,
+              'repliesDay6' => $repliesDay6,
+              'repliesDay7' => $repliesDay7,
+              'repliesDay0Comp' => $repliesDay0Comp,
+              'repliesDay1Comp' => $repliesDay1Comp,
+              'repliesDay2Comp' => $repliesDay2Comp,
+              'repliesDay3Comp' => $repliesDay3Comp,
+              'repliesDay4Comp' => $repliesDay4Comp,
+              'repliesDay5Comp' => $repliesDay5Comp,
+              'repliesDay6Comp' => $repliesDay6Comp,
+              'repliesDay7Comp' => $repliesDay7Comp
+
             ]
     );
   }

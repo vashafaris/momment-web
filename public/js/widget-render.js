@@ -1,6 +1,3 @@
-/**
- * Created by Rizal on 4/25/2018.
- */
 const months = [
     'January',
     'February',

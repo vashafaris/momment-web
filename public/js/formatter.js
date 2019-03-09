@@ -1,6 +1,3 @@
-/**
- * Created by Rizal on 3/7/2018.
- */
 function formatDate(date) {
     var monthNames = [
         "January", "February", "March",

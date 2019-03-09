@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\TwitterAccountLog;
+use App\Competitor;
+use App\TwitterTweet;
+use App\TwitterReply;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -22,82 +27,108 @@ class DashboardController extends Controller
         'account' => Auth::user()
       ]);
     } else {
-      $followersNow = DB::select('select top 1 followers_count as followers_count from twitter_accounts_log WHERE NOT (cast(created_at as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(created_at as date) >= DATEADD(day, 0, convert(date, GETDATE()))) and twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\' order by created_at desc');
-      $followersWeekAgo = DB::select('select top 1 followers_count as followers_count from twitter_accounts_log WHERE NOT (cast(created_at as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(created_at as date) >= DATEADD(day, 0, convert(date, GETDATE()))) and twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\' order by created_at asc');
-      $avgFollowers = ($followersNow[0]->followers_count - $followersWeekAgo[0]->followers_count)/7;
+      $followersNow = TwitterAccountLog::where('twitter_id','=',Auth::user()->twitterAccount->twitter_id)->orderBy('created_at', 'desc')->first();
+      $followersWeekAgo = TwitterAccountLog::where('twitter_id','=',Auth::user()->twitterAccount->twitter_id)->where('created_at','>=', Carbon::today()->subWeek())->first();
+      $avgFollowers = ($followersNow->followers_count - $followersWeekAgo->followers_count)/8;
 
-      $posting = DB::select('select count(tweet_id) as posting FROM twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 0, convert(date, GETDATE()))) and twitter_id = \''. Auth::user()->twitterAccount->twitter_id . '\'');
-      $avgPosts = $posting[0]->posting/7;
+      $tweetsUser = TwitterTweet::where('twitter_id','=',Auth::user()->twitterAccount->twitter_id)->where('created_at','>=', Carbon::today()->subWeek())->get();
 
-      $retweet = DB::select('select SUM(retweet_count) as retweet FROM twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 0, convert(date, GETDATE()))) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\'');
-      $avgRetweets = $retweet[0]->retweet/7;
+      $posting = $tweetsUser->count();
+      $avgPosts = $posting/8;
 
-      $like = DB::select('select SUM(favorite_count) as favorite FROM twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 0, convert(date, GETDATE()))) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\'');
-      $avgLikes = $like[0]->favorite/7;
+      $retweet = $tweetsUser->sum('retweet_count');
+      $avgRetweets = $retweet/8;
 
-      $topTweets = DB::select('select top 5 * FROM twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 0, convert(date, GETDATE()))) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\' order by recommendation desc ');
+      $like = $tweetsUser->sum('favorite_count');
+      $avgLikes = $like/8;
 
+      $replies = $tweetsUser->sum('replies_count');
+      $avgReplies = $replies/8;
 
-      $competitor = DB::select('select competitor_id as competitor_id from competitor where twitter_id = ' . Auth::user()->twitterAccount->twitter_id);
+      $topTweets = TwitterTweet::where('twitter_id','=',Auth::user()->twitterAccount->twitter_id)->where('created_at','>=', Carbon::today()->subWeek())->orderBy('recommendation','desc')->take(5)->get();
+
+      $positiveTopTweet = [];
+      $negativeTopTweet = [];
+
+      foreach($topTweets as $topTweet)
+      {
+        $getData = TwitterReply::where('tweet_id','=',$topTweet->tweet_id)->where('sentiment','=','positif');
+        array_push($positiveTopTweet,$getData->count());
+        $getData = TwitterReply::where('tweet_id','=',$topTweet->tweet_id)->where('sentiment','=','negatif');
+        array_push($negativeTopTweet,$getData->count());
+      }
+
+      $competitors = Competitor::where('twitter_id','=',Auth::user()->twitterAccount->twitter_id)->get();
       $postingComp = 0;
       $retweetComp = 0;
       $likeComp = 0;
       $followersComp = 0;
+      $repliesComp = 0;
 
-      if (count($competitor) > 1) {
-        for ($i=0; $i < count($competitor); $i++) {
+      if (count($competitors) > 1) {
+        foreach($competitors as $competitor)
+        {
+          $followersNow = TwitterAccountLog::where('twitter_id','=',$competitor->competitor_id)->orderBy('created_at', 'desc')->first();
+          $followersWeekAgo = TwitterAccountLog::where('twitter_id','=',$competitor->competitor_id)->where('created_at','>=', Carbon::today()->subWeek())->first();
+          $followersComp = $followersComp + ($followersNow->followers_count - $followersWeekAgo->followers_count);
 
-          $followersNow = DB::select('select top 1 followers_count as followers_count from twitter_accounts_log WHERE NOT (cast(created_at as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(created_at as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = \''. $competitor[$i]->competitor_id . '\' order by created_at desc');
-          $followersWeekAgo = DB::select('select top 1 followers_count as followers_count from twitter_accounts_log WHERE NOT (cast(created_at as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(created_at as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = \''. $competitor[$i]->competitor_id . '\' order by created_at asc');
+          $tweetsComp = TwitterTweet::where('twitter_id','=',$competitor->competitor_id)->where('created_at','>=', Carbon::today()->subWeek());
 
-          $followersComp = $followersComp + ($followersNow[0]->followers_count - $followersWeekAgo[0]->followers_count);
+          $posting = $tweetsComp->count();
+          $postingComp = $postingComp + $posting;
 
-          $tempPost = DB::select('select count(tweet_id) as posting FROM twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = \''.$competitor[$i]->competitor_id . '\'');
-          $tempRetweet = DB::select('select SUM(retweet_count) as retweet FROM twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = \'' . $competitor[$i]->competitor_id . '\'');
-          $tempLike = DB::select('select SUM(favorite_count) as favorite FROM twitter_tweets WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 1, convert(date, GETDATE()))) and twitter_id = \'' . $competitor[$i]->competitor_id . '\'');
+          $retweet = $tweetsComp->sum('retweet_count');
+          $retweetComp = $retweetComp + $retweet;
 
+          $like = $tweetsComp->sum('favorite_count');
+          $likeComp = $likeComp + $like;
 
-          $postingComp = $postingComp + $tempPost[0]->posting;
-          $retweetComp = $retweetComp + $tempRetweet[0]->retweet;
-          $likeComp = $likeComp + $tempLike[0]->favorite;
+          $replies = $tweetsComp->sum('replies_count');
+          $repliesComp = $repliesComp + $replies;
+
         }
-
-        $avgFollowersComp = $followersComp/7/count($competitor);
-        $avgPostsComp = $postingComp/7/count($competitor);
-        $avgRetweetsComp = $retweetComp/7/count($competitor);
-        $avgLikesComp = $likeComp/7/count($competitor);
+        $avgFollowersComp = $followersComp/8/count($competitors);
+        $avgPostsComp = $postingComp/8/count($competitors);
+        $avgRetweetsComp = $retweetComp/8/count($competitors);
+        $avgLikesComp = $likeComp/8/count($competitors);
+        $avgRepliesComp = $repliesComp/8/count($competitors);
       } else {
         $avgPostsComp = "null";
         $avgRetweetsComp = "null";
         $avgLikesComp = "null";
         $avgFollowersComp = "null";
+        $avgRepliesComp = 'null';
       }
 
-      $alreadyTweet = DB::select('select * from twitter_tweets where cast(created_at as date) = CURRENT_TIMESTAMP and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\'');
+      $twitter_account_log = TwitterAccountLog::where('twitter_id','=',Auth::user()->twitterAccount->twitter_id)->orderBy('created_at','desc')->first();
 
-      if (empty(DB::select('select * from twitter_tweets where cast(created_at as date) = CURRENT_TIMESTAMP and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\''))) {
-        $recommended1 = "";
+      $positiveSentiment = 0;
+      $negativeSentiment = 0;
+      $neutralSentiment = 0;
+
+      foreach($tweetsUser as $tweetUser) {
+        $getData = TwitterReply::where('tweet_id','=',$tweetUser->tweet_id)->where('sentiment','=','positif');
+        $positiveSentiment = $positiveSentiment + $getData->count();
+
+        $getData = TwitterReply::where('tweet_id','=',$tweetUser->tweet_id)->where('sentiment','=','negatif');
+        $negativeSentiment = $negativeSentiment + $getData->count();
+
+        $getData = TwitterReply::where('tweet_id','=',$tweetUser->tweet_id)->where('sentiment','=','netral');
+        $neutralSentiment = $neutralSentiment + $getData->count();
       }
 
-      $temp = DB::select('select top 1 * from twitter_accounts_log where twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\' order by created_at desc' );
-      $twitter_account_log = $temp[0];
-
-      $positiveSentiment = DB::select(' select count(twitter_replies.replies_id) as count from twitter_replies join twitter_tweets on twitter_replies.tweet_id = twitter_tweets.tweet_id where twitter_id = \''. Auth::user()->twitterAccount->twitter_id .'\'  and twitter_replies.sentiment = \'positif\'');
-      $negativeSentiment = DB::select(' select count(twitter_replies.replies_id) as count from twitter_replies join twitter_tweets on twitter_replies.tweet_id = twitter_tweets.tweet_id where twitter_id = \''. Auth::user()->twitterAccount->twitter_id .'\'  and twitter_replies.sentiment = \'negatif\'');
-      $neutralSentiment = DB::select(' select count(twitter_replies.replies_id) as count from twitter_replies join twitter_tweets on twitter_replies.tweet_id = twitter_tweets.tweet_id where twitter_id = \''. Auth::user()->twitterAccount->twitter_id .'\'  and twitter_replies.sentiment = \'netral\'');
-
-      $totalSentiment = $positiveSentiment[0]->count + $negativeSentiment[0]->count + $neutralSentiment[0]->count;
+      $totalSentiment = $positiveSentiment + $negativeSentiment + $neutralSentiment;
       if ($totalSentiment > 0) {
-        $positiveSentiment = $positiveSentiment[0]->count / $totalSentiment * 100;
-        $negativeSentiment = $negativeSentiment[0]->count / $totalSentiment * 100;
-        $neutralSentiment = $neutralSentiment[0]->count / $totalSentiment * 100;
+        $positiveSentiment = $positiveSentiment / $totalSentiment * 100;
+        $negativeSentiment = $negativeSentiment / $totalSentiment * 100;
+        $neutralSentiment = $neutralSentiment / $totalSentiment * 100;
       } else {
         $postivieSentiment = 0;
         $negativeSentiment = 0;
         $neutralSentiment = 0;
       }
 
-      if($avgFollowers > $avgFollowersComp) {
+      if(round($avgFollowers) > round($avgFollowersComp)) {
         $insightFollowers = 1;
       } else {
         $insightFollowers = 0;
@@ -109,27 +140,34 @@ class DashboardController extends Controller
         $insightPosts = 0;
       }
 
-      if ($avgRetweets > $avgRetweetsComp) {
+      if (round($avgRetweets) > round($avgRetweetsComp)) {
         $insightRetweets = 1;
       } else {
         $insightRetweets = 0;
       }
 
-      if ($avgLikes > $avgLikesComp) {
+      if (round($avgLikes) > round($avgLikesComp)) {
         $insightLikes = 1;
       } else {
         $insightLikes = 0;
       }
 
-      if ($positiveSentiment > $negativeSentiment) {
+      if (round($avgReplies) > round($avgRepliesComp)) {
+        $insightReplies = 1;
+      } else {
+        $insightReplies = 0;
+      }
+
+      if (round($positiveSentiment) > round($negativeSentiment)) {
         $insightSentiment = 1;
       } else {
         $insightSentiment = 0;
       }
 
-      $insight = $insightFollowers + $insightPosts + $insightRetweets + $insightLikes + $insightSentiment;
 
-      if ($insight >= 3) {
+      $insight = $insightFollowers + $insightPosts + $insightRetweets + $insightLikes + $insightReplies + $insightSentiment;
+
+      if ($insight > 3) {
         $insightIcon = 'far fa-smile';
         $insightText = "Aktivitas anda seminggu ini baik !";
       } else {
@@ -138,7 +176,9 @@ class DashboardController extends Controller
       }
 
       $recommendations = array();
-      if (empty(DB::select('select * from twitter_tweets where cast(tweet_created as date) = cast(CURRENT_TIMESTAMP as date) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\''))) {
+
+      $recommendTodaysTweet = TwitterTweet::where('twitter_id','=', Auth::user()->twitterAccount->twitter_id)->whereDate('tweet_created','=',Carbon::today())->first();
+      if (empty($recommendTodaysTweet)) {
         array_push($recommendations,"Posting tweet hari ini");
       }
 
@@ -146,7 +186,8 @@ class DashboardController extends Controller
         $postRecommendation = round($avgPostsComp) - round($avgPosts) + 1;
         array_push($recommendations,"Sebaiknya hari ini anda post " . $postRecommendation . " tweet lagi");
       }
-      if (empty(DB::select('select * from twitter_tweets where reply_screen_name is not NULL and cast(tweet_created as date) = cast(CURRENT_TIMESTAMP as date) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\''))) {
+      $recommendMention = TwitterTweet::where('twitter_id','=', Auth::user()->twitterAccount->twitter_id)->whereDate('tweet_created','=',Carbon::today())->whereNotNull('reply_screen_name')->first();
+      if (empty($recommendMention)) {
         array_push($recommendations,"Menanggapi mention masuk kepada anda");
       }
       $dateCreated = DB::select('select datepart(hour,tweet_created) as \'hour\', count(datepart(hour,tweet_created)) as \'count\' from ( select top 10 * from twitter_tweets  WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 0, convert(date, GETDATE()))) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\'  order by recommendation desc) a  group by datepart(hour,tweet_created) order by count desc');
@@ -157,11 +198,15 @@ class DashboardController extends Controller
         'avgPosts' => round($avgPosts),
         'avgRetweets' => round($avgRetweets),
         'avgLikes' => round($avgLikes),
+        'avgReplies' => round($avgReplies),
         'avgFollowersComp' => round($avgFollowersComp),
         'avgPostsComp' => round($avgPostsComp),
         'avgRetweetsComp' => round($avgRetweetsComp),
         'avgLikesComp' =>round($avgLikesComp),
+        'avgRepliesComp' => round($avgRepliesComp),
         'topTweets' => $topTweets,
+        'positiveTopTweet' => $positiveTopTweet,
+        'negativeTopTweet' => $negativeTopTweet,
         'recommendations' => $recommendations,
         'twitter_account_log' => $twitter_account_log,
         'positiveSentiment' => round($positiveSentiment,2),
