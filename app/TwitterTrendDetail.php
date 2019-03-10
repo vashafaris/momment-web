@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TwitterTrendDetail extends Model
 {
-  protected $table = 'twitter_trend_details';
+  protected $table = 'twitter_trend_detail';
 
   protected $keyType = 'string';
 }

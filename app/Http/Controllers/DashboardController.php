@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\TwitterAccountLog;
+use App\TwitterAccount;
 use App\Competitor;
 use App\TwitterTweet;
 use App\TwitterReply;
@@ -191,6 +192,8 @@ class DashboardController extends Controller
         array_push($recommendations,"Menanggapi mention masuk kepada anda");
       }
       $dateCreated = DB::select('select datepart(hour,tweet_created) as \'hour\', count(datepart(hour,tweet_created)) as \'count\' from ( select top 10 * from twitter_tweets  WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 0, convert(date, GETDATE()))) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\'  order by recommendation desc) a  group by datepart(hour,tweet_created) order by count desc');
+
+
 
       return view('contents.dashboard', [
         'account' => Auth::user(),
