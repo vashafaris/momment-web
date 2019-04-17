@@ -20,10 +20,12 @@
           <div class="input-field col s12">
             <input id="password" type="password" class="validate" name="password" required oninvalid="this.setCustomValidity('Silahkan isi field ini terlebih dahulu')" oninput="setCustomValidity('')">
             <label for="password">Password</label>
+            <span class="helper-text" {!! $errors->register->has('password') ? 'data-error="'.$errors->register->first('password').'"' : '' !!}></span>
           </div>
           <div class="input-field col s12">
             <input id="confirm-password" type="password" class="validate" name="confirm-password" required oninvalid="this.setCustomValidity('Silahkan isi field ini terlebih dahulu')" oninput="setCustomValidity('')">
             <label for="confirm-password">Konfirmasi Password</label>
+            <span class="helper-text"></span>
           </div>
         </div>
         @if(Session::has('register-error'))

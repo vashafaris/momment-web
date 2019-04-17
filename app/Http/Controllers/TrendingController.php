@@ -20,17 +20,27 @@ class TrendingController extends Controller
 
   public function index()
   {
-      // $twitterDate = DB::select ('select max(cast(created_at as date)) as created_at from twitter_trends');
-      // $twitterTrend = DB::select('select * from twitter_trends where cast(created_at as date) = \'' . $twitterDate[0]->created_at . '\' order by id_trend asc');
-      // $twitterDetails = DB::select('select * from twitter_trend_detail where cast(created_at as date) = \'' . $twitterDate[0]->created_at . '\'  order by id_trend asc, recommendation desc');
-
       $trendDate = TwitterTrend::max('created_at');
       $trendDate = explode(" ",$trendDate)[0];
       $twitterTrend = TwitterTrend::whereDate('created_at','=',$trendDate)->orderBy('id_trend','asc')->get();
-      $twitterDetails = TwitterTrendDetail::whereDate('created_at','=',$trendDate)->orderBy('id_trend','asc')->orderBy('recommendation','desc')->get();
-      return view('contents.trends', [
-        'twitterTrend' => $twitterTrend,
-        'twitterDetails' => $twitterDetails
+      return view('contents.trend', [
+        'twitterTrend' => $twitterTrend
       ]);
+  }
+
+  public function detail($id_trend)
+  {
+    $trendName = TwitterTrend::where('id_trend','=',$id_trend)->get()->toArray();
+    $trendDetails = TwitterTrendDetail::where('id_trend','=',$id_trend)->orderBy('recommendation','desc')->get()->toArray();
+    return response()->json(
+            [
+                'status' => 200,
+                'message' => 'success',
+                'response' => [
+                    'trend_name' => mb_convert_encoding($trendName, 'UTF-8', 'UTF-8'),
+                    'trend_details' => mb_convert_encoding($trendDetails, 'UTF-8', 'UTF-8')
+                ]
+            ]
+    );
   }
 }

@@ -5,13 +5,6 @@
     <div class="row">
       <div class="col s12 m12">
 
-        {{-- <div class="card-panel background-none z-depth-0">
-        <h5 class="black-text" style="font-weight:200">Profil Akun Twitter</h5>
-        <hr>
-        <div id="search-result">
-
-      </div>
-    </div> --}}
 
     <div id="competitor-container" style="display:none">
 
@@ -36,20 +29,13 @@
           @endif
         </ul>
 
-        {{-- <div id="search-result">
-
-      </div> --}}
-      <!-- Modal Trigger -->
-
-
-        <!-- Modal Structure -->
         <div id="modal1" class="modal">
           <div class="modal-content">
             <p>Apakah anda yakin untuk menghapus kompetitor ?</p>
           </div>
           <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-red btn-flat">Tidak</a>
             <a href="#!" class="modal-close waves-effect waves-green btn-flat delete-competitor">Ya</a>
+            <a href="#!" class="modal-close waves-effect waves-red btn-flat">Tidak</a>
           </div>
         </div>
     </div>
@@ -178,7 +164,6 @@
 
   $('.delete-confirmation').on('click', function () {
     var selectedObj = $(this), resultContainer;
-    // var id = $(selectedObj).parentElement();
     competitor_id = selectedObj[0].id;
     console.log(selectedObj[0].id);
     console.log("testing");
@@ -412,28 +397,11 @@
             );
           }
           break;
-          case 401:
-          resultContainer.html(
-            '<div class="card red darken-1">' +
-            '<div class="card-content white-text">' +
-            '<p><i class="fas fa-book"></i> Im sorry, your spell is missing. Please try to re-login..</p>' +
-            '</div>' +
-            '</div>'
-          );
-          break;
-          case 404 :
-          resultContainer.html(
-            '<div class="card red darken-1">' +
-            '<div class="card-content white-text">' +
-            '<p><i class="fas fa-book"></i> Im sorry, Data will available tomorrow</p>' +
-            '</div>' +
-            '</div>'
-          );
           default:
           resultContainer.html(
             '<div class="card red darken-1">' +
             '<div class="card-content white-text">' +
-            '<p><i class="fas fa-book"></i> Im sorry, magician might be sick. Trying to recover..</p>' +
+            '<p><i class="fas fa-book"></i> Mohon maaf akun ' + $('#username-twitter').val() + ' tidak ditemukan !</p>' +
             '</div>' +
             '</div>'
           );
@@ -445,7 +413,7 @@
         resultContainer.html(
           '<div class="card red darken-1">' +
           '<div class="card-content white-text">' +
-          '<p><i class="fas fa-book"></i> Im sorry, magician might be sick. Trying to recover..</p>' +
+          '<p><i class="fas fa-book"></i> Mohon maaf akun ' + $('#username-twitter').val() + ' tidak ditemukan !</p>' +
           '</div>' +
           '</div>'
         );

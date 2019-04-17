@@ -30,12 +30,24 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/compare', 'CompareController@index')->name('compare');
     Route::get('/competitor', 'CompareController@index')->name('competitor');
 
-    Route::get('/trends', 'TrendingController@index')->name('trends');
+    Route::get('/trend', 'TrendingController@index')->name('trend');
+    Route::get('/trend/detail/{id_trend}', 'TrendingController@detail');
 
     Route::get('/engage', 'EngageController@index')->name('engage');
     Route::get('/engage/search/{username}', 'EngageController@search');
     Route::get('/engage/account/{username}', 'EngageController@addAccount');
-    Route::get('/engage/account', 'EngageController@showAccount');
+    // Route::get('/engage/account', 'EngageController@showAccount');
+
+    Route::get('dashboard/profile', 'DashboardController@showProfile');
+    Route::get('dashboard/showRecommendation', 'DashboardController@showRecommendation');
+    Route::get('dashboard/showFollowers', 'DashboardController@showFollowers');
+    Route::get('dashboard/showPosting', 'DashboardController@showPosting');
+    Route::get('dashboard/showRetweet', 'DashboardController@showRetweet');
+    Route::get('dashboard/showLikes', 'DashboardController@showLikes');
+    Route::get('dashboard/showReplies', 'DashboardController@showReplies');
+    Route::get('dashboard/showInsight', 'DashboardController@showInsight');
+    Route::get('dashboard/showSentiment', 'DashboardController@showSentiment');
+    Route::get('dashboard/showTopTweets', 'DashboardController@showTopTweets');
 
     Route::get('/compare/search/{username}', 'CompareController@search');
     Route::get('/compare/add/{username}', 'CompareController@addAccount');

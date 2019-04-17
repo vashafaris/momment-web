@@ -21,4 +21,14 @@ class TwitterAccount extends Model
     {
       return $this->hasMany('App\TwitterTweet','twitter_id');
     }
+
+    public function twitterAccountLog()
+    {
+      return $this->hasMany('App\TwitterTweet','twitter_id');
+    }
+
+    public function competitor()
+    {
+      return $this->hasMany('App\Competitor','twitter_id');
+    }
 }

@@ -112,7 +112,8 @@
     <script>
     $(document).ready(function(){
       document.getElementById("header").innerHTML = "Detail Perbandingan Aktivitas";
-      var id = {{$competitor->twitter_id}}
+      var id = "{{$competitor->twitter_id}}";
+      console.log(id);
       var spinner =
       '<div class="card white">' +
       '<div class="card-content" align="center">' +
@@ -199,7 +200,7 @@
     });
 
     $(document).ready(function(){
-      var id = {{$competitor->twitter_id}}
+      var id = "{{$competitor->twitter_id}}";
       var spinner =
       '<div class="card white">' +
       '<div class="card-content" align="center">' +
@@ -367,7 +368,6 @@
           var followersDay6 = data.followersChart[6];
           var followersDay7 = data.followersChart[7];
 
-
           var followersDay0Comp = data.followersCompChart[0];
           var followersDay1Comp = data.followersCompChart[1];
           var followersDay2Comp = data.followersCompChart[2];
@@ -377,9 +377,6 @@
           var followersDay6Comp = data.followersCompChart[6];
           var followersDay7Comp = data.followersCompChart[7];
 
-
-
-
           var postingDay0 = data.postingChart[0];
           var postingDay1 = data.postingChart[1];
           var postingDay2 = data.postingChart[2];
@@ -388,7 +385,6 @@
           var postingDay5 = data.postingChart[5];
           var postingDay6 = data.postingChart[6];
           var postingDay7 = data.postingChart[7];
-
 
           var postingDay0Comp = data.postingCompChart[0];
           var postingDay1Comp = data.postingCompChart[1];
@@ -408,7 +404,6 @@
           var retweetDay6 = data.retweetChart[6];
           var retweetDay7 = data.retweetChart[7];
 
-
           var retweetDay0Comp = data.retweetCompChart[0];
           var retweetDay1Comp = data.retweetCompChart[1];
           var retweetDay2Comp = data.retweetCompChart[2];
@@ -417,7 +412,6 @@
           var retweetDay5Comp = data.retweetCompChart[5];
           var retweetDay6Comp = data.retweetCompChart[6];
           var retweetDay7Comp = data.retweetCompChart[7];
-
 
           var likesDay0 = data.likesChart[0];
           var likesDay1 = data.likesChart[1];

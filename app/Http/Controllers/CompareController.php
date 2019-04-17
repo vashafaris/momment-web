@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\TwitterAccount;
-use App\User;
+// use App\User;
 use App\TwitterAccountLog;
 use App\Competitor;
 use App\TwitterTweet;
-use App\TwitterReply;
+// use App\TwitterReply;
 use Carbon\Carbon;
 
 class CompareController extends Controller
@@ -26,7 +26,6 @@ class CompareController extends Controller
   public function index()
   {
     $competitors = [];
-    // $competitorTemp = DB::select('select competitor_id as competitor_id from competitor where twitter_id = \'' . Auth::user()->twitterAccount->twitter_id .'\'');
     $competitorsTemp = Competitor::where('twitter_id','=',Auth::user()->twitterAccount->twitter_id)->get();
     foreach($competitorsTemp as $competitorTemp) {
       $temp = TwitterAccountLog::where('twitter_id','=',$competitorTemp->competitor_id)->orderBy('created_at','desc')->first();
@@ -136,8 +135,9 @@ class CompareController extends Controller
 
   public function showCompetitorAccount($id)
   {
+    // dd($id);
     $accountData = TwitterAccountLog::where('twitter_id','=',$id)->orderBy('created_at','desc')->first();
-
+    // dd($accountData);
     return response()->json(
             [
               'status' => 200,
@@ -151,7 +151,6 @@ class CompareController extends Controller
   {
     $accountData = TwitterAccountLog::where('twitter_id','=',Auth::user()->twitterAccount->twitter_id)->orderBy('created_at','desc')->first();
     $accountDataComp = TwitterAccountLog::where('twitter_id','=',$id)->orderBy('created_at','desc')->first();
-
     $followersNow = TwitterAccountLog::where('twitter_id','=',Auth::user()->twitterAccount->twitter_id)->orderBy('created_at','desc')->first();
     $followersWeekAgo = TwitterAccountLog::where('twitter_id','=',Auth::user()->twitterAccount->twitter_id)->where('created_at','>=', Carbon::today()->subWeek())->first();
     $followers = $followersNow->followers_count - $followersWeekAgo->followers_count;
@@ -163,7 +162,7 @@ class CompareController extends Controller
     $likes = $tweetsUser->sum('favorite_count');
     $replies = $tweetsUser->sum('replies_count');
 
-
+    // dd($id);
     $followersNow = TwitterAccountLog::where('twitter_id','=',$id)->orderBy('created_at','desc')->first();
     $followersWeekAgo = TwitterAccountLog::where('twitter_id','=',$id)->where('created_at','>=', Carbon::today()->subWeek())->first();
     $followersComp = $followersNow->followers_count - $followersWeekAgo->followers_count;

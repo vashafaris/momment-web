@@ -14,6 +14,11 @@ class TwitterAccountLog extends Model
 
   protected $casts = [
     'created_at' => 'datetime:Y-m-d',
-];
+  ];
+
+  public function twitterAccount()
+  {
+    return $this->belongsTo('App\TwitterAccount','twitter_id');
+  }
 
 }

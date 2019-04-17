@@ -60,7 +60,7 @@ def twitter_call(username):
         ITEM['photo_url'] = None
     ITEM['screen_name'] = user.screen_name
     ITEM['statuses_count'] = user.statuses_count
-    ITEM['user_id'] = user.id
+    ITEM['user_id'] = str(user.id)
 
     PERSON.append(ITEM)
     pretty_json = json.dumps(PERSON, indent=4,sort_keys=True, default=str)

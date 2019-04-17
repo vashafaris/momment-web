@@ -4,17 +4,17 @@
   <section>
     <div class="row">
       <div class="col s12 m12">
-        <div class="card-panel background1">
-          <h5 class="center white-text">Akun Twitter</h5>
+        <div class="card-panel background-none z-depth-0">
+          <h5>Akun Twitter</h5>
           <hr>
-          <div class="row">
+          <div class="row z-depth-1" style="background-color:white;margin-left:0px;margin-right:0px">
             <div class="input-field col s10 m10 l10">
-              <i class="material-icons prefix " style="color:white">account_circle</i>
-              <input id="username-twitter" type="text" class="validate" style="color:white">
-              <label for="icon_prefix" class="white-text">Username Twitter</label>
+              <i class="material-icons prefix " >account_circle</i>
+              <input id="username-twitter" type="text" class="validate">
+              <label for="icon_prefix" >Username Twitter</label>
             </div>
             <div class="col s2 m2 l2">
-              <div class="waves-effect waves-light btn white" id="btn-search" onCLick="search()" style="margin-top:20px;margin-left:20px"><i class="fas fa-search" style="color:black;"></i></div>
+              <div class="waves-effect waves-light btn" id="btn-search" onCLick="search()" style="margin-top:20px;margin-left:20px"><i class="fas fa-search" style="color:white"></i></div>
             </div>
           </div>
           <div id="search-result">
@@ -31,64 +31,6 @@
 
 @section('custom-style')
   <style>
-  .tabs .indicator {
-    background: color(#5F0F4E alpha(75%) blackness(20%));
-    height: 60px;
-    opacity: 0.3;
-  }
-
-  ul.user-sekilas {
-    list-style-type: disc !important;
-    margin-left: 10px;
-  }
-
-  li.user-sekilas {
-    list-style-type: disc !important;
-  }
-
-  .background1 {
-    /* position: fixed; */
-    z-index: -1;
-    /* width: 100vw;
-    height: 100vh; */
-    /* filter: grayscale(100%); /* Current draft standard */
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url('{{asset('images/bg4.jpg')}}');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-
-  .background2 {
-    /* position: fixed; */
-    z-index: -1;
-    /* width: 100vw;
-    height: 100vh; */
-    filter: grayscale(100%); /* Current draft standard */
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)), url('{{asset('images/bg4.jpg')}}');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-
-  .background-custom {
-    background: #DA4453;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #89216B, #DA4453);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #89216B, #DA4453); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    margin-bottom:0px;
-  }
-
-  .background-insight {
-    background: #76b852;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #8DC26F, #76b852);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #8DC26F, #76b852); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-  }
-
-  .background-insight2 {
-    background: #FF416C;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #FF4B2B, #FF416C); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  }
 
   /* label focus color */
   .input-field input[type=text]:focus + label {
@@ -102,6 +44,10 @@
 
   #background {
     background-color:white;
+  }
+
+  .background-none {
+    background: none;
   }
 
   </style>

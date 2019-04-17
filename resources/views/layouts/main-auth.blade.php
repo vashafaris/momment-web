@@ -149,11 +149,7 @@
             if (
                 $('#register input[name="password"]').val() != ''
             ) {
-                if ($('#register input[name="password"]').val() == $('#register input[name="confirm-password"]').val()) {
-                    // startLoading(function () {
-                    //     $('#loading-screen').modal('open');
-                    // });
-                } else {
+                if ($('#register input[name="password"]').val() != $('#register input[name="confirm-password"]').val()) {
                     event.preventDefault();
                     $('#register input[name="confirm-password"]')
                         .siblings('.helper-text')

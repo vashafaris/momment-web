@@ -174,7 +174,7 @@
         resultContainer.html(
           '<div class="card red darken-1">' +
           '<div class="card-content white-text">' +
-          '<p><i class="fas fa-book"></i> Im sorry, magician might be sick. Trying to recover..</p>' +
+          '<p><i class="fas fa-book"></i> eror</p>' +
           '</div>' +
           '</div>'
         );

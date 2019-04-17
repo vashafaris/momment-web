@@ -16,4 +16,11 @@ class ExampleTest extends TestCase
     {
         $this->assertTrue(true);
     }
+
+    public function test2()
+    {
+      $response = $this->get('trend');
+
+      $response->assertStatus(302);
+    }
 }

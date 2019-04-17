@@ -80,30 +80,6 @@
     $('.sidenav').sidenav();
   });
   </script>
-  {{-- <script>
-  $(document).ready(function() {
-  $("#toggle-sidenav").sideNav();
-
-  @if($navigation && isset($menu))
-  $('{{ $menu }}').addClass('active');
-  $('{{ $menu }} > a').attr('href', '#');
-@endif
-
-$('#loading-screen').modal({
-dismissible: false
-});
-
-$('ul.side-nav li a').not('.subheader').not('[href="#"]').on('click', function () {
-startLoading(function(){
-$('#loading-screen').modal('open');
-});
-});
-});
-
-function startLoading(func) {
-setTimeout(func, 0);
-}
-</script> --}}
 <script src="{{ asset('js/formatter.js') }}"></script>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body>

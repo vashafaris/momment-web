@@ -133,6 +133,7 @@
   $(document).ready(function(){
     $('.carousel').carousel();
     $('.collapsible').collapsible();
+    $('.materialboxed').materialbox();
     document.getElementById("header").innerHTML = "Trending Twitter";
   });
   </script>
