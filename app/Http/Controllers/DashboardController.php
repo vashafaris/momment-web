@@ -331,8 +331,8 @@ class DashboardController extends Controller
     $mentionRecommendation = '';
     $avgPostsComp = 0;
 
-    $recommendTodaysTweet = TwitterTweet::where('twitter_id','=', Auth::user()->twitterAccount->twitter_id)->whereDate('tweet_created','=',Carbon::today())->whereNull('reply_screen_name')->first();
-    $recommendMention = TwitterTweet::where('twitter_id','=', Auth::user()->twitterAccount->twitter_id)->whereDate('tweet_created','=',Carbon::today())->whereNotNull('reply_screen_name')->first();
+    $recommendTodaysTweet = TwitterTweet::where('twitter_id','=', Auth::user()->twitterAccount->twitter_id)->whereDate('tweet_created', Carbon::today())->whereNull('reply_screen_name')->first();
+    $recommendMention = TwitterTweet::where('twitter_id','=', Auth::user()->twitterAccount->twitter_id)->whereDate('tweet_created', Carbon::today())->whereNotNull('reply_screen_name')->first();
     $bestHour = TwitterTweet::getBestHour();
     $tweetsUser = TwitterTweet::where('twitter_id','=',Auth::user()->twitterAccount->twitter_id)->where('created_at','>=', Carbon::today()->subWeek())->get();
     $posting = $tweetsUser->count();
@@ -344,6 +344,7 @@ class DashboardController extends Controller
     if(count($competitors)){
       $avgPostsComp = $postingComp/8/count($competitors);
     }
+
     if (empty($recommendTodaysTweet)) {
       $tweetRecommendation = '<span><i class="fas fa-lightbulb"></i> Posting tweet hari ini</span><br>';
     }
@@ -354,6 +355,7 @@ class DashboardController extends Controller
     if (empty($recommendMention)) {
       $mentionRecommendation = '<span><i class="fas fa-lightbulb"></i> Menanggapi mention masuk kepada anda</span><br>';
     }
+
     return response()->json(
             [
               'status' => 200,

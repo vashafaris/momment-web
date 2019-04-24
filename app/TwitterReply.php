@@ -12,19 +12,11 @@ class TwitterReply extends Model
 
   public $incrementing = false;
 
+  public $timestamps = false;
+
   public function twitterTweets()
   {
     return $this->belongsTo('App\TwitterTweet','tweet_id');
-  }
-
-  public static function getPositiveSample()
-  {
-    return DB::select('select a.screen_name, a.replies_content from twitter_replies a join twitter_tweets b on b.tweet_id = a.tweet_id where NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 0, convert(date, GETDATE()))) and b.twitter_id = \''. Auth::user()->twitterAccount->twitter_id .'\' and a.sentiment = \'positif\' order by a.sentiment_weight desc');
-  }
-
-  public static function getNegativeSample()
-  {
-    return DB::select('select a.screen_name, a.replies_content from twitter_replies a join twitter_tweets b on b.tweet_id = a.tweet_id where NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 0, convert(date, GETDATE()))) and b.twitter_id = \''. Auth::user()->twitterAccount->twitter_id .'\' and a.sentiment = \'negatif\' order by a.sentiment_weight');
   }
 
   public static function getSentimentData($tweetsUser)

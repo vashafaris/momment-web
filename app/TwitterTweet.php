@@ -13,13 +13,16 @@ class TwitterTweet extends Model
 
   public $incrementing = false;
 
+  public $timestamps = false;
+
   protected $casts = [
     'created_at' => 'datetime:Y-m-d',
   ];
 
   public static function getBestHour()
   {
-    return DB::select('select datepart(hour,tweet_created) as \'hour\', count(datepart(hour,tweet_created)) as \'count\' from ( select top 10 * from twitter_tweets  WHERE NOT (cast(tweet_created as date) <= DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) >= DATEADD(day, 0, convert(date, GETDATE()))) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\'  order by recommendation desc) a  group by datepart(hour,tweet_created) order by count desc');
+    $bestHour = DB::select('select datepart(hour,tweet_created) as \'hour\', count(datepart(hour,tweet_created)) as \'count\' from ( select top 10 * from twitter_tweets  WHERE NOT (cast(tweet_created as date) < DATEADD(day, -7, convert(date, GETDATE())) OR cast(tweet_created as date) > DATEADD(day, 0, convert(date, GETDATE()))) and twitter_id = \'' . Auth::user()->twitterAccount->twitter_id . '\'  order by recommendation desc) a  group by datepart(hour,tweet_created) order by count desc');
+    return $bestHour;
   }
 
   public static function getCompetitorPosts($competitors)

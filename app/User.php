@@ -13,7 +13,7 @@ class User extends Authenticatable
     public $incrementing = false;
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'id', 'name', 'email', 'password',
     ];
 
     public static $rules = [

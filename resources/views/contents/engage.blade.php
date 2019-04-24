@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col s12 m12">
         <div class="card-panel background-none z-depth-0">
-          <h5>Akun Twitter</h5>
+          <h5>Menetapkan Akun Twitter</h5>
           <hr>
           <div class="row z-depth-1" style="background-color:white;margin-left:0px;margin-right:0px">
             <div class="input-field col s10 m10 l10">
