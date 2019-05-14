@@ -406,6 +406,9 @@ class DashboardController extends Controller
   {
     $twitterAccountLog = TwitterAccountLog::where('twitter_id','=',Auth::user()->twitterAccount->twitter_id)->orderBy('created_at','desc')->first();
     $topTweets = TwitterTweet::where('twitter_id','=',Auth::user()->twitterAccount->twitter_id)->where('created_at','>=', Carbon::today()->subWeek())->orderBy('recommendation','desc')->take(5)->get();
+    if(count($topTweets) < 5) {
+      $topTweets = TwitterTweet::where('twitter_id','=',Auth::user()->twitterAccount->twitter_id)->where('created_at','>=', Carbon::today()->subMonth())->orderBy('recommendation','desc')->take(5)->get();
+    }
     $positiveTopTweet = [];
     $negativeTopTweet = [];
 
@@ -417,6 +420,7 @@ class DashboardController extends Controller
       array_push($negativeTopTweet,$getData->count());
     }
     $twitterAccountLog['description'] = mb_convert_encoding($twitterAccountLog['description'], 'UTF-8', 'UTF-8');
+
     return response()->json(
             [
               'status' => 200,
