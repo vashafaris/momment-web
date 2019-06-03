@@ -420,6 +420,11 @@ class DashboardController extends Controller
       array_push($negativeTopTweet,$getData->count());
     }
     $twitterAccountLog['description'] = mb_convert_encoding($twitterAccountLog['description'], 'UTF-8', 'UTF-8');
+    for ($i=0; $i < $topTweets->count(); $i++) {
+      $topTweets[$i]->tweet_content = mb_convert_encoding($topTweets[$i]->tweet_content, 'UTF-8', 'UTF-8');
+    }
+    // dd($topTweets[0]->tweet_content);
+    // $topTweets = mb_convert_encoding($topTweets, 'UTF-8', 'UTF-8');
 
     return response()->json(
             [

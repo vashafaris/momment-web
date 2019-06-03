@@ -323,7 +323,7 @@
 
             '<div class="col s12 m6">' +
             '<div class="card-panel z-depth-0">' +
-            '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Posting<i class="fab fa-twitter-square right"></i></h5>' +
+            '<h5 class="black-text" style="font-size:16px;font-weight:200">Grafik Posting Tweet<i class="fab fa-twitter-square right"></i></h5>' +
             '<hr>' +
             '<canvas id="chartPosting" width="200" height="200"></canvas>' +
             '</div>' +
