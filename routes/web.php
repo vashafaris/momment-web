@@ -48,6 +48,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('dashboard/showInsight', 'DashboardController@showInsight');
     Route::get('dashboard/showSentiment', 'DashboardController@showSentiment');
     Route::get('dashboard/showTopTweets', 'DashboardController@showTopTweets');
+    Route::get('dashboard/updateAccountData', 'DashboardController@updateAccountData');
+    Route::get('dashboard/updateSentimentData', 'DashboardController@updateSentimentData');
+    Route::get('dashboard/updateBestTweet', 'DashboardController@updateBestTweet');
+    Route::get('dashboard/updateTrendingTopic', 'DashboardController@updateTrendingTopic');
+    Route::get('dashboard/checkUpdate', 'DashboardController@checkUpdate');
 
     Route::get('/compare/search/{username}', 'CompareController@search');
     Route::get('/compare/add/{username}', 'CompareController@addAccount');

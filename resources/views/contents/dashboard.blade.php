@@ -5,7 +5,9 @@
     <div class="row">
       <div class="col s12 m12">
         <div class="card-panel background-none z-depth-0">
+          <div id="update-button" style="visibility:hidden"><a onCLick="updateAccountData()" class="waves-effect waves-light btn right" style="background-color:#3a3f51;margin-top:10px;"><i class="material-icons">update</i> Update Data</a></div>
           <h5 class="black-text">Profil Akun Twitter</h5>
+
           <hr>
           <div id="profile-result">
 
@@ -113,18 +115,241 @@
     word-wrap: break-word
   }
 
+  #toast-container {
+  top: 10% !important;
+  right: 30% !important;
+  bottom: auto !important;
+  left: auto !important;
+}
+
   </style>
 @endsection
 
 @section('custom-script')
   <script>
 
+  function test()
+  {
+    $.ajax({
+      type: 'GET',
+      url: '{{ url('/dashboard/checkUpdate') }}',
+      data: '_token = {{ csrf_token() }}',
+      success: function(data) {
+      },
+      error: function() {
+      }
+    });
+  }
   $(document).ready(function(){
     $('.collapsible').collapsible();
     document.getElementById("header").innerHTML = "Dashboard";
+
+    updateButtonView();
+    updateAccountDataView();
+    updateInsightView();
+    updateRecommendationView();
+    updateFollowersView();
+    updatePostingView();
+    updateRetweetView();
+    updateLikesView();
+    updateRepliesView();
+    updateSentimentDataView();
+    updateBestTweetView();
   });
 
-  $( document ).ready(function() {
+  function updateButtonView()
+  {
+    $.ajax({
+      type: 'GET',
+      url: '{{ url('/dashboard/checkUpdate') }}',
+      data: '_token = {{ csrf_token() }}',
+      success: function(data) {
+        if(data.update == 'true') {
+          updateAccountData();
+          document.getElementById("update-button").style.visibility = "visible";
+        } else {
+          document.getElementById("update-button").style.visibility = "visible";
+        }
+      },
+      error: function() {
+      }
+    });
+  }
+
+  function updateAccountData()
+  {
+    document.getElementById("update-button").innerHTML =
+    "<a class=' btn right' style='background-color:#3a3f51;margin-top:10px'><i class='material-icons'>update</i> Sedang Proses Update Data Akun Twitter</a>";
+
+    $.ajax({
+      type: 'GET',
+      url: '{{ url('/dashboard/updateAccountData') }}',
+      data: '_token = {{ csrf_token() }}',
+      success: function(data) {
+        $("#update-button").fadeOut(1);
+        $("#update-button").fadeIn(2000);
+        M.toast({html: 'Berhasil Update Data Akun Twitter!'});
+        document.getElementById("update-button").innerHTML =
+        "<a class=' btn right' style='background-color:#3a3f51;margin-top:10px'><i class='material-icons'>update</i> Sedang Update Data Sentimen</a>";
+        updateAccountDataView();
+        updateFollowersView();
+        updatePostingView();
+        updateRetweetView();
+        updateLikesView();
+        updateSentimentData();
+      },
+      error: function() {
+      }
+    });
+  }
+
+  function updateSentimentData()
+  {
+    $.ajax({
+      type: 'GET',
+      url: '{{ url('/dashboard/updateSentimentData') }}',
+      data: '_token = {{ csrf_token() }}',
+      success: function(data) {
+        $("#update-button").fadeOut(1);
+        $("#update-button").fadeIn(2000);
+        M.toast({html: 'Berhasil Update Data Sentimen!'});
+        document.getElementById("update-button").innerHTML =
+        "<a class=' btn right' style='background-color:#3a3f51;margin-top:10px'><i class='material-icons'>update</i> Sedang Update Data Tweet Terbaik</a>";
+        updateInsightView();
+        updateRecommendationView();
+        updateRepliesView();
+        updateSentimentDataView();
+        updateBestTweet();
+      },
+      error: function() {
+      }
+    });
+  }
+
+  function updateBestTweet()
+  {
+    $.ajax({
+      type: 'GET',
+      url: '{{ url('/dashboard/updateBestTweet') }}',
+      data: '_token = {{ csrf_token() }}',
+      success: function(data) {
+        $("#update-button").fadeOut(1);
+        $("#update-button").fadeIn(2000);
+        M.toast({html: 'Berhasil Update Data Tweet Terbaik'});
+        document.getElementById("update-button").innerHTML =
+        "<a class=' btn right' style='background-color:#3a3f51;margin-top:10px'><i class='material-icons'>update</i> Sedang Update Data Tren Topik</a>";
+        updateBestTweetView();
+        updateTrendingTopic();
+      },
+      error: function() {
+      }
+    });
+  }
+
+  function updateTrendingTopic()
+  {
+    $.ajax({
+      type: 'GET',
+      url: '{{ url('/dashboard/updateTrendingTopic') }}',
+      data: '_token = {{ csrf_token() }}',
+      success: function(data) {
+        $("#update-button").fadeOut(1);
+        $("#update-button").fadeIn(2000);
+        location.reload();
+      },
+      error: function() {
+      }
+    });
+  }
+
+  function updateAccountDataView() {
+    var spinner =
+    '<div class="card white">' +
+    '<div class="card-content" align="center">' +
+    '<div class="preloader-wrapper small active">' +
+    '<div class="spinner-layer spinner-blue-only">' +
+    '<div class="circle-clipper left">' +
+    '<div class="circle"></div>' +
+    '</div><div class="gap-patch">' +
+    '<div class="circle"></div>' +
+    '</div><div class="circle-clipper right">' +
+    '<div class="circle"></div>' +
+    '</div>' +
+    '</div>' +
+    '</div>' +
+    '</div>' +
+    '</div>';
+    var resultContainer = $('#profile-result');
+    resultContainer.hide();
+    resultContainer.html(spinner);
+    resultContainer.fadeIn(500);
+    $.ajax({
+      type: 'GET',
+      url: '{{ url('/dashboard/profile') }}',
+      data: '_token = {{ csrf_token() }}',
+      success: function(data) {
+
+        var banner = (data.response.banner_url !== null) ?
+        'style="background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.4)), url(\'' + data.response.banner_url + '\');height: 200px;width: 100%;background-size: cover;background-position: center;"' :
+        'style="background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.4)), url(\'{{ asset('images/default -background.jpg ') }}\');height: 200px;width: 100%;background-size: cover;background-position: center;"';
+        var photo = (data.response.photo_url !== null) ?
+        '<img src="' + data.response.photo_url + '" style="height: 64px;width: 64px;object-fit: cover;border: 2px solid white;position: absolute;border-radius: 50%;top: 70px;left: 24px;">' :
+        '<img src="{{ asset('images/default -photo.png ') }}" style="height: 64px;width: 64px;object-fit: cover;border: 2px solid white;position: absolute;border-radius: 50%;top: 70px;left: 24px;">';
+        var location = (data.response.location !== null) ?
+        '<div class="divider" style="margin: 10px 0;"></div>' +
+        '<span style="font-size: 10pt;margin: 10px 0;"><i class="fas fa-map-marker-alt"></i> &nbsp; ' + data.response.location + '</span>' :
+        '';
+        var since = (data.response.created !== null) ?
+        '<div class="divider" style="margin: 10px 0;"></div>' +
+        '<span style="font-size: 10pt;margin: 10px 0;"><i class="far fa-calendar-alt"></i> &nbsp; Terdaftar Sejak ' + formatDate(new Date(data.response.created)) + '</span>' :
+        '';
+
+        resultContainer.html(
+          '<div class="card white card-profile">' +
+          '<div class="card-image" ' + banner + '>' +
+          photo +
+          '<span class="card-title">' + data.response.name + '</span>' +
+          '<span class="card-title" style="font-size: 9pt;top: 145px;">@' + data.response.screen_name + '</span>' +
+          '</div>' +
+          '<div class="card-content">' +
+          '<blockquote style="font-size: 10pt; margin-top: 5px;"><i class="fas fa-quote-right fa-xs"></i> ' + data.response.description + ' <i class="fas fa-quote-left fa-xs"></i></blockquote>' +
+          '<div class="divider" style="margin: 10px 0;"></div>' +
+          '<div class="row" style="margin-bottom: 0px !important;">' +
+          '<div class="col s4" style="text-align: center;font-size: 10pt;">' +
+          '<span style="font-weight: bold;">Tweet</span><br/>' +
+          '<span style="color: #F49227;font-size: 12pt;font-weight: bold;">' + formatBigNumber(data.response.statuses_count) + '</span>' +
+          '</div>' +
+          '<div class="col s4" style="text-align: center;font-size: 10pt;">' +
+          '<span style="font-weight: bold;">Followers</span><br/>' +
+          '<span style="color: #F49227;font-size: 12pt;font-weight: bold;">' + formatBigNumber(data.response.followers_count) + '</span>' +
+          '</div>' +
+          '<div class="col s4" style="text-align: center;font-size: 10pt;">' +
+          '<span style="font-weight: bold;">Following</span><br/>' +
+          '<span style="color: #F49227;font-size: 12pt;font-weight: bold;">' + formatBigNumber(data.response.friends_count) + '</span>' +
+          '</div>' +
+          '</div>' +
+          location +
+          since +
+          '<div class="divider" style="margin: 10px 0;"></div>' +
+          '</div>' +
+          '</div>'
+        );
+      },
+      error: function() {
+        resultContainer.html(
+          '<div class="card red darken-1">' +
+          '<div class="card-content white-text">' +
+          '<p><i class="fas fa-book"></i> Mohon maaf terjadi kesalahan, silahkan coba lagi!</p>' +
+          '</div>' +
+          '</div>'
+        );
+        resultContainer.fadeIn(600);
+      }
+    });
+  }
+
+  function updateSentimentDataView()
+  {
     var spinner =
     '<div class="col s12 m12">' +
     '<div class="card white">' +
@@ -272,7 +497,7 @@
           '<div class="col s12 m12">' +
           '<div class="card red darken-1">' +
           '<div class="card-content white-text">' +
-          '<p><i class="fas fa-book"></i> Mohon maaf data sentimen belum diambil, silahkan coba sesaat lagi!</p>' +
+          '<p><i class="fas fa-book"></i> Mohon maaf data sentimen sedang diupdate, silahkan tunggu sesaat lagi!</p>' +
           '</div>' +
           '</div>' +
           '</div>'
@@ -292,97 +517,231 @@
         resultContainer.fadeIn(600);
       }
     });
-  });
+  }
 
+  function updateBestTweetView()
+  {
+        var spinner =
+        '<div class="col s12 m12">' +
+        '<div class="card white">' +
+        '<div class="card-content" align="center">' +
+        '<div class="preloader-wrapper small active">' +
+        '<div class="spinner-layer spinner-blue-only">' +
+        '<div class="circle-clipper left">' +
+        '<div class="circle"></div>' +
+        '</div><div class="gap-patch">' +
+        '<div class="circle"></div>' +
+        '</div><div class="circle-clipper right">' +
+        '<div class="circle"></div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>';
+        var resultContainer = $('#topTweets');
+        resultContainer.hide();
+        resultContainer.html(spinner);
+        resultContainer.fadeIn(500);
+        $.ajax({
+          type: 'GET',
+          url: '{{ url('/dashboard/showTopTweets') }}',
+          data: '_token = {{ csrf_token() }}',
+          success: function(data) {
 
+            if (data.response.topTweets[0] !== undefined)
+            {
+              var tweetMedia0 = (data.response.topTweets[0].tweet_media) ?
+              '<center><img class="responsive-img materialboxed" src="'+data.response.topTweets[0].tweet_media+'"></center>' :
+              '';
+              var tweetMedia1 = (data.response.topTweets[1].tweet_media) ?
+              '<center><img class="responsive-img materialboxed" src="'+data.response.topTweets[1].tweet_media+'"></center>' :
+              '';
+              var tweetMedia2 = (data.response.topTweets[2].tweet_media) ?
+              '<center><img class="responsive-img materialboxed" src="'+data.response.topTweets[2].tweet_media+'"></center>' :
+              '';
+              var tweetMedia3 = (data.response.topTweets[3].tweet_media) ?
+              '<center><img class="responsive-img materialboxed" src="'+data.response.topTweets[3].tweet_media+'"></center>' :
+              '';
+              var tweetMedia4 = (data.response.topTweets[4].tweet_media) ?
+              '<center><img class="responsive-img materialboxed" src="'+data.response.topTweets[4].tweet_media+'"></center>' :
+              '';
+            resultContainer.html(
+                  '<div class="card-panel">' +
+                    '<div class="row">' +
+                      '<div class="col m2">' +
+                        '<center><img src="' + data.response.twitterAccountLog.photo_url + '" style="height: 75px;width: 75px;object-fit: cover;border: 2px solid white;border-radius: 50%;"></center>' +
+                      '</div>' +
+                      '<div class="col m10">' +
+                        '<span>'+ data.response.twitterAccountLog.name +'</span><span style="color:grey">&nbsp;(@</span><span style="color:grey">'+data.response.twitterAccountLog.screen_name+'</span><span style="color:grey">)</span>' +
+                        '<blockquote><i class="fas fa-quote-left"></i> '+ data.response.topTweets[0].tweet_content+' <i class="fas fa-quote-right"></i></blockquote>' +
+                        tweetMedia0 +
+                        '<br>' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        'Mendapatkan '+data.response.topTweets[0].retweet_count+' retweet' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        'Mendapatkan '+data.response.topTweets[0].favorite_count+' likes' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        'Mendapatkan '+data.response.topTweets[0].replies_count+' replies' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        ''+data.response.positiveTopTweet[0]+' reply positif' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        ''+data.response.negativeTopTweet[0]+' reply negatif' +
+                      '</div>' +
+                    '</div>' +
+                  '</div>' +
 
-  $( document ).ready(function() {
-    var spinner =
-    '<div class="card white">' +
-    '<div class="card-content" align="center">' +
-    '<div class="preloader-wrapper small active">' +
-    '<div class="spinner-layer spinner-blue-only">' +
-    '<div class="circle-clipper left">' +
-    '<div class="circle"></div>' +
-    '</div><div class="gap-patch">' +
-    '<div class="circle"></div>' +
-    '</div><div class="circle-clipper right">' +
-    '<div class="circle"></div>' +
-    '</div>' +
-    '</div>' +
-    '</div>' +
-    '</div>' +
-    '</div>';
-    var resultContainer = $('#profile-result');
-    resultContainer.hide();
-    resultContainer.html(spinner);
-    resultContainer.fadeIn(500);
-    $.ajax({
-      type: 'GET',
-      url: '{{ url('/dashboard/profile') }}',
-      data: '_token = {{ csrf_token() }}',
-      success: function(data) {
+                  '<div class="card-panel">' +
+                    '<div class="row">' +
+                      '<div class="col m2">' +
+                        '<center><img src="' + data.response.twitterAccountLog.photo_url + '" style="height: 75px;width: 75px;object-fit: cover;border: 2px solid white;border-radius: 50%;"></center>' +
+                      '</div>' +
+                      '<div class="col m10">' +
+                        '<span>'+ data.response.twitterAccountLog.name +'</span><span style="color:grey">&nbsp;(@</span><span style="color:grey">'+data.response.twitterAccountLog.screen_name+'</span><span style="color:grey">)</span>' +
+                        '<blockquote><i class="fas fa-quote-left"></i> '+ data.response.topTweets[1].tweet_content+' <i class="fas fa-quote-right"></i></blockquote>' +
+                        tweetMedia1 +
+                        '<br>' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        'Mendapatkan '+data.response.topTweets[1].retweet_count+' retweet' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        'Mendapatkan '+data.response.topTweets[1].favorite_count+' likes' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        'Mendapatkan '+data.response.topTweets[1].replies_count+' replies' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        ''+data.response.positiveTopTweet[1]+' reply positif' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        ''+data.response.negativeTopTweet[1]+' reply negatif' +
+                      '</div>' +
+                    '</div>' +
+                  '</div>' +
 
-        var banner = (data.response.banner_url !== null) ?
-        'style="background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.4)), url(\'' + data.response.banner_url + '\');height: 200px;width: 100%;background-size: cover;background-position: center;"' :
-        'style="background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.4)), url(\'{{ asset('images/default -background.jpg ') }}\');height: 200px;width: 100%;background-size: cover;background-position: center;"';
-        var photo = (data.response.photo_url !== null) ?
-        '<img src="' + data.response.photo_url + '" style="height: 64px;width: 64px;object-fit: cover;border: 2px solid white;position: absolute;border-radius: 50%;top: 70px;left: 24px;">' :
-        '<img src="{{ asset('images/default -photo.png ') }}" style="height: 64px;width: 64px;object-fit: cover;border: 2px solid white;position: absolute;border-radius: 50%;top: 70px;left: 24px;">';
-        var location = (data.response.location !== null) ?
-        '<div class="divider" style="margin: 10px 0;"></div>' +
-        '<span style="font-size: 10pt;margin: 10px 0;"><i class="fas fa-map-marker-alt"></i> &nbsp; ' + data.response.location + '</span>' :
-        '';
-        var since = (data.response.created !== null) ?
-        '<div class="divider" style="margin: 10px 0;"></div>' +
-        '<span style="font-size: 10pt;margin: 10px 0;"><i class="far fa-calendar-alt"></i> &nbsp; Terdaftar Sejak ' + formatDate(new Date(data.response.created)) + '</span>' :
-        '';
+                  '<div class="card-panel">' +
+                    '<div class="row">' +
+                      '<div class="col m2">' +
+                        '<center><img src="' + data.response.twitterAccountLog.photo_url + '" style="height: 75px;width: 75px;object-fit: cover;border: 2px solid white;border-radius: 50%;"></center>' +
+                      '</div>' +
+                      '<div class="col m10">' +
+                        '<span>'+ data.response.twitterAccountLog.name +'</span><span style="color:grey">&nbsp;(@</span><span style="color:grey">'+data.response.twitterAccountLog.screen_name+'</span><span style="color:grey">)</span>' +
+                        '<blockquote><i class="fas fa-quote-left"></i> '+ data.response.topTweets[2].tweet_content+' <i class="fas fa-quote-right"></i></blockquote>' +
+                        tweetMedia2 +
+                        '<br>' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        'Mendapatkan '+data.response.topTweets[2].retweet_count+' retweet' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        'Mendapatkan '+data.response.topTweets[2].favorite_count+' likes' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        'Mendapatkan '+data.response.topTweets[2].replies_count+' replies' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        ''+data.response.positiveTopTweet[2]+' reply positif' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        ''+data.response.negativeTopTweet[2]+' reply negatif' +
+                      '</div>' +
+                    '</div>' +
+                  '</div>' +
 
-        resultContainer.html(
-          '<div class="card white card-profile">' +
-          '<div class="card-image" ' + banner + '>' +
-          photo +
-          '<span class="card-title">' + data.response.name + '</span>' +
-          '<span class="card-title" style="font-size: 9pt;top: 145px;">@' + data.response.screen_name + '</span>' +
-          '</div>' +
-          '<div class="card-content">' +
-          '<blockquote style="font-size: 10pt; margin-top: 5px;"><i class="fas fa-quote-right fa-xs"></i> ' + data.response.description + ' <i class="fas fa-quote-left fa-xs"></i></blockquote>' +
-          '<div class="divider" style="margin: 10px 0;"></div>' +
-          '<div class="row" style="margin-bottom: 0px !important;">' +
-          '<div class="col s4" style="text-align: center;font-size: 10pt;">' +
-          '<span style="font-weight: bold;">Tweet</span><br/>' +
-          '<span style="color: #F49227;font-size: 12pt;font-weight: bold;">' + formatBigNumber(data.response.statuses_count) + '</span>' +
-          '</div>' +
-          '<div class="col s4" style="text-align: center;font-size: 10pt;">' +
-          '<span style="font-weight: bold;">Followers</span><br/>' +
-          '<span style="color: #F49227;font-size: 12pt;font-weight: bold;">' + formatBigNumber(data.response.followers_count) + '</span>' +
-          '</div>' +
-          '<div class="col s4" style="text-align: center;font-size: 10pt;">' +
-          '<span style="font-weight: bold;">Following</span><br/>' +
-          '<span style="color: #F49227;font-size: 12pt;font-weight: bold;">' + formatBigNumber(data.response.friends_count) + '</span>' +
-          '</div>' +
-          '</div>' +
-          location +
-          since +
-          '<div class="divider" style="margin: 10px 0;"></div>' +
-          '</div>' +
-          '</div>'
-        );
-      },
-      error: function() {
-        resultContainer.html(
-          '<div class="card red darken-1">' +
-          '<div class="card-content white-text">' +
-          '<p><i class="fas fa-book"></i> Mohon maaf terjadi kesalahan, silahkan coba lagi!</p>' +
-          '</div>' +
-          '</div>'
-        );
-        resultContainer.fadeIn(600);
-      }
-    });
-  });
+                  '<div class="card-panel">' +
+                    '<div class="row">' +
+                      '<div class="col m2">' +
+                        '<center><img src="' + data.response.twitterAccountLog.photo_url + '" style="height: 75px;width: 75px;object-fit: cover;border: 2px solid white;border-radius: 50%;"></center>' +
+                      '</div>' +
+                      '<div class="col m10">' +
+                        '<span>'+ data.response.twitterAccountLog.name +'</span><span style="color:grey">&nbsp;(@</span><span style="color:grey">'+data.response.twitterAccountLog.screen_name+'</span><span style="color:grey">)</span>' +
+                        '<blockquote><i class="fas fa-quote-left"></i> '+ data.response.topTweets[3].tweet_content+' <i class="fas fa-quote-right"></i></blockquote>' +
+                        tweetMedia3 +
+                        '<br>' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        'Mendapatkan '+data.response.topTweets[3].retweet_count+' retweet' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        'Mendapatkan '+data.response.topTweets[3].favorite_count+' likes' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        'Mendapatkan '+data.response.topTweets[3].replies_count+' replies' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        ''+data.response.positiveTopTweet[3]+' reply positif' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        ''+data.response.negativeTopTweet[3]+' reply negatif' +
+                      '</div>' +
+                    '</div>' +
+                  '</div>' +
 
-  $( document ).ready(function() {
+                  '<div class="card-panel">' +
+                    '<div class="row">' +
+                      '<div class="col m2">' +
+                        '<center><img src="' + data.response.twitterAccountLog.photo_url + '" style="height: 75px;width: 75px;object-fit: cover;border: 2px solid white;border-radius: 50%;"></center>' +
+                      '</div>' +
+                      '<div class="col m10">' +
+                        '<span>'+ data.response.twitterAccountLog.name +'</span><span style="color:grey">&nbsp;(@</span><span style="color:grey">'+data.response.twitterAccountLog.screen_name+'</span><span style="color:grey">)</span>' +
+                        '<blockquote><i class="fas fa-quote-left"></i> '+ data.response.topTweets[4].tweet_content+' <i class="fas fa-quote-right"></i></blockquote>' +
+                        tweetMedia4 +
+                        '<br>' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        'Mendapatkan '+data.response.topTweets[4].retweet_count+' retweet' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        'Mendapatkan '+data.response.topTweets[4].favorite_count+' likes' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        'Mendapatkan '+data.response.topTweets[4].replies_count+' replies' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        ''+data.response.positiveTopTweet[4]+' reply positif' +
+                      '</div>' +
+                      '<div class="chip">' +
+                        ''+data.response.negativeTopTweet[4]+' reply negatif' +
+                      '</div>' +
+                    '</div>' +
+                  '</div>'
+            );
+            $('.materialboxed').materialbox();
+            } else {
+              resultContainer.html(
+                '<div class="col s12 m12">' +
+                '<div class="card red darken-1">' +
+                '<div class="card-content white-text">' +
+                '<p><i class="fas fa-book"></i> Mohon maaf data tweet terbaik sedang diupdate, silahkan tunggu sesaat lagi!</p>' +
+                '</div>' +
+                '</div>' +
+                '</div>'
+              );
+            }
+          },
+          error: function() {
+            resultContainer.html(
+              '<div class="col s12 m12">' +
+              '<div class="card red darken-1">' +
+              '<div class="card-content white-text">' +
+              '<p><i class="fas fa-book"></i> Mohon maaf terjadi kesalahan, silahkan coba lagi!</p>' +
+              '</div>' +
+              '</div>' +
+              '</div>'
+            );
+            resultContainer.fadeIn(600);
+          }
+        });
+  }
+
+  function updateInsightView()
+  {
     var spinner =
     '<div class="col s12 m5">' +
     '<div class="card white">' +
@@ -438,10 +797,10 @@
         resultContainer.fadeIn(600);
       }
     });
-  });
+  }
 
-  //recommendations
-  $( document ).ready(function() {
+  function updateRecommendationView()
+  {
     var spinner =
     '<div class="col s12 m7">' +
     '<div class="card white">' +
@@ -502,9 +861,10 @@
         resultContainer.fadeIn(600);
       }
     });
-  });
+  }
 
-  $( document ).ready(function() {
+  function updateFollowersView()
+  {
     var spinner =
     '<div class="col s12 m6">' +
     '<div class="card white">' +
@@ -567,27 +927,28 @@
         resultContainer.fadeIn(600);
       }
     });
-  });
+}
 
-  $( document ).ready(function() {
-    var spinner =
-    '<div class="col s12 m6">' +
-    '<div class="card white">' +
-    '<div class="card-content" align="center">' +
-    '<div class="preloader-wrapper small active">' +
-    '<div class="spinner-layer spinner-blue-only">' +
-    '<div class="circle-clipper left">' +
-    '<div class="circle"></div>' +
-    '</div><div class="gap-patch">' +
-    '<div class="circle"></div>' +
-    '</div><div class="circle-clipper right">' +
-    '<div class="circle"></div>' +
-    '</div>' +
-    '</div>' +
-    '</div>' +
-    '</div>' +
-    '</div>' +
-    '</div>';
+function updatePostingView()
+{
+  var spinner =
+  '<div class="col s12 m6">' +
+  '<div class="card white">' +
+  '<div class="card-content" align="center">' +
+  '<div class="preloader-wrapper small active">' +
+  '<div class="spinner-layer spinner-blue-only">' +
+  '<div class="circle-clipper left">' +
+  '<div class="circle"></div>' +
+  '</div><div class="gap-patch">' +
+  '<div class="circle"></div>' +
+  '</div><div class="circle-clipper right">' +
+  '<div class="circle"></div>' +
+  '</div>' +
+  '</div>' +
+  '</div>' +
+  '</div>' +
+  '</div>' +
+  '</div>';
     var resultContainer = $('#postingCard');
     resultContainer.hide();
     resultContainer.html(spinner);
@@ -632,11 +993,13 @@
         resultContainer.fadeIn(600);
       }
     });
-  });
 
-  $( document ).ready(function() {
+}
+
+  function updateRetweetView()
+  {
     var spinner =
-    '<div class="col s12 m4">' +
+    '<div class="col s12 m6">' +
     '<div class="card white">' +
     '<div class="card-content" align="center">' +
     '<div class="preloader-wrapper small active">' +
@@ -697,11 +1060,12 @@
         resultContainer.fadeIn(600);
       }
     });
-  });
+  }
 
-  $( document ).ready(function() {
+  function updateLikesView()
+  {
     var spinner =
-    '<div class="col s12 m4">' +
+    '<div class="col s12 m6">' +
     '<div class="card white">' +
     '<div class="card-content" align="center">' +
     '<div class="preloader-wrapper small active">' +
@@ -762,11 +1126,12 @@
         resultContainer.fadeIn(600);
       }
     });
-  });
+  }
 
-  $( document ).ready(function() {
+  function updateRepliesView()
+  {
     var spinner =
-    '<div class="col s12 m4">' +
+    '<div class="col s12 m6">' +
     '<div class="card white">' +
     '<div class="card-content" align="center">' +
     '<div class="preloader-wrapper small active">' +
@@ -827,229 +1192,6 @@
         resultContainer.fadeIn(600);
       }
     });
-  });
-
-  $( document ).ready(function() {
-
-    var spinner =
-    '<div class="col s12 m12">' +
-    '<div class="card white">' +
-    '<div class="card-content" align="center">' +
-    '<div class="preloader-wrapper small active">' +
-    '<div class="spinner-layer spinner-blue-only">' +
-    '<div class="circle-clipper left">' +
-    '<div class="circle"></div>' +
-    '</div><div class="gap-patch">' +
-    '<div class="circle"></div>' +
-    '</div><div class="circle-clipper right">' +
-    '<div class="circle"></div>' +
-    '</div>' +
-    '</div>' +
-    '</div>' +
-    '</div>' +
-    '</div>' +
-    '</div>';
-    var resultContainer = $('#topTweets');
-    resultContainer.hide();
-    resultContainer.html(spinner);
-    resultContainer.fadeIn(500);
-    $.ajax({
-      type: 'GET',
-      url: '{{ url('/dashboard/showTopTweets') }}',
-      data: '_token = {{ csrf_token() }}',
-      success: function(data) {
-
-        if (data.response.topTweets[0] !== undefined)
-        {
-          var tweetMedia0 = (data.response.topTweets[0].tweet_media) ?
-          '<center><img class="responsive-img materialboxed" src="'+data.response.topTweets[0].tweet_media+'"></center>' :
-          '';
-          var tweetMedia1 = (data.response.topTweets[1].tweet_media) ?
-          '<center><img class="responsive-img materialboxed" src="'+data.response.topTweets[1].tweet_media+'"></center>' :
-          '';
-          var tweetMedia2 = (data.response.topTweets[2].tweet_media) ?
-          '<center><img class="responsive-img materialboxed" src="'+data.response.topTweets[2].tweet_media+'"></center>' :
-          '';
-          var tweetMedia3 = (data.response.topTweets[3].tweet_media) ?
-          '<center><img class="responsive-img materialboxed" src="'+data.response.topTweets[3].tweet_media+'"></center>' :
-          '';
-          var tweetMedia4 = (data.response.topTweets[4].tweet_media) ?
-          '<center><img class="responsive-img materialboxed" src="'+data.response.topTweets[4].tweet_media+'"></center>' :
-          '';
-        resultContainer.html(
-              '<div class="card-panel">' +
-                '<div class="row">' +
-                  '<div class="col m2">' +
-                    '<center><img src="' + data.response.twitterAccountLog.photo_url + '" style="height: 75px;width: 75px;object-fit: cover;border: 2px solid white;border-radius: 50%;"></center>' +
-                  '</div>' +
-                  '<div class="col m10">' +
-                    '<span>'+ data.response.twitterAccountLog.name +'</span><span style="color:grey">&nbsp;(@</span><span style="color:grey">'+data.response.twitterAccountLog.screen_name+'</span><span style="color:grey">)</span>' +
-                    '<blockquote><i class="fas fa-quote-left"></i> '+ data.response.topTweets[0].tweet_content+' <i class="fas fa-quote-right"></i></blockquote>' +
-                    tweetMedia0 +
-                    '<br>' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    'Mendapatkan '+data.response.topTweets[0].retweet_count+' retweet' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    'Mendapatkan '+data.response.topTweets[0].favorite_count+' likes' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    'Mendapatkan '+data.response.topTweets[0].replies_count+' replies' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    ''+data.response.positiveTopTweet[0]+' reply positif' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    ''+data.response.negativeTopTweet[0]+' reply negatif' +
-                  '</div>' +
-                '</div>' +
-              '</div>' +
-
-              '<div class="card-panel">' +
-                '<div class="row">' +
-                  '<div class="col m2">' +
-                    '<center><img src="' + data.response.twitterAccountLog.photo_url + '" style="height: 75px;width: 75px;object-fit: cover;border: 2px solid white;border-radius: 50%;"></center>' +
-                  '</div>' +
-                  '<div class="col m10">' +
-                    '<span>'+ data.response.twitterAccountLog.name +'</span><span style="color:grey">&nbsp;(@</span><span style="color:grey">'+data.response.twitterAccountLog.screen_name+'</span><span style="color:grey">)</span>' +
-                    '<blockquote><i class="fas fa-quote-left"></i> '+ data.response.topTweets[1].tweet_content+' <i class="fas fa-quote-right"></i></blockquote>' +
-                    tweetMedia1 +
-                    '<br>' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    'Mendapatkan '+data.response.topTweets[1].retweet_count+' retweet' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    'Mendapatkan '+data.response.topTweets[1].favorite_count+' likes' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    'Mendapatkan '+data.response.topTweets[1].replies_count+' replies' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    ''+data.response.positiveTopTweet[1]+' reply positif' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    ''+data.response.negativeTopTweet[1]+' reply negatif' +
-                  '</div>' +
-                '</div>' +
-              '</div>' +
-
-              '<div class="card-panel">' +
-                '<div class="row">' +
-                  '<div class="col m2">' +
-                    '<center><img src="' + data.response.twitterAccountLog.photo_url + '" style="height: 75px;width: 75px;object-fit: cover;border: 2px solid white;border-radius: 50%;"></center>' +
-                  '</div>' +
-                  '<div class="col m10">' +
-                    '<span>'+ data.response.twitterAccountLog.name +'</span><span style="color:grey">&nbsp;(@</span><span style="color:grey">'+data.response.twitterAccountLog.screen_name+'</span><span style="color:grey">)</span>' +
-                    '<blockquote><i class="fas fa-quote-left"></i> '+ data.response.topTweets[2].tweet_content+' <i class="fas fa-quote-right"></i></blockquote>' +
-                    tweetMedia2 +
-                    '<br>' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    'Mendapatkan '+data.response.topTweets[2].retweet_count+' retweet' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    'Mendapatkan '+data.response.topTweets[2].favorite_count+' likes' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    'Mendapatkan '+data.response.topTweets[2].replies_count+' replies' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    ''+data.response.positiveTopTweet[2]+' reply positif' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    ''+data.response.negativeTopTweet[2]+' reply negatif' +
-                  '</div>' +
-                '</div>' +
-              '</div>' +
-
-              '<div class="card-panel">' +
-                '<div class="row">' +
-                  '<div class="col m2">' +
-                    '<center><img src="' + data.response.twitterAccountLog.photo_url + '" style="height: 75px;width: 75px;object-fit: cover;border: 2px solid white;border-radius: 50%;"></center>' +
-                  '</div>' +
-                  '<div class="col m10">' +
-                    '<span>'+ data.response.twitterAccountLog.name +'</span><span style="color:grey">&nbsp;(@</span><span style="color:grey">'+data.response.twitterAccountLog.screen_name+'</span><span style="color:grey">)</span>' +
-                    '<blockquote><i class="fas fa-quote-left"></i> '+ data.response.topTweets[3].tweet_content+' <i class="fas fa-quote-right"></i></blockquote>' +
-                    tweetMedia3 +
-                    '<br>' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    'Mendapatkan '+data.response.topTweets[3].retweet_count+' retweet' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    'Mendapatkan '+data.response.topTweets[3].favorite_count+' likes' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    'Mendapatkan '+data.response.topTweets[3].replies_count+' replies' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    ''+data.response.positiveTopTweet[3]+' reply positif' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    ''+data.response.negativeTopTweet[3]+' reply negatif' +
-                  '</div>' +
-                '</div>' +
-              '</div>' +
-
-              '<div class="card-panel">' +
-                '<div class="row">' +
-                  '<div class="col m2">' +
-                    '<center><img src="' + data.response.twitterAccountLog.photo_url + '" style="height: 75px;width: 75px;object-fit: cover;border: 2px solid white;border-radius: 50%;"></center>' +
-                  '</div>' +
-                  '<div class="col m10">' +
-                    '<span>'+ data.response.twitterAccountLog.name +'</span><span style="color:grey">&nbsp;(@</span><span style="color:grey">'+data.response.twitterAccountLog.screen_name+'</span><span style="color:grey">)</span>' +
-                    '<blockquote><i class="fas fa-quote-left"></i> '+ data.response.topTweets[4].tweet_content+' <i class="fas fa-quote-right"></i></blockquote>' +
-                    tweetMedia4 +
-                    '<br>' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    'Mendapatkan '+data.response.topTweets[4].retweet_count+' retweet' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    'Mendapatkan '+data.response.topTweets[4].favorite_count+' likes' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    'Mendapatkan '+data.response.topTweets[4].replies_count+' replies' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    ''+data.response.positiveTopTweet[4]+' reply positif' +
-                  '</div>' +
-                  '<div class="chip">' +
-                    ''+data.response.negativeTopTweet[4]+' reply negatif' +
-                  '</div>' +
-                '</div>' +
-              '</div>'
-        );
-        $('.materialboxed').materialbox();
-        } else {
-          resultContainer.html(
-            '<div class="col s12 m12">' +
-            '<div class="card red darken-1">' +
-            '<div class="card-content white-text">' +
-            '<p><i class="fas fa-book"></i> Mohon maaf data tweet terbaik belum diambil, silahkan coba sesaat lagi!</p>' +
-            '</div>' +
-            '</div>' +
-            '</div>'
-          );
-        }
-      },
-      error: function() {
-        resultContainer.html(
-          '<div class="col s12 m12">' +
-          '<div class="card red darken-1">' +
-          '<div class="card-content white-text">' +
-          '<p><i class="fas fa-book"></i> Mohon maaf terjadi kesalahan, silahkan coba lagi!</p>' +
-          '</div>' +
-          '</div>' +
-          '</div>'
-        );
-        resultContainer.fadeIn(600);
-      }
-    });
-  });
-
-
+  }
   </script>
 @endsection

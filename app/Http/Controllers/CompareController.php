@@ -152,7 +152,7 @@ class CompareController extends Controller
     $accountData = TwitterAccountLog::where('twitter_id','=',Auth::user()->twitterAccount->twitter_id)->orderBy('created_at','desc')->first();
     $accountDataComp = TwitterAccountLog::where('twitter_id','=',$id)->orderBy('created_at','desc')->first();
     $followersNow = TwitterAccountLog::where('twitter_id','=',Auth::user()->twitterAccount->twitter_id)->orderBy('created_at','desc')->first();
-    $followersWeekAgo = TwitterAccountLog::where('twitter_id','=',Auth::user()->twitterAccount->twitter_id)->where('created_at','>=', Carbon::today()->subWeek())->first();
+    $followersWeekAgo = TwitterAccountLog::where('twitter_id','=',Auth::user()->twitterAccount->twitter_id)->where('created_at','>=', Carbon::today()->subDays(8))->first();
     $followers = $followersNow->followers_count - $followersWeekAgo->followers_count;
 
     $tweetsUser = TwitterTweet::where('twitter_id','=',Auth::user()->twitterAccount->twitter_id)->where('created_at','>=', Carbon::today()->subWeek())->get();
@@ -164,7 +164,7 @@ class CompareController extends Controller
 
     // dd($id);
     $followersNow = TwitterAccountLog::where('twitter_id','=',$id)->orderBy('created_at','desc')->first();
-    $followersWeekAgo = TwitterAccountLog::where('twitter_id','=',$id)->where('created_at','>=', Carbon::today()->subWeek())->first();
+    $followersWeekAgo = TwitterAccountLog::where('twitter_id','=',$id)->where('created_at','>=', Carbon::today()->subDays(8))->first();
     $followersComp = $followersNow->followers_count - $followersWeekAgo->followers_count;
 
     $tweetsComp = TwitterTweet::where('twitter_id','=',$id)->where('created_at','>=', Carbon::today()->subWeek())->get();

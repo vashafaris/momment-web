@@ -440,4 +440,88 @@ class DashboardController extends Controller
     );
   }
 
+  public function updateAccountData()
+  {
+    $twitterID = Auth::user()->twitterAccount->twitter_id;
+    $twitterID = strval($twitterID);
+    $update = shell_exec("python " . public_path() . "\API\GetAccountData.py " . $twitterID);
+    $competitorsID = Competitor::where('twitter_id','=',Auth::user()->twitterAccount->twitter_id)->get();
+    foreach ($competitorsID as $competitorID) {
+      $update = shell_exec("python " . public_path() . "\API\GetAccountData.py " . $competitorID->competitor_id);
+    }
+    return response()->json(
+            [
+              'status' => 200,
+              'message' => 'success',
+            ]
+    );
+  }
+
+  public function updateSentimentData()
+  {
+    set_time_limit(600);
+    $twitterID = Auth::user()->twitterAccount->twitter_id;
+    $twitterID = strval($twitterID);
+    $dictio = public_path() . "\API\dictio.txt";
+    $update = shell_exec("python " . public_path() . "\API\GetSentimentData.py " . $twitterID);
+    return response()->json(
+            [
+              'status' => 200,
+              'message' => 'success',
+              'update' => $update
+            ]
+    );
+  }
+
+  public function updateBestTweet()
+  {
+    $twitterID = Auth::user()->twitterAccount->twitter_id;
+    $twitterID = strval($twitterID);
+    $update = shell_exec("python " . public_path() . "\API\GetBestTweet.py " . $twitterID);
+    return response()->json(
+            [
+              'status' => 200,
+              'message' => 'success',
+            ]
+    );
+  }
+
+  public function updateTrendingTopic()
+  {
+    set_time_limit(600);
+    $update = shell_exec("python " . public_path() . "\API\GetTrendingTopic.py");
+    return response()->json(
+            [
+              'status' => 200,
+              'message' => 'success',
+            ]
+    );
+  }
+
+  public function checkUpdate()
+  {
+    $checkTodaysUpdate = TwitterAccountLog::where('twitter_id','=',Auth::user()->twitterAccount->twitter_id)->whereDate('created_at','=',Carbon::today())->get();
+    $tweetsUser = TwitterTweet::where('twitter_id','=',Auth::user()->twitterAccount->twitter_id)->where('created_at','>=', Carbon::today()->subWeek())->get();
+    $sentiment = TwitterReply::getSentimentData($tweetsUser);
+    $totalSentiment = array_sum($sentiment);
+    if(count($checkTodaysUpdate) > 0 && $totalSentiment > 0)
+    {
+      return response()->json(
+        [
+          'status' => 200,
+          'message' => 'success',
+          'update' => 'false'
+        ]
+      );
+    } else{
+      return response()->json(
+        [
+          'status' => 200,
+          'message' => 'success',
+          'update' => 'true'
+        ]
+      );
+    }
+  }
+
 }
