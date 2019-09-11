@@ -1,5 +1,7 @@
 ﻿# momment-web
 
+momment-web: a web developed to monitor social media Twitter activity and enhance user's engagement based on their activity
+
 Feature:
 - Show user's latest twitter profile including total followers, following, tweets, likes, bio, etc (Method: using twitter API)
 - Show user's weekly followers growth; tweets posted; public engagement based on retweet, likes, and replies
